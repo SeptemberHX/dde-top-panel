@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="dde-top-panel"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\frame\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\lib\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Concurrent\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5X11Extras\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5DBus\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Svg\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkWidget\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Dtk\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkCore\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkGui\;CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkCMake\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dde-top-panel">
+				<Option output="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQ_HOST_NAME=&quot;x86_64&quot;"/>
+					<Add option="-DQ_HOST_X86_64"/>
+					<Add option="-DQ_OS_DEEPIN"/>
+					<Add option="-DQ_OS_VERSION=&quot;20 Beta&quot;"/>
+					<Add option="-DQ_OS_DEEPIN_DESKTOP"/>
+					<Add option="-DDEEPIN_DDE"/>
+					<Add option="-DQ_OS_DEEPIN_VERSION=&quot;20 Beta&quot;"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_CONCURRENT_LIB"/>
+					<Add option="-DQT_X11EXTRAS_LIB"/>
+					<Add option="-DQT_DBUS_LIB"/>
+					<Add option="-DQT_SVG_LIB"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/frame"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/include"/>
+					<Add directory="/usr/include/libdtk-5.1.2/DCore"/>
+					<Add directory="/usr/include/libdtk-5.1.2/DCore/../DGui"/>
+					<Add directory="/usr/include/libdtk-5.1.2/DCore/../DWidget"/>
+					<Add directory="/usr/include/libdframeworkdbus-2.0"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui/5.11.3"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui/5.11.3/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore/5.11.3"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore/5.11.3/QtCore"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QGSettings"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtConcurrent"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtX11Extras"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtDBus"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtSvg"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 dde-top-panel"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dde-top-panel/fast">
+				<Option output="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DQ_HOST_NAME=&quot;x86_64&quot;"/>
+					<Add option="-DQ_HOST_X86_64"/>
+					<Add option="-DQ_OS_DEEPIN"/>
+					<Add option="-DQ_OS_VERSION=&quot;20 Beta&quot;"/>
+					<Add option="-DQ_OS_DEEPIN_DESKTOP"/>
+					<Add option="-DDEEPIN_DDE"/>
+					<Add option="-DQ_OS_DEEPIN_VERSION=&quot;20 Beta&quot;"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add option="-DQT_CONCURRENT_LIB"/>
+					<Add option="-DQT_X11EXTRAS_LIB"/>
+					<Add option="-DQT_DBUS_LIB"/>
+					<Add option="-DQT_SVG_LIB"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/frame"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/include"/>
+					<Add directory="/usr/include/libdtk-5.1.2/DCore"/>
+					<Add directory="/usr/include/libdtk-5.1.2/DCore/../DGui"/>
+					<Add directory="/usr/include/libdtk-5.1.2/DCore/../DWidget"/>
+					<Add directory="/usr/include/libdframeworkdbus-2.0"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui/5.11.3"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui/5.11.3/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore/5.11.3"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore/5.11.3/QtCore"/>
+					<Add directory="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QGSettings"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtWidgets"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtGui"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtCore"/>
+					<Add directory="/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtConcurrent"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtX11Extras"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtDBus"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/qt5/QtSvg"/>
+					<Add directory="/usr/include/c++/8"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/8"/>
+					<Add directory="/usr/include/c++/8/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 dde-top-panel/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="dde-top-panel_autogen">
+				<Option working_dir="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 dde-top-panel_autogen"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/mocs_compilation.cpp">
+			<Option target="dde-top-panel"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/frame/main.cpp">
+			<Option target="dde-top-panel"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/frame/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\frame\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Concurrent/Qt5ConcurrentConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Concurrent\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Concurrent/Qt5ConcurrentConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Concurrent\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5X11Extras/Qt5X11ExtrasConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5X11Extras\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5X11Extras/Qt5X11ExtrasConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5X11Extras\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5DBus/Qt5DBusConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5DBus\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5DBus/Qt5DBusConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5DBus\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5DBus/Qt5DBusConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5DBus\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5DBus/Qt5DBusMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5DBus\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Svg/Qt5SvgConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Svg\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Svg/Qt5SvgConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Svg\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Svg/Qt5Svg_QSvgIconPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Svg\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Qt5Svg/Qt5Svg_QSvgPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Qt5Svg\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/DtkWidget/DtkWidgetConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkWidget\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/Dtk/DtkConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\Dtk\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/DtkCore/DtkCoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkCore\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/DtkGui/DtkGuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkGui\"/>
+		</Unit>
+		<Unit filename="/home/septemberhx/Workspace/git/dde-top-panel/../../../../../usr/lib/x86_64-linux-gnu/cmake/DtkCMake/DtkCMakeConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\lib\x86_64-linux-gnu\cmake\DtkCMake\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

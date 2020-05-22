@@ -1,0 +1,93 @@
+{
+	"BUILD_DIR" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen",
+	"CMAKE_BINARY_DIR" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/septemberhx/Workspace/git/dde-top-panel/frame",
+	"CMAKE_EXECUTABLE" : "/home/septemberhx/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake",
+	"CMAKE_SOURCE_DIR" : "/home/septemberhx/Workspace/git/dde-top-panel",
+	"HEADERS" : [],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"DEEPIN_DDE",
+		"QT_CONCURRENT_LIB",
+		"QT_CORE_LIB",
+		"QT_DBUS_LIB",
+		"QT_GUI_LIB",
+		"QT_SVG_LIB",
+		"QT_WIDGETS_LIB",
+		"QT_X11EXTRAS_LIB",
+		"Q_HOST_NAME=\"x86_64\"",
+		"Q_HOST_X86_64",
+		"Q_OS_DEEPIN",
+		"Q_OS_DEEPIN_DESKTOP",
+		"Q_OS_DEEPIN_VERSION=\"20 Beta\"",
+		"Q_OS_VERSION=\"20 Beta\""
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame",
+		"/home/septemberhx/Workspace/git/dde-top-panel/frame",
+		"/usr/include/libdtk-5.1.2/DCore",
+		"/usr/include/libdtk-5.1.2/DGui",
+		"/usr/include/libdtk-5.1.2/DWidget",
+		"/usr/include/libdframeworkdbus-2.0",
+		"/usr/include/x86_64-linux-gnu/qt5/QtGui/5.11.3",
+		"/usr/include/x86_64-linux-gnu/qt5/QtGui/5.11.3/QtGui",
+		"/usr/include/x86_64-linux-gnu/qt5/QtCore/5.11.3",
+		"/usr/include/x86_64-linux-gnu/qt5/QtCore/5.11.3/QtCore",
+		"/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug",
+		"/usr/include/x86_64-linux-gnu/qt5/QGSettings",
+		"/usr/include/x86_64-linux-gnu/qt5",
+		"/usr/include/x86_64-linux-gnu/qt5/QtWidgets",
+		"/usr/include/x86_64-linux-gnu/qt5/QtGui",
+		"/usr/include/x86_64-linux-gnu/qt5/QtCore",
+		"/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++",
+		"/usr/include/x86_64-linux-gnu/qt5/QtConcurrent",
+		"/usr/include/x86_64-linux-gnu/qt5/QtX11Extras",
+		"/usr/include/x86_64-linux-gnu/qt5/QtDBus",
+		"/usr/include/x86_64-linux-gnu/qt5/QtSvg",
+		"/usr/include",
+		"/usr/include/c++/8",
+		"/usr/include/x86_64-linux-gnu/c++/8",
+		"/usr/include/c++/8/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/8/include",
+		"/usr/lib/gcc/x86_64-linux-gnu/8/include-fixed",
+		"/usr/include/x86_64-linux-gnu"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/home/septemberhx/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/CMakeFiles/dde-top-panel_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"SETTINGS_FILE" : "/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/CMakeFiles/dde-top-panel_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[ "/home/septemberhx/Workspace/git/dde-top-panel/frame/main.cpp", "Mu" ]
+	],
+	"VERBOSITY" : 0
+}

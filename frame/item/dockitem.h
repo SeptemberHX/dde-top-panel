@@ -22,7 +22,7 @@
 #ifndef DOCKITEM_H
 #define DOCKITEM_H
 
-#include "interfaces/constants.h"
+#include "constants.h"
 #include "util/dockpopupwindow.h"
 #include "components/hoverhighlighteffect.h"
 

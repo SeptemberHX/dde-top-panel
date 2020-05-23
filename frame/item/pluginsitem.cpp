@@ -19,9 +19,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "interfaces/constants.h"
+#include "constants.h"
 #include "pluginsitem.h"
-#include "interfaces/pluginsiteminterface.h"
+#include "pluginsiteminterface.h"
 
 #include "util/imagefactory.h"
 

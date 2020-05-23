@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.7)
 set(BIN_NAME dde-top-panel)
 
 # Sources files
-file(GLOB_RECURSE SRCS "*.h" "*.cpp")
+file(GLOB_RECURSE SRCS "*.h" "*.cpp" "../widgets/*.h" "../widgets/*.cpp")
 
 # Find the library
 find_package(PkgConfig REQUIRED)
@@ -21,7 +21,7 @@ pkg_check_modules(QGSettings REQUIRED gsettings-qt)
 pkg_check_modules(DtkGUI REQUIRED dtkgui)
 
 # driver-manager
-add_executable(${BIN_NAME} ${SRCS} ${INTERFACES})
+add_executable(${BIN_NAME} ${SRCS} ${INTERFACES} item/item.qrc frame.qrc)
 target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${XCB_EWMH_INCLUDE_DIRS}
         ${DFrameworkDBus_INCLUDE_DIRS}
@@ -29,6 +29,7 @@ target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${PROJECT_BINARY_DIR}
         ${QGSettings_INCLUDE_DIRS}
         ${DtkGUI_INCLUDE_DIRS}
+        ../interfaces
         )
 
 target_link_libraries(${BIN_NAME} PRIVATE

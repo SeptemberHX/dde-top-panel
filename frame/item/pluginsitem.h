@@ -23,7 +23,7 @@
 #define PLUGINSITEM_H
 
 #include "dockitem.h"
-#include "interfaces/pluginsiteminterface.h"
+#include "pluginsiteminterface.h"
 
 class QGSettings;
 class PluginsItem : public DockItem

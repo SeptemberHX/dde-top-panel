@@ -22,7 +22,7 @@
 #ifndef APPDRAGWIDGET_H
 #define APPDRAGWIDGET_H
 
-#include "interfaces/constants.h"
+#include "constants.h"
 
 #include <QPixmap>
 #include <QGraphicsObject>

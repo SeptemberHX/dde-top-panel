@@ -41,7 +41,7 @@ endif()
 file(GLOB INTERFACES "interfaces/*.h")
 
 add_subdirectory("frame")
-#add_subdirectory("plugins")
+add_subdirectory("plugins")
 
 # Install settings
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)

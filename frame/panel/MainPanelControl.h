@@ -22,6 +22,9 @@ public:
     void removeTrayAreaItem(QWidget *wdg);
     void getTrayVisableItemCount();
 
+public slots:
+    void insertItem(const int index, DockItem *item);
+
 private:
     void init();
 

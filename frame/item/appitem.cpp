@@ -21,7 +21,6 @@
  */
 
 #include "appitem.h"
-
 #include "util/themeappicon.h"
 #include "util/imagefactory.h"
 #include "xcb/xcb_misc.h"

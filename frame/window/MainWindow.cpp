@@ -3,6 +3,8 @@
 //
 
 #include "MainWindow.h"
+#include "controller/dockitemmanager.h"
+#include "util/utils.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : DBlurEffectWidget(parent)
@@ -24,4 +26,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     // remove radius
     m_platformWindowHandle.setWindowRadius(0);
+
+//    m_mainPanel->setDelegate(this);
+    for (auto item : DockItemManager::instance()->itemList())
+        m_mainPanel->insertItem(-1, item);
+
+}
+
+const QPoint rawXPosition(const QPoint &scaledPos)
+{
+    QScreen const *screen = Utils::screenAtByScaled(scaledPos);
+
+    return screen ? screen->geometry().topLeft() +
+                    (scaledPos - screen->geometry().topLeft()) *
+                    screen->devicePixelRatio()
+                  : scaledPos;
 }

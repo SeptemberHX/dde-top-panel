@@ -25,7 +25,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QTimer>
-#include "widgets/tipswidget.h"
+#include "../widgets/tipswidget.h"
 
 #include <dimagebutton.h>
 #include <DWindowManagerHelper>

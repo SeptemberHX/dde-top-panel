@@ -30,6 +30,30 @@ void MainPanelControl::init() {
     m_trayAreaLayout->setContentsMargins(0, 10, 0, 10);
 }
 
+// dockitemmanager is responsible for loading all the necessary items on the dock
+// I don't want to change the code in dockitemmanager, so I abandon some items that I don't want
+void MainPanelControl::insertItem(int index, DockItem *item)
+{
+    item->installEventFilter(this);
+
+    switch (item->itemType()) {
+        case DockItem::Launcher:
+        case DockItem::FixedPlugin:
+        case DockItem::App:
+        case DockItem::Placeholder:
+            qDebug() << "Abandon the plugin" << item->objectName() << "due to the unnecessary plugin type";
+            break;
+        case DockItem::TrayPlugin:
+            addTrayAreaItem(index, item);
+            break;
+        case DockItem::Plugins:
+            // todo
+//            addPluginAreaItem(index, item);
+            break;
+        default:
+            break;
+    }
+}
 
 // ----------> For tray area begin <----------
 

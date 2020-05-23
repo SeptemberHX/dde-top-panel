@@ -2,8 +2,35 @@
 // Created by septemberhx on 2020/5/22.
 //
 
-#include <iostream>
+#include <DApplication>
+#include <DGuiApplicationHelper>
+#include "window/MainWindow.h"
 
-int main() {
-    return 0;
+
+DWIDGET_USE_NAMESPACE
+#ifdef DCORE_NAMESPACE
+DCORE_USE_NAMESPACE
+#else
+DUTIL_USE_NAMESPACE
+#endif
+
+
+int main(int argc, char *argv[]) {
+
+    DGuiApplicationHelper::setUseInactiveColorGroup(false);
+    DApplication::loadDXcbPlugin();
+    DApplication app(argc, argv);
+
+    app.setOrganizationName("septemberhx");
+    app.setApplicationName("dde-top-panel");
+    app.setApplicationDisplayName("DDE Top Panel");
+    app.setApplicationVersion("0.1.0");
+    app.loadTranslator();
+    app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps, false);
+
+    MainWindow mw;
+    mw.show();
+
+    return app.exec();
 }

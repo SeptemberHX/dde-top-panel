@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="2" viewBox="0 0 20 2">
+  <defs>
+    <linearGradient id="indicator_dark-a" x1="100%" x2="0%" y1="50%" y2="50%">
+      <stop offset="0%" stop-color="#FFF" stop-opacity=".2"/>
+      <stop offset="48.823%" stop-color="#FFF" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#FFF" stop-opacity=".2"/>
+    </linearGradient>
+  </defs>
+  <rect width="20" height="2" x="14" y="55" fill="url(#indicator_dark-a)" fill-rule="evenodd" transform="translate(-14 -55)"/>
+</svg>

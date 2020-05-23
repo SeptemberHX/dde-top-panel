@@ -1,0 +1,31 @@
+     <interface name="com.deepin.dde.daemon.Dock">
+          <method name="ActivateWindow">
+               <arg type="u" direction="in"></arg>
+          </method>
+          <method name="CloseWindow">
+               <arg type="u" direction="in"></arg>
+          </method>
+          <method name="GetEntryIDs">
+               <arg type="as" direction="out"></arg>
+          </method>
+          <method name="ReorderEntries">
+               <arg type="as" direction="in"></arg>
+          </method>
+          <method name="SetFrontendWindow">
+               <arg type="u" direction="in"></arg>
+          </method>
+          <signal name="ServiceRestarted"></signal>
+          <signal name="EntryAdded">
+               <arg type="o"></arg>
+          </signal>
+          <signal name="EntryRemoved">
+               <arg type="s"></arg>
+          </signal>
+          <property name="Entries" type="ao" access="read"></property>
+          <property name="HideMode" type="i" access="readwrite"></property>
+          <property name="DisplayMode" type="i" access="readwrite"></property>
+          <property name="Position" type="i" access="readwrite"></property>
+          <property name="ActiveWindow" type="u" access="read"></property>
+          <property name="HideState" type="i" access="read"></property>
+     </interface>
+

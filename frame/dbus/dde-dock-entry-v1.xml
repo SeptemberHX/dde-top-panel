@@ -1,0 +1,13 @@
+     <interface name="dde.dock.Entry">
+          <method name="Activate">
+          </method>
+          <signal name="DataChanged">
+               <arg type="s"></arg>
+               <arg type="s"></arg>
+          </signal>
+          <property name="Id" type="s" access="read"></property>
+          <property name="Type" type="s" access="read"></property>
+          <property name="Data" type="a{ss}" access="read">
+               <annotation name="org.qtproject.QtDBus.QtTypeName" value="Dict"/>
+          </property>
+     </interface>

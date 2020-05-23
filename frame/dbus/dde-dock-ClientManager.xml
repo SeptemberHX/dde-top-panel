@@ -1,0 +1,16 @@
+     <interface name="dde.dock.ClientManager">
+          <method name="ActivateWindow">
+               <arg type="u" direction="in"></arg>
+               <arg type="b" direction="out"></arg>
+          </method>
+          <method name="CloseWindow">
+               <arg type="u" direction="in"></arg>
+               <arg type="b" direction="out"></arg>
+          </method>
+          <method name="CurrentActiveWindow">
+               <arg type="u" direction="out"></arg>
+          </method>
+          <signal name="ActiveWindowChanged">
+               <arg type="u"></arg>
+          </signal>
+     </interface>

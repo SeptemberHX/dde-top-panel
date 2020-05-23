@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/indicator">
+        <file>resources/indicator_dark.svg</file>
+        <file>resources/indicator.svg</file>
+        <file>resources/indicator_ver.svg</file>
+        <file>resources/indicator_active_ver.svg</file>
+        <file>resources/indicator_dark_ver.svg</file>
+        <file>resources/indicator_active.svg</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>resources/arrow-up.svg</file>
+        <file>resources/arrow-right.svg</file>
+        <file>resources/arrow-left.svg</file>
+        <file>resources/arrow-down.svg</file>
+        <file>resources/application-x-desktop.svg</file>
+        <file>resources/close_round_hover.svg</file>
+        <file>resources/close_round_press.svg</file>
+        <file>resources/close_round_normal.svg</file>
+    </qresource>
+</RCC>

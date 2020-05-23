@@ -4,6 +4,7 @@
 
 #include <DApplication>
 #include <DGuiApplicationHelper>
+#include <controller/dockitemmanager.h>
 #include "window/MainWindow.h"
 
 
@@ -31,6 +32,8 @@ int main(int argc, char *argv[]) {
 
     MainWindow mw;
     mw.show();
+
+    DockItemManager::instance()->startLoadPlugins();
 
     return app.exec();
 }

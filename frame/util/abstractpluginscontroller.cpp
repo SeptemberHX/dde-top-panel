@@ -38,13 +38,11 @@ static const QStringList CompatiblePluginApiList {
 AbstractPluginsController::AbstractPluginsController(QObject *parent)
     : QObject(parent)
     , m_dbusDaemonInterface(QDBusConnection::sessionBus().interface())
-    , m_dockDaemonInter(new DockDaemonInter("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
+    , m_gsettings(new QGSettings("com.deepin.dde.toppanel"))
 {
     qApp->installEventFilter(this);
 
     refreshPluginSettings();
-
-    connect(m_dockDaemonInter, &DockDaemonInter::PluginSettingsSynced, this, &AbstractPluginsController::refreshPluginSettings, Qt::QueuedConnection);
 }
 
 void AbstractPluginsController::saveValue(PluginsItemInterface *const itemInter, const QString &key, const QVariant &value)
@@ -57,11 +55,8 @@ void AbstractPluginsController::saveValue(PluginsItemInterface *const itemInter,
     localObject.insert(key, QJsonValue::fromVariant(value)); //Note: QVariant::toJsonValue() not work in Qt 5.7
     m_pluginSettingsObject.insert(itemInter->pluginName(), localObject);
 
-    // save to daemon
-    QJsonObject remoteObject, remoteObjectInter;
-    remoteObjectInter.insert(key, QJsonValue::fromVariant(value)); //Note: QVariant::toJsonValue() not work in Qt 5.7
-    remoteObject.insert(itemInter->pluginName(), remoteObjectInter);
-    m_dockDaemonInter->MergePluginSettings(QJsonDocument(remoteObject).toJson(QJsonDocument::JsonFormat::Compact));
+    QString strJson(QJsonDocument(m_pluginSettingsObject).toJson(QJsonDocument::Compact));
+    m_gsettings->set("plugin-settings", QVariant(strJson));
 }
 
 const QVariant AbstractPluginsController::getValue(PluginsItemInterface *const itemInter, const QString &key, const QVariant &fallback)
@@ -86,8 +81,7 @@ void AbstractPluginsController::removeValue(PluginsItemInterface *const itemInte
         }
         m_pluginSettingsObject.insert(itemInter->pluginName(), localObject);
     }
-
-    m_dockDaemonInter->RemovePluginSettings(itemInter->pluginName(), keyList);
+    m_gsettings->set("plugin-settings", m_pluginSettingsObject);
 }
 
 QMap<PluginsItemInterface *, QMap<QString, QObject *> > &AbstractPluginsController::pluginsMap()
@@ -229,16 +223,7 @@ void AbstractPluginsController::initPlugin(PluginsItemInterface *interface)
 
 void AbstractPluginsController::refreshPluginSettings()
 {
-    const QString &pluginSettings = m_dockDaemonInter->GetPluginSettings().value();
-    if (pluginSettings.isEmpty()) {
-        qDebug() << "Error! get plugin settings from dbus failed!";
-        return;
-    }
-
-    const QJsonObject &pluginSettingsObject = QJsonDocument::fromJson(pluginSettings.toLocal8Bit()).object();
-    if (pluginSettingsObject.isEmpty()) {
-        return;
-    }
+    QJsonObject pluginSettingsObject = QJsonDocument::fromJson(m_gsettings->get("plugin-settings").toString().toUtf8()).object();
 
     // nothing changed
     if (pluginSettingsObject == m_pluginSettingsObject) {
@@ -257,7 +242,7 @@ void AbstractPluginsController::refreshPluginSettings()
     }
 
     // not notify plugins to refresh settings if this update is not emit by dock daemon
-    if (sender() != m_dockDaemonInter) {
+    if (sender() != m_gsettings) {
         return;
     }
 

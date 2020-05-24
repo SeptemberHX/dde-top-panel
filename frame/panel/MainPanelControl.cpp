@@ -36,7 +36,7 @@ void MainPanelControl::init() {
     m_pluginAreaWidget->setLayout(m_pluginLayout);
     m_pluginAreaWidget->setAccessibleName("pluginarea");
     m_pluginLayout->setMargin(0);
-    m_pluginLayout->setSpacing(0);
+    m_pluginLayout->setSpacing(10);
     m_pluginLayout->setContentsMargins(10, 0, 10, 0);
 
     m_pluginAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);

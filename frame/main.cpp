@@ -31,9 +31,10 @@ int main(int argc, char *argv[]) {
     app.setAttribute(Qt::AA_UseHighDpiPixmaps, false);
 
     MainWindow mw;
-    mw.show();
-
     DockItemManager::instance()->startLoadPlugins();
+
+    mw.show();
+    qDebug() << mw.pos();
 
     return app.exec();
 }

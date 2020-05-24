@@ -25,14 +25,11 @@
 #include "pluginproxyinterface.h"
 #include "util/pluginloader.h"
 
-#include <com_deepin_dde_daemon_dock.h>
-
 #include <QPluginLoader>
 #include <QList>
 #include <QMap>
 #include <QDBusConnectionInterface>
-
-using DockDaemonInter = com::deepin::dde::daemon::Dock;
+#include <QGSettings>
 
 class PluginsItemInterface;
 class AbstractPluginsController : public QObject, PluginProxyInterface
@@ -68,7 +65,7 @@ private:
 
 private:
     QDBusConnectionInterface *m_dbusDaemonInterface;
-    DockDaemonInter *m_dockDaemonInter;
+    QGSettings *m_gsettings;
 
     QMap<PluginsItemInterface *, QMap<QString, QObject *>> m_pluginsMap;
 

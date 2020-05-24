@@ -25,6 +25,7 @@ signals:
     void panelGeometryChanged();
 
 private:
+    void mousePressEvent(QMouseEvent *e);
     void resizeMainPanelWindow();
     void clearStrutPartial();
     void setStrutPartial();

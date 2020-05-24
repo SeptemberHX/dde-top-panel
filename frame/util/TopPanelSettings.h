@@ -8,6 +8,8 @@
 #include "constants.h"
 #include <QObject>
 #include <QWidget>
+#include <QMenu>
+#include <controller/dockitemmanager.h>
 #include "dbus/dbusdisplay.h"
 
 using namespace Dock;
@@ -30,7 +32,13 @@ public:
 
     static TopPanelSettings &Instance();
     const QRect primaryRect() const;
+
+    void showDockSettingsMenu();
+
     QSize m_mainWindowSize;
+
+private slots:
+    void menuActionClicked(QAction *action);
 
 private:
     void calculateWindowConfig();
@@ -50,6 +58,9 @@ private:
     DBusDisplay *m_displayInter;
     QRect m_primaryRawRect;
     QRect m_frontendRect;
+    QMenu m_settingsMenu;
+    QMenu *m_hideSubMenu;
+    DockItemManager *m_itemManager;
     int m_screenRawHeight;
     int m_screenRawWidth;
 };

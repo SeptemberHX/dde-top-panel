@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     m_xcbMisc->set_window_type(winId(), XcbMisc::Dock);
 //    m_size = m_settings->m_mainWindowSize;
     m_mainPanel->setDisplayMode(m_settings->displayMode());
+    m_mainPanel->move(0, 0);
 
     this->resizeMainPanelWindow();
     this->initConnections();
@@ -170,4 +171,13 @@ void MainWindow::initConnections() {
     connect(DockItemManager::instance(), &DockItemManager::itemInserted, m_mainPanel, &MainPanelControl::insertItem, Qt::DirectConnection);
     connect(DockItemManager::instance(), &DockItemManager::itemUpdated, m_mainPanel, &MainPanelControl::itemUpdated, Qt::DirectConnection);
     connect(DockItemManager::instance(), &DockItemManager::itemRemoved, m_mainPanel, &MainPanelControl::removeItem, Qt::DirectConnection);
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *e)
+{
+    e->ignore();
+    if (e->button() == Qt::RightButton) {
+        m_settings->showDockSettingsMenu();
+        return;
+    }
 }

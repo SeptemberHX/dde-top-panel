@@ -9,9 +9,9 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : DBlurEffectWidget(parent)
-    , m_platformWindowHandle(this)
     , m_mainPanel(new MainPanelControl(this))
     , m_xcbMisc(XcbMisc::instance())
+    , m_platformWindowHandle(this, this)
 {
     setAccessibleName("dock-top-panel-mainwindow");
     m_mainPanel->setAccessibleName("dock-top-panel-mainpanel");
@@ -31,10 +31,9 @@ MainWindow::MainWindow(QWidget *parent)
 //    m_size = m_settings->m_mainWindowSize;
     m_mainPanel->setDisplayMode(m_settings->displayMode());
 
-    // remove radius
-    m_platformWindowHandle.setWindowRadius(0);
-
     this->resizeMainPanelWindow();
+    this->initConnections();
+
 //    m_mainPanel->setDelegate(this);
     for (auto item : DockItemManager::instance()->itemList())
         m_mainPanel->insertItem(-1, item);
@@ -168,4 +167,7 @@ void MainWindow::setStrutPartial()
 
 void MainWindow::initConnections() {
 //    connect(m_settings, &DockSettings::windowHideModeChanged, this, &MainWindow::setStrutPartial, Qt::QueuedConnection);
+    connect(DockItemManager::instance(), &DockItemManager::itemInserted, m_mainPanel, &MainPanelControl::insertItem, Qt::DirectConnection);
+    connect(DockItemManager::instance(), &DockItemManager::itemUpdated, m_mainPanel, &MainPanelControl::itemUpdated, Qt::DirectConnection);
+    connect(DockItemManager::instance(), &DockItemManager::itemRemoved, m_mainPanel, &MainPanelControl::removeItem, Qt::DirectConnection);
 }

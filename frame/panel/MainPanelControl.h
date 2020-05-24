@@ -22,13 +22,15 @@ public:
     void removeTrayAreaItem(QWidget *wdg);
     void getTrayVisableItemCount();
     void addFixedAreaItem(int index, QWidget *wdg);
-
+    void removePluginAreaItem(QWidget *wdg);
     void addPluginAreaItem(int index, QWidget *wdg);
 
     void setDisplayMode(DisplayMode mode);
 
 public slots:
     void insertItem(const int index, DockItem *item);
+    void removeItem(DockItem *item);
+    void itemUpdated(DockItem *item);
 
 private:
     void init();
@@ -45,8 +47,6 @@ private:
 
     int m_trayIconCount;
     TrayPluginItem *m_tray = nullptr;
-
-    QLabel *m_label;
 };
 
 

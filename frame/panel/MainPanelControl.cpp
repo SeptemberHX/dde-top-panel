@@ -14,13 +14,12 @@ MainPanelControl::MainPanelControl(QWidget *parent)
     , m_position(Position::Top)
 {
     this->init();
-    this->m_label = new QLabel("Test");
 }
 
 void MainPanelControl::init() {
+    this->m_mainPanelLayout->addStretch();
     this->m_mainPanelLayout->addWidget(this->m_trayAreaWidget);
     this->m_mainPanelLayout->addWidget(this->m_pluginAreaWidget);
-    this->m_mainPanelLayout->addWidget(this->m_label);
 
     m_mainPanelLayout->setMargin(0);
     m_mainPanelLayout->setContentsMargins(0, 0, 0, 0);
@@ -30,16 +29,18 @@ void MainPanelControl::init() {
     m_trayAreaWidget->setLayout(m_trayAreaLayout);
     m_trayAreaWidget->setAccessibleName("trayarea");
     m_trayAreaLayout->setMargin(0);
-    m_trayAreaLayout->setContentsMargins(0, 10, 0, 10);
     m_trayAreaLayout->setSpacing(0);
-    m_trayAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     m_trayAreaLayout->setContentsMargins(0, 10, 0, 10);
 
     // 插件
     m_pluginAreaWidget->setLayout(m_pluginLayout);
     m_pluginAreaWidget->setAccessibleName("pluginarea");
     m_pluginLayout->setMargin(0);
-    m_pluginLayout->setSpacing(10);
+    m_pluginLayout->setSpacing(0);
+    m_pluginLayout->setContentsMargins(10, 0, 10, 0);
+
+    m_pluginAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    m_trayAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 }
 
 // dockitemmanager is responsible for loading all the necessary items on the dock
@@ -67,6 +68,36 @@ void MainPanelControl::insertItem(int index, DockItem *item)
         default:
             break;
     }
+}
+
+void MainPanelControl::removeItem(DockItem *item)
+{
+    switch (item->itemType()) {
+        case DockItem::Launcher:
+        case DockItem::FixedPlugin:
+        case DockItem::App:
+        case DockItem::Placeholder:
+            break;
+        case DockItem::TrayPlugin:
+            removeTrayAreaItem(item);
+            break;
+        case DockItem::Plugins:
+            removePluginAreaItem(item);
+            break;
+        default:
+            break;
+    }
+}
+
+void MainPanelControl::removePluginAreaItem(QWidget *wdg)
+{
+    m_pluginLayout->removeWidget(wdg);
+}
+
+void MainPanelControl::itemUpdated(DockItem *item)
+{
+    item->parentWidget()->adjustSize();
+    resizeDockIcon();
 }
 
 void MainPanelControl::resizeDockIcon()
@@ -138,9 +169,10 @@ void MainPanelControl::resizeDockIcon()
         iconCount -= pluginCount;
 
         // 余数
-        int yu = (totalLength % iconCount);
+//        int yu = (totalLength % iconCount);
         // icon宽度 = (总宽度-余数)/icon个数
-        iconSize = (totalLength - yu) / iconCount;
+//        iconSize = (totalLength - yu) / iconCount;
+        iconSize = 0;
     }
 
     // only considering top mode
@@ -262,6 +294,7 @@ void MainPanelControl::setDisplayMode(DisplayMode mode) {
 
 void MainPanelControl::addPluginAreaItem(int index, QWidget *wdg) {
     m_pluginLayout->insertWidget(index, wdg, 0, Qt::AlignCenter);
+    qDebug() << "Plugin widget size: " << wdg->size();
     resizeDockIcon();
     m_pluginAreaWidget->adjustSize();
 }

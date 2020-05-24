@@ -7,9 +7,9 @@
 #include <QApplication>
 #include <QScreen>
 
-#define EffICIENT_DEFAULT_HEIGHT 30
+#define EffICIENT_DEFAULT_HEIGHT 40
 #define WINDOW_MAX_SIZE          100
-#define WINDOW_MIN_SIZE          30
+#define WINDOW_MIN_SIZE          40
 
 extern const QPoint rawXPosition(const QPoint &scaledPos);
 
@@ -36,7 +36,7 @@ void TopPanelSettings::calculateWindowConfig()
         }
 
         m_mainWindowSize.setHeight(m_dockWindowSize);
-        m_mainWindowSize.setWidth(primaryRect().width());
+        m_mainWindowSize.setWidth(primaryRect().width() - 40);
     } else {
         Q_ASSERT(false);
     }
@@ -104,10 +104,7 @@ const QRect TopPanelSettings::windowRect(const Position position, const bool hid
 
 const int TopPanelSettings::dockMargin() const
 {
-    if (m_displayMode == Dock::Efficient)
-        return 0;
-
-    return 5;
+    return 0;
 }
 
 qreal TopPanelSettings::dockRatio() const

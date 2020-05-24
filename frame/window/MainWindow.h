@@ -31,11 +31,11 @@ private:
     void initConnections();
 
 private:
-    DPlatformWindowHandle m_platformWindowHandle;
     MainPanelControl *m_mainPanel;
     TopPanelSettings *m_settings;
     XcbMisc *m_xcbMisc;
     Position m_curDockPos;
+    DPlatformWindowHandle m_platformWindowHandle;
 };
 
 

@@ -44,6 +44,7 @@ target_link_libraries(${BIN_NAME} PRIVATE
         ${DtkGUI_LIBRARIES}
         ${Qt5Svg_LIBRARIES}
         xdo
+        X11
         )
 
 if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "sw_64")

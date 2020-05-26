@@ -48,6 +48,7 @@ void MainPanelControl::init() {
 //    this->m_xdo = xdo_new(nullptr);
     connect(m_itemManager, &DockItemManager::windowInfoChanged, this->activeWindowControlWidget, &ActiveWindowControlWidget::activeWindowInfoChanged);
     this->activeWindowControlWidget->activeWindowInfoChanged();
+    this->setMouseTracking(true);
 }
 
 // dockitemmanager is responsible for loading all the necessary items on the dock

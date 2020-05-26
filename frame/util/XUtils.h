@@ -22,6 +22,8 @@ class XUtils {
 public:
     static int getFocusWindowId();
     static QString getWindowName(int winId);
+    static bool checkIfWinMaximum(int winId);
+    static void unmaximizeWindow(int winId);
 //    static int cmd_getActiveWindow(context_t *context);
     static xdo_t *m_xdo;
 

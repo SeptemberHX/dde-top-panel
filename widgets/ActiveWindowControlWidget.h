@@ -8,6 +8,10 @@
 #include <QWidget>
 #include <QLabel>
 #include <QHBoxLayout>
+#include <QToolButton>
+#include <com_deepin_dde_daemon_dock.h>
+
+using DBusDock = com::deepin::dde::daemon::Dock;
 
 class ActiveWindowControlWidget : public QWidget {
 
@@ -19,12 +23,28 @@ public:
 public slots:
     void activeWindowInfoChanged();
 
+protected:
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+
+private:
+    void setButtonsVisible(bool visible);
+
+private slots:
+    void maxButtonClicked();
+
 private:
     QHBoxLayout *m_layout;
     QLabel *m_winTitleLabel;
 
     int currActiveWinId;
     QString currActiveWinTitle;
+
+    QToolButton *closeButton;
+    QToolButton *minButton;
+    QToolButton *maxButton;
+
+    DBusDock *m_appInter;
 };
 
 

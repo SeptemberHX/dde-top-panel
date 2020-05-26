@@ -287,6 +287,9 @@ Dtk_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/Dtk
 PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Path to a program.
+ProcessorCount_cmd_getconf:FILEPATH=/usr/bin/getconf
+
+//Path to a program.
 ProcessorCount_cmd_nproc:FILEPATH=/usr/bin/nproc
 
 //Path to a program.
@@ -338,6 +341,9 @@ dde_top_panel_BINARY_DIR:STATIC=/home/septemberhx/Workspace/git/dde-top-panel/cm
 dde_top_panel_SOURCE_DIR:STATIC=/home/septemberhx/Workspace/git/dde-top-panel
 
 //Path to a library.
+pkgcfg_lib_DDE-Network-Utils_dde-network-utils:FILEPATH=/usr/lib/libdde-network-utils.so
+
+//Path to a library.
 pkgcfg_lib_DFrameworkDBus_dframeworkdbus:FILEPATH=/usr/lib/x86_64-linux-gnu/libdframeworkdbus.so
 
 //Path to a library.
@@ -357,6 +363,48 @@ pkgcfg_lib_XCB_EWMH_xcb:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb.so
 
 //Path to a library.
 pkgcfg_lib_XCB_EWMH_xcb-ewmh:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb-ewmh.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_X11:FILEPATH=/usr/lib/x86_64-linux-gnu/libX11.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_Xext:FILEPATH=/usr/lib/x86_64-linux-gnu/libXext.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_Xtst:FILEPATH=/usr/lib/x86_64-linux-gnu/libXtst.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_dbusmenu-qt5:FILEPATH=/usr/lib/x86_64-linux-gnu/libdbusmenu-qt5.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_xcb:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_xcb-composite:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb-composite.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_xcb-ewmh:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb-ewmh.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_xcb-icccm:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb-icccm.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_xcb-image:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb-image.so
+
+//Path to a library.
+pkgcfg_lib_XCB_LIBS_xcb-shm:FILEPATH=/usr/lib/x86_64-linux-gnu/libxcb-shm.so
+
+//Value Computed by CMake
+tray_BINARY_DIR:STATIC=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/plugins/tray
+
+//Dependencies for the target
+tray_LIB_DEPENDS:STATIC=general;dtkwidget;general;dtkcore;general;dtkgui;general;dtkcore;general;Qt5::Widgets;general;Qt5::X11Extras;general;Qt5::DBus;general;Qt5::Svg;general;xcb-ewmh;general;xcb-image;general;xcb-shm;general;xcb-composite;general;Xtst;general;X11;general;Xext;general;xcb-icccm;general;xcb;general;dbusmenu-qt5;general;dde-network-utils;general;dframeworkdbus;general;gsettings-qt;general;pthread;
+
+//Value Computed by CMake
+tray_SOURCE_DIR:STATIC=/home/septemberhx/Workspace/git/dde-top-panel/plugins/tray
+
+//The directory containing a CMake configuration file for xdo.
+xdo_DIR:PATH=xdo_DIR-NOTFOUND
 
 
 ########################
@@ -503,7 +551,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -546,6 +594,41 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+DDE-Network-Utils_CFLAGS:INTERNAL=-I/usr/include/libddenetworkutils
+DDE-Network-Utils_CFLAGS_I:INTERNAL=
+DDE-Network-Utils_CFLAGS_OTHER:INTERNAL=
+DDE-Network-Utils_FOUND:INTERNAL=1
+DDE-Network-Utils_INCLUDEDIR:INTERNAL=/usr/include/libddenetworkutils
+DDE-Network-Utils_INCLUDE_DIRS:INTERNAL=/usr/include/libddenetworkutils
+DDE-Network-Utils_LDFLAGS:INTERNAL=-ldde-network-utils
+DDE-Network-Utils_LDFLAGS_OTHER:INTERNAL=
+DDE-Network-Utils_LIBDIR:INTERNAL=/usr/lib
+DDE-Network-Utils_LIBRARIES:INTERNAL=dde-network-utils
+DDE-Network-Utils_LIBRARY_DIRS:INTERNAL=
+DDE-Network-Utils_LIBS:INTERNAL=
+DDE-Network-Utils_LIBS_L:INTERNAL=
+DDE-Network-Utils_LIBS_OTHER:INTERNAL=
+DDE-Network-Utils_LIBS_PATHS:INTERNAL=
+DDE-Network-Utils_MODULE_NAME:INTERNAL=dde-network-utils
+DDE-Network-Utils_PREFIX:INTERNAL=/usr
+DDE-Network-Utils_STATIC_CFLAGS:INTERNAL=-I/usr/include/libddenetworkutils
+DDE-Network-Utils_STATIC_CFLAGS_I:INTERNAL=
+DDE-Network-Utils_STATIC_CFLAGS_OTHER:INTERNAL=
+DDE-Network-Utils_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/libddenetworkutils
+DDE-Network-Utils_STATIC_LDFLAGS:INTERNAL=-ldde-network-utils
+DDE-Network-Utils_STATIC_LDFLAGS_OTHER:INTERNAL=
+DDE-Network-Utils_STATIC_LIBDIR:INTERNAL=
+DDE-Network-Utils_STATIC_LIBRARIES:INTERNAL=dde-network-utils
+DDE-Network-Utils_STATIC_LIBRARY_DIRS:INTERNAL=
+DDE-Network-Utils_STATIC_LIBS:INTERNAL=
+DDE-Network-Utils_STATIC_LIBS_L:INTERNAL=
+DDE-Network-Utils_STATIC_LIBS_OTHER:INTERNAL=
+DDE-Network-Utils_STATIC_LIBS_PATHS:INTERNAL=
+DDE-Network-Utils_VERSION:INTERNAL=1.0.0
+DDE-Network-Utils_dde-network-utils_INCLUDEDIR:INTERNAL=
+DDE-Network-Utils_dde-network-utils_LIBDIR:INTERNAL=
+DDE-Network-Utils_dde-network-utils_PREFIX:INTERNAL=
+DDE-Network-Utils_dde-network-utils_VERSION:INTERNAL=
 DFrameworkDBus_CFLAGS:INTERNAL=-I/usr/include/libdframeworkdbus-2.0
 DFrameworkDBus_CFLAGS_I:INTERNAL=
 DFrameworkDBus_CFLAGS_OTHER:INTERNAL=
@@ -581,6 +664,31 @@ DFrameworkDBus_dframeworkdbus_INCLUDEDIR:INTERNAL=
 DFrameworkDBus_dframeworkdbus_LIBDIR:INTERNAL=
 DFrameworkDBus_dframeworkdbus_PREFIX:INTERNAL=
 DFrameworkDBus_dframeworkdbus_VERSION:INTERNAL=
+DTO_CFLAGS:INTERNAL=
+DTO_CFLAGS_I:INTERNAL=
+DTO_CFLAGS_OTHER:INTERNAL=
+DTO_FOUND:INTERNAL=
+DTO_INCLUDEDIR:INTERNAL=
+DTO_LIBDIR:INTERNAL=
+DTO_LIBS:INTERNAL=
+DTO_LIBS_L:INTERNAL=
+DTO_LIBS_OTHER:INTERNAL=
+DTO_LIBS_PATHS:INTERNAL=
+DTO_MODULE_NAME:INTERNAL=
+DTO_PREFIX:INTERNAL=
+DTO_STATIC_CFLAGS:INTERNAL=
+DTO_STATIC_CFLAGS_I:INTERNAL=
+DTO_STATIC_CFLAGS_OTHER:INTERNAL=
+DTO_STATIC_LIBDIR:INTERNAL=
+DTO_STATIC_LIBS:INTERNAL=
+DTO_STATIC_LIBS_L:INTERNAL=
+DTO_STATIC_LIBS_OTHER:INTERNAL=
+DTO_STATIC_LIBS_PATHS:INTERNAL=
+DTO_VERSION:INTERNAL=
+DTO_dto_INCLUDEDIR:INTERNAL=
+DTO_dto_LIBDIR:INTERNAL=
+DTO_dto_PREFIX:INTERNAL=
+DTO_dto_VERSION:INTERNAL=
 DtkGUI_CFLAGS:INTERNAL=-I/usr/include/libdtk-5.1.2/DCore/../DGui;-I/usr/include/libdtk-5.1.2/DCore
 DtkGUI_CFLAGS_I:INTERNAL=
 DtkGUI_CFLAGS_OTHER:INTERNAL=
@@ -620,6 +728,8 @@ DtkGUI_dtkgui_VERSION:INTERNAL=
 FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29()]
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: ProcessorCount_cmd_getconf
+ProcessorCount_cmd_getconf-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_nproc
 ProcessorCount_cmd_nproc-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: ProcessorCount_cmd_sysctl
@@ -659,6 +769,31 @@ QGSettings_gsettings-qt_INCLUDEDIR:INTERNAL=
 QGSettings_gsettings-qt_LIBDIR:INTERNAL=
 QGSettings_gsettings-qt_PREFIX:INTERNAL=
 QGSettings_gsettings-qt_VERSION:INTERNAL=
+REQUIRED_CFLAGS:INTERNAL=
+REQUIRED_CFLAGS_I:INTERNAL=
+REQUIRED_CFLAGS_OTHER:INTERNAL=
+REQUIRED_FOUND:INTERNAL=
+REQUIRED_INCLUDEDIR:INTERNAL=
+REQUIRED_LIBDIR:INTERNAL=
+REQUIRED_LIBS:INTERNAL=
+REQUIRED_LIBS_L:INTERNAL=
+REQUIRED_LIBS_OTHER:INTERNAL=
+REQUIRED_LIBS_PATHS:INTERNAL=
+REQUIRED_MODULE_NAME:INTERNAL=
+REQUIRED_PREFIX:INTERNAL=
+REQUIRED_STATIC_CFLAGS:INTERNAL=
+REQUIRED_STATIC_CFLAGS_I:INTERNAL=
+REQUIRED_STATIC_CFLAGS_OTHER:INTERNAL=
+REQUIRED_STATIC_LIBDIR:INTERNAL=
+REQUIRED_STATIC_LIBS:INTERNAL=
+REQUIRED_STATIC_LIBS_L:INTERNAL=
+REQUIRED_STATIC_LIBS_OTHER:INTERNAL=
+REQUIRED_STATIC_LIBS_PATHS:INTERNAL=
+REQUIRED_VERSION:INTERNAL=
+REQUIRED_dto_INCLUDEDIR:INTERNAL=
+REQUIRED_dto_LIBDIR:INTERNAL=
+REQUIRED_dto_PREFIX:INTERNAL=
+REQUIRED_dto_VERSION:INTERNAL=
 XCB_EWMH_CFLAGS:INTERNAL=
 XCB_EWMH_CFLAGS_I:INTERNAL=
 XCB_EWMH_CFLAGS_OTHER:INTERNAL=
@@ -700,16 +835,124 @@ XCB_EWMH_xcb-ewmh_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
 XCB_EWMH_xcb-ewmh_MODULE_NAME:INTERNAL=xcb-ewmh
 XCB_EWMH_xcb-ewmh_PREFIX:INTERNAL=/usr
 XCB_EWMH_xcb-ewmh_VERSION:INTERNAL=0.4.1
+XCB_LIBS_CFLAGS:INTERNAL=-I/usr/include/dbusmenu-qt5
+XCB_LIBS_CFLAGS_I:INTERNAL=
+XCB_LIBS_CFLAGS_OTHER:INTERNAL=
+XCB_LIBS_FOUND:INTERNAL=1
+XCB_LIBS_INCLUDEDIR:INTERNAL=
+XCB_LIBS_INCLUDE_DIRS:INTERNAL=/usr/include/dbusmenu-qt5
+XCB_LIBS_LDFLAGS:INTERNAL=-lxcb-ewmh;-lxcb-image;-lxcb-shm;-lxcb-composite;-lXtst;-lX11;-lXext;-lxcb-icccm;-lxcb;-ldbusmenu-qt5
+XCB_LIBS_LDFLAGS_OTHER:INTERNAL=
+XCB_LIBS_LIBDIR:INTERNAL=
+XCB_LIBS_LIBRARIES:INTERNAL=xcb-ewmh;xcb-image;xcb-shm;xcb-composite;Xtst;X11;Xext;xcb-icccm;xcb;dbusmenu-qt5
+XCB_LIBS_LIBRARY_DIRS:INTERNAL=
+XCB_LIBS_LIBS:INTERNAL=
+XCB_LIBS_LIBS_L:INTERNAL=
+XCB_LIBS_LIBS_OTHER:INTERNAL=
+XCB_LIBS_LIBS_PATHS:INTERNAL=
+XCB_LIBS_MODULE_NAME:INTERNAL=
+XCB_LIBS_PREFIX:INTERNAL=
+XCB_LIBS_STATIC_CFLAGS:INTERNAL=-I/usr/include/dbusmenu-qt5
+XCB_LIBS_STATIC_CFLAGS_I:INTERNAL=
+XCB_LIBS_STATIC_CFLAGS_OTHER:INTERNAL=
+XCB_LIBS_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/dbusmenu-qt5
+XCB_LIBS_STATIC_LDFLAGS:INTERNAL=-lxcb-ewmh;-lxcb-image;-lxcb-shm;-lxcb-composite;-lxcb-xfixes;-lxcb-render;-lxcb-shape;-lXtst;-lXi;-lXfixes;-lXext;-lX11;-lpthread;-lxcb-icccm;-lxcb;-lXau;-lXdmcp;-ldbusmenu-qt5
+XCB_LIBS_STATIC_LDFLAGS_OTHER:INTERNAL=
+XCB_LIBS_STATIC_LIBDIR:INTERNAL=
+XCB_LIBS_STATIC_LIBRARIES:INTERNAL=xcb-ewmh;xcb-image;xcb-shm;xcb-composite;xcb-xfixes;xcb-render;xcb-shape;Xtst;Xi;Xfixes;Xext;X11;pthread;xcb-icccm;xcb;Xau;Xdmcp;dbusmenu-qt5
+XCB_LIBS_STATIC_LIBRARY_DIRS:INTERNAL=
+XCB_LIBS_STATIC_LIBS:INTERNAL=
+XCB_LIBS_STATIC_LIBS_L:INTERNAL=
+XCB_LIBS_STATIC_LIBS_OTHER:INTERNAL=
+XCB_LIBS_STATIC_LIBS_PATHS:INTERNAL=
+XCB_LIBS_VERSION:INTERNAL=
+XCB_LIBS_dbusmenu-qt5_INCLUDEDIR:INTERNAL=/usr/include/dbusmenu-qt5
+XCB_LIBS_dbusmenu-qt5_LIBDIR:INTERNAL=/usr/lib
+XCB_LIBS_dbusmenu-qt5_MODULE_NAME:INTERNAL=dbusmenu-qt5
+XCB_LIBS_dbusmenu-qt5_PREFIX:INTERNAL=/usr
+XCB_LIBS_dbusmenu-qt5_VERSION:INTERNAL=0.9.2
+XCB_LIBS_x11_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_x11_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_x11_MODULE_NAME:INTERNAL=x11
+XCB_LIBS_x11_PREFIX:INTERNAL=/usr
+XCB_LIBS_x11_VERSION:INTERNAL=1.6.7
+XCB_LIBS_xcb-composite_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_xcb-composite_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_xcb-composite_MODULE_NAME:INTERNAL=xcb-composite
+XCB_LIBS_xcb-composite_PREFIX:INTERNAL=/usr
+XCB_LIBS_xcb-composite_VERSION:INTERNAL=1.13.1
+XCB_LIBS_xcb-ewmh_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_xcb-ewmh_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_xcb-ewmh_MODULE_NAME:INTERNAL=xcb-ewmh
+XCB_LIBS_xcb-ewmh_PREFIX:INTERNAL=/usr
+XCB_LIBS_xcb-ewmh_VERSION:INTERNAL=0.4.1
+XCB_LIBS_xcb-icccm_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_xcb-icccm_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_xcb-icccm_MODULE_NAME:INTERNAL=xcb-icccm
+XCB_LIBS_xcb-icccm_PREFIX:INTERNAL=/usr
+XCB_LIBS_xcb-icccm_VERSION:INTERNAL=0.4.1
+XCB_LIBS_xcb-image_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_xcb-image_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_xcb-image_MODULE_NAME:INTERNAL=xcb-image
+XCB_LIBS_xcb-image_PREFIX:INTERNAL=/usr
+XCB_LIBS_xcb-image_VERSION:INTERNAL=0.4.0
+XCB_LIBS_xcb_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_xcb_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_xcb_MODULE_NAME:INTERNAL=xcb
+XCB_LIBS_xcb_PREFIX:INTERNAL=/usr
+XCB_LIBS_xcb_VERSION:INTERNAL=1.13.1
+XCB_LIBS_xext_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_xext_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_xext_MODULE_NAME:INTERNAL=xext
+XCB_LIBS_xext_PREFIX:INTERNAL=/usr
+XCB_LIBS_xext_VERSION:INTERNAL=1.3.3
+XCB_LIBS_xtst_INCLUDEDIR:INTERNAL=/usr/include
+XCB_LIBS_xtst_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+XCB_LIBS_xtst_MODULE_NAME:INTERNAL=xtst
+XCB_LIBS_xtst_PREFIX:INTERNAL=/usr
+XCB_LIBS_xtst_VERSION:INTERNAL=1.2.3
+XDO_CFLAGS:INTERNAL=
+XDO_CFLAGS_I:INTERNAL=
+XDO_CFLAGS_OTHER:INTERNAL=
+XDO_FOUND:INTERNAL=
+XDO_INCLUDEDIR:INTERNAL=
+XDO_LIBDIR:INTERNAL=
+XDO_LIBS:INTERNAL=
+XDO_LIBS_L:INTERNAL=
+XDO_LIBS_OTHER:INTERNAL=
+XDO_LIBS_PATHS:INTERNAL=
+XDO_MODULE_NAME:INTERNAL=
+XDO_PREFIX:INTERNAL=
+XDO_STATIC_CFLAGS:INTERNAL=
+XDO_STATIC_CFLAGS_I:INTERNAL=
+XDO_STATIC_CFLAGS_OTHER:INTERNAL=
+XDO_STATIC_LIBDIR:INTERNAL=
+XDO_STATIC_LIBS:INTERNAL=
+XDO_STATIC_LIBS_L:INTERNAL=
+XDO_STATIC_LIBS_OTHER:INTERNAL=
+XDO_STATIC_LIBS_PATHS:INTERNAL=
+XDO_VERSION:INTERNAL=
+XDO_xdo_INCLUDEDIR:INTERNAL=
+XDO_xdo_LIBDIR:INTERNAL=
+XDO_xdo_PREFIX:INTERNAL=
+XDO_xdo_VERSION:INTERNAL=
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/usr/local
+__pkg_config_arguments_DDE-Network-Utils:INTERNAL=REQUIRED;dde-network-utils
 __pkg_config_arguments_DFrameworkDBus:INTERNAL=REQUIRED;dframeworkdbus
 __pkg_config_arguments_DtkGUI:INTERNAL=REQUIRED;dtkgui
 __pkg_config_arguments_QGSettings:INTERNAL=REQUIRED;gsettings-qt
 __pkg_config_arguments_XCB_EWMH:INTERNAL=REQUIRED;xcb-ewmh;x11
+__pkg_config_arguments_XCB_LIBS:INTERNAL=REQUIRED;xcb-ewmh;xcb;xcb-image;xcb-composite;xtst;x11;xext;xcb-icccm;dbusmenu-qt5
+__pkg_config_checked_DDE-Network-Utils:INTERNAL=1
 __pkg_config_checked_DFrameworkDBus:INTERNAL=1
 __pkg_config_checked_DtkGUI:INTERNAL=1
 __pkg_config_checked_QGSettings:INTERNAL=1
+__pkg_config_checked_REQUIRED:INTERNAL=1
 __pkg_config_checked_XCB_EWMH:INTERNAL=1
+__pkg_config_checked_XCB_LIBS:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_DDE-Network-Utils_dde-network-utils
+pkgcfg_lib_DDE-Network-Utils_dde-network-utils-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_DFrameworkDBus_dframeworkdbus
 pkgcfg_lib_DFrameworkDBus_dframeworkdbus-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_DtkGUI_dtkcore
@@ -724,5 +967,25 @@ pkgcfg_lib_XCB_EWMH_X11-ADVANCED:INTERNAL=1
 pkgcfg_lib_XCB_EWMH_xcb-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_XCB_EWMH_xcb-ewmh
 pkgcfg_lib_XCB_EWMH_xcb-ewmh-ADVANCED:INTERNAL=1
-prefix_result:INTERNAL=/usr/lib/x86_64-linux-gnu
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_X11
+pkgcfg_lib_XCB_LIBS_X11-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_Xext
+pkgcfg_lib_XCB_LIBS_Xext-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_Xtst
+pkgcfg_lib_XCB_LIBS_Xtst-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_dbusmenu-qt5
+pkgcfg_lib_XCB_LIBS_dbusmenu-qt5-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_xcb
+pkgcfg_lib_XCB_LIBS_xcb-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_xcb-composite
+pkgcfg_lib_XCB_LIBS_xcb-composite-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_xcb-ewmh
+pkgcfg_lib_XCB_LIBS_xcb-ewmh-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_xcb-icccm
+pkgcfg_lib_XCB_LIBS_xcb-icccm-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_xcb-image
+pkgcfg_lib_XCB_LIBS_xcb-image-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_XCB_LIBS_xcb-shm
+pkgcfg_lib_XCB_LIBS_xcb-shm-ADVANCED:INTERNAL=1
+prefix_result:INTERNAL=/usr/lib
 

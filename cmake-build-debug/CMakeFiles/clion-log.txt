@@ -1,17 +1,7 @@
 /home/septemberhx/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/septemberhx/Workspace/git/dde-top-panel
--- Found PkgConfig: /usr/bin/pkg-config (found version "0.29") 
 OS: Deepin, Version: 20 Beta
 Deepin OS Type: Desktop
 Deepin OS Version: 20 Beta
--- Checking for modules 'xcb-ewmh;x11'
---   Found xcb-ewmh, version 0.4.1
---   Found x11, version 1.6.7
--- Checking for module 'dframeworkdbus'
---   Found dframeworkdbus, version 2.0
--- Checking for module 'gsettings-qt'
---   Found gsettings-qt, version 1.0.0
--- Checking for module 'dtkgui'
---   Found dtkgui, version 5.1.2
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug

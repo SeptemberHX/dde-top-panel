@@ -11,12 +11,15 @@ MainPanelControl::MainPanelControl(QWidget *parent)
     , m_trayAreaLayout(new QBoxLayout(QBoxLayout::LeftToRight))
     , m_pluginAreaWidget(new QWidget(this))
     , m_pluginLayout(new QBoxLayout(QBoxLayout::LeftToRight))
+    , m_itemManager(DockItemManager::instance(this))
     , m_position(Position::Top)
+    , activeWindowControlWidget(new ActiveWindowControlWidget(this))
 {
     this->init();
 }
 
 void MainPanelControl::init() {
+    this->m_mainPanelLayout->addWidget(this->activeWindowControlWidget);
     this->m_mainPanelLayout->addStretch();
     this->m_mainPanelLayout->addWidget(this->m_trayAreaWidget);
     this->m_mainPanelLayout->addWidget(this->m_pluginAreaWidget);
@@ -41,6 +44,10 @@ void MainPanelControl::init() {
 
     m_pluginAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     m_trayAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+//    this->m_xdo = xdo_new(nullptr);
+    connect(m_itemManager, &DockItemManager::windowInfoChanged, this->activeWindowControlWidget, &ActiveWindowControlWidget::activeWindowInfoChanged);
+    this->activeWindowControlWidget->activeWindowInfoChanged();
 }
 
 // dockitemmanager is responsible for loading all the necessary items on the dock

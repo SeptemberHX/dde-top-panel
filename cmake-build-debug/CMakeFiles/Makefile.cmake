@@ -40,6 +40,11 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.5/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.5/CMakeSystem.cmake"
   "../frame/CMakeLists.txt"
+  "../frame/frame.qrc"
+  "../frame/item/item.qrc"
+  "../plugins/CMakeLists.txt"
+  "../plugins/tray/CMakeLists.txt"
+  "../plugins/tray/tray.qrc"
   "/usr/lib/x86_64-linux-gnu/cmake/Dtk/DtkConfig.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/DtkCMake/DtkCMakeConfig.cmake"
   "/usr/lib/x86_64-linux-gnu/cmake/DtkCore/DtkCoreConfig.cmake"
@@ -81,10 +86,14 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "frame/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "plugins/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "plugins/tray/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "frame/CMakeFiles/dde-top-panel.dir/DependInfo.cmake"
   "frame/CMakeFiles/dde-top-panel_autogen.dir/DependInfo.cmake"
+  "plugins/tray/CMakeFiles/tray.dir/DependInfo.cmake"
+  "plugins/tray/CMakeFiles/tray_autogen.dir/DependInfo.cmake"
   )

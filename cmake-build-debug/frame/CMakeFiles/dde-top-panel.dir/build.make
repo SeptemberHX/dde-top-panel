@@ -57,9 +57,36 @@ include frame/CMakeFiles/dde-top-panel.dir/progress.make
 # Include the compile flags for this target's objects.
 include frame/CMakeFiles/dde-top-panel.dir/flags.make
 
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/item.qrc
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: frame/CMakeFiles/dde-top-panel_autogen.dir/AutoRcc_item_GCPDG3WMVT_Info.json
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/arrow-up.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/arrow-right.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/close_round_press.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/arrow-left.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/close_round_hover.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/arrow-down.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/application-x-desktop.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/close_round_normal.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/indicator.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/indicator_active_ver.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/indicator_active.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/indicator_dark.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/indicator_ver.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: ../frame/item/resources/indicator_dark_ver.svg
+frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp: /usr/lib/qt5/bin/rcc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic RCC for item/item.qrc"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /home/septemberhx/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -E cmake_autorcc /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/CMakeFiles/dde-top-panel_autogen.dir/AutoRcc_item_GCPDG3WMVT_Info.json Debug
+
+frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp: ../frame/frame.qrc
+frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp: frame/CMakeFiles/dde-top-panel_autogen.dir/AutoRcc_frame_EWIEGA46WW_Info.json
+frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp: ../frame/qss/frame.qss
+frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp: /usr/lib/qt5/bin/rcc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Automatic RCC for frame.qrc"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /home/septemberhx/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -E cmake_autorcc /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/CMakeFiles/dde-top-panel_autogen.dir/AutoRcc_frame_EWIEGA46WW_Info.json Debug
+
 frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
 frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.o: frame/dde-top-panel_autogen/mocs_compilation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.o"
 	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/mocs_compilation.cpp
 
 frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.i: cmake_force
@@ -70,9 +97,282 @@ frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.s:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.s"
 	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/mocs_compilation.cpp -o CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.s
 
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.o: ../widgets/ActiveWindowControlWidget.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/widgets/ActiveWindowControlWidget.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/widgets/ActiveWindowControlWidget.cpp > CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/widgets/ActiveWindowControlWidget.cpp -o CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.o: ../widgets/tipswidget.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/widgets/tipswidget.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/widgets/tipswidget.cpp > CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/widgets/tipswidget.cpp -o CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.o: ../frame/controller/dockitemmanager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/controller/dockitemmanager.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/controller/dockitemmanager.cpp > CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/controller/dockitemmanager.cpp -o CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.o: ../frame/controller/dockpluginscontroller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/controller/dockpluginscontroller.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/controller/dockpluginscontroller.cpp > CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/controller/dockpluginscontroller.cpp -o CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.o: ../frame/dbus/dbusclientmanager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusclientmanager.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusclientmanager.cpp > CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusclientmanager.cpp -o CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.o: ../frame/dbus/dbusdisplay.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusdisplay.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusdisplay.cpp > CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusdisplay.cpp -o CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.o: ../frame/dbus/dbusdockadaptors.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusdockadaptors.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusdockadaptors.cpp > CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusdockadaptors.cpp -o CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.o: ../frame/dbus/dbusmenu.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusmenu.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusmenu.cpp > CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusmenu.cpp -o CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.o: ../frame/dbus/dbusmenumanager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusmenumanager.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusmenumanager.cpp > CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/dbusmenumanager.cpp -o CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.o: ../frame/dbus/sni/statusnotifierwatcher_interface.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/sni/statusnotifierwatcher_interface.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/sni/statusnotifierwatcher_interface.cpp > CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/dbus/sni/statusnotifierwatcher_interface.cpp -o CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/appitem.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/appitem.cpp.o: ../frame/item/appitem.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/appitem.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/appitem.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/appitem.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/appitem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/appitem.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/appitem.cpp > CMakeFiles/dde-top-panel.dir/item/appitem.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/appitem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/appitem.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/appitem.cpp -o CMakeFiles/dde-top-panel.dir/item/appitem.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.o: ../frame/item/components/appdrag.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appdrag.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appdrag.cpp > CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appdrag.cpp -o CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.o: ../frame/item/components/appdragwidget.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appdragwidget.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appdragwidget.cpp > CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appdragwidget.cpp -o CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.o: ../frame/item/components/appsnapshot.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appsnapshot.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appsnapshot.cpp > CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/appsnapshot.cpp -o CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.o: ../frame/item/components/floatingpreview.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/floatingpreview.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/floatingpreview.cpp > CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/floatingpreview.cpp -o CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.o: ../frame/item/components/hoverhighlighteffect.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/hoverhighlighteffect.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/hoverhighlighteffect.cpp > CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/hoverhighlighteffect.cpp -o CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.o: ../frame/item/components/previewcontainer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/previewcontainer.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/previewcontainer.cpp > CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/components/previewcontainer.cpp -o CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.o: ../frame/item/dockitem.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/dockitem.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/dockitem.cpp > CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/dockitem.cpp -o CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.o: ../frame/item/placeholderitem.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/placeholderitem.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/placeholderitem.cpp > CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/placeholderitem.cpp -o CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.o: ../frame/item/pluginsitem.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/pluginsitem.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/pluginsitem.cpp > CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/pluginsitem.cpp -o CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.o: ../frame/item/traypluginitem.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/item/traypluginitem.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/item/traypluginitem.cpp > CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/item/traypluginitem.cpp -o CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.s
+
 frame/CMakeFiles/dde-top-panel.dir/main.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
 frame/CMakeFiles/dde-top-panel.dir/main.cpp.o: ../frame/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/main.cpp.o"
 	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/main.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/main.cpp
 
 frame/CMakeFiles/dde-top-panel.dir/main.cpp.i: cmake_force
@@ -83,16 +383,268 @@ frame/CMakeFiles/dde-top-panel.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/main.cpp.s"
 	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/main.cpp -o CMakeFiles/dde-top-panel.dir/main.cpp.s
 
+frame/CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.o: ../frame/panel/MainPanelControl.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/panel/MainPanelControl.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/panel/MainPanelControl.cpp > CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/panel/MainPanelControl.cpp -o CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.o: ../frame/util/TopPanelSettings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/TopPanelSettings.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/TopPanelSettings.cpp > CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/TopPanelSettings.cpp -o CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.o: ../frame/util/XUtils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/XUtils.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/XUtils.cpp > CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/XUtils.cpp -o CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.o: ../frame/util/abstractpluginscontroller.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/abstractpluginscontroller.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/abstractpluginscontroller.cpp > CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/abstractpluginscontroller.cpp -o CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.o: ../frame/util/dockpopupwindow.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/dockpopupwindow.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/dockpopupwindow.cpp > CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/dockpopupwindow.cpp -o CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.o: ../frame/util/docksettings.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/docksettings.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/docksettings.cpp > CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/docksettings.cpp -o CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.o: ../frame/util/imagefactory.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/imagefactory.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/imagefactory.cpp > CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/imagefactory.cpp -o CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.o: ../frame/util/imageutil.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/imageutil.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/imageutil.cpp > CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/imageutil.cpp -o CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.o: ../frame/util/pluginloader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/pluginloader.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/pluginloader.cpp > CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/pluginloader.cpp -o CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.o: ../frame/util/themeappicon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/util/themeappicon.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/util/themeappicon.cpp > CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/util/themeappicon.cpp -o CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.o: ../frame/window/MainWindow.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/window/MainWindow.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/window/MainWindow.cpp > CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/window/MainWindow.cpp -o CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.o: ../frame/xcb/xcb_misc.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/frame/xcb/xcb_misc.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/frame/xcb/xcb_misc.cpp > CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/frame/xcb/xcb_misc.cpp -o CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.o: frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp > CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp -o CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.s
+
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.o: frame/CMakeFiles/dde-top-panel.dir/flags.make
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.o: frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.o"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.o -c /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp
+
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.i"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp > CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.i
+
+frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.s"
+	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp -o CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.s
+
 # Object files for target dde-top-panel
 dde__top__panel_OBJECTS = \
 "CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.o" \
-"CMakeFiles/dde-top-panel.dir/main.cpp.o"
+"CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/appitem.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/main.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.o" \
+"CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.o"
 
 # External object files for target dde-top-panel
 dde__top__panel_EXTERNAL_OBJECTS =
 
 frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/mocs_compilation.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/__/widgets/ActiveWindowControlWidget.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/__/widgets/tipswidget.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/controller/dockitemmanager.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/controller/dockpluginscontroller.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dbus/dbusclientmanager.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdisplay.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dbus/dbusdockadaptors.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenu.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dbus/dbusmenumanager.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dbus/sni/statusnotifierwatcher_interface.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/appitem.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/components/appdrag.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/components/appdragwidget.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/components/appsnapshot.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/components/floatingpreview.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/components/hoverhighlighteffect.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/components/previewcontainer.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/dockitem.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/placeholderitem.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/pluginsitem.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/item/traypluginitem.cpp.o
 frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/main.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/panel/MainPanelControl.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/TopPanelSettings.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/XUtils.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/abstractpluginscontroller.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/dockpopupwindow.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/docksettings.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/imagefactory.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/imageutil.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/pluginloader.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/util/themeappicon.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/window/MainWindow.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/xcb/xcb_misc.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp.o
+frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp.o
 frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/build.make
 frame/dde-top-panel: /usr/lib/x86_64-linux-gnu/libQt5Concurrent.so.5.11.3
 frame/dde-top-panel: /usr/lib/x86_64-linux-gnu/libQt5X11Extras.so.5.11.3
@@ -102,7 +654,7 @@ frame/dde-top-panel: /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.11.3
 frame/dde-top-panel: /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.11.3
 frame/dde-top-panel: /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.11.3
 frame/dde-top-panel: frame/CMakeFiles/dde-top-panel.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable dde-top-panel"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Linking CXX executable dde-top-panel"
 	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/dde-top-panel.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -114,7 +666,8 @@ frame/CMakeFiles/dde-top-panel.dir/clean:
 	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame && $(CMAKE_COMMAND) -P CMakeFiles/dde-top-panel.dir/cmake_clean.cmake
 .PHONY : frame/CMakeFiles/dde-top-panel.dir/clean
 
-frame/CMakeFiles/dde-top-panel.dir/depend:
+frame/CMakeFiles/dde-top-panel.dir/depend: frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp
+frame/CMakeFiles/dde-top-panel.dir/depend: frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp
 	cd /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/septemberhx/Workspace/git/dde-top-panel /home/septemberhx/Workspace/git/dde-top-panel/frame /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/CMakeFiles/dde-top-panel.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : frame/CMakeFiles/dde-top-panel.dir/depend
 

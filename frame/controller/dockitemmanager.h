@@ -54,6 +54,10 @@ signals:
     void requestWindowAutoHide(const bool autoHide) const;
     void requestRefershWindowVisible() const;
 
+    // active window changed and title info changed information.
+    // Since deepin doesn't offer a proper API for it, I have to insert many points to archive this.
+    void windowInfoChanged() const;
+
 public slots:
     void refershItemsIcon();
     void sortPluginItems();

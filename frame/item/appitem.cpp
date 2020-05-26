@@ -118,6 +118,8 @@ AppItem::AppItem(const QDBusObjectPath &entry, QWidget *parent)
     connect(m_itemEntryInter, &DockEntryInter::WindowInfosChanged, this, &AppItem::updateWindowInfos, Qt::QueuedConnection);
     connect(m_itemEntryInter, &DockEntryInter::IconChanged, this, &AppItem::refershIcon);
 
+    connect(m_itemEntryInter, &DockEntryInter::CurrentWindowChanged, this, &AppItem::windowChanged);
+
     connect(m_updateIconGeometryTimer, &QTimer::timeout, this, &AppItem::updateWindowIconGeometries, Qt::QueuedConnection);
     connect(m_retryObtainIconTimer, &QTimer::timeout, this, &AppItem::refershIcon, Qt::QueuedConnection);
 
@@ -576,6 +578,14 @@ void AppItem::updateWindowInfos(const WindowInfoMap &info)
 {
     m_windowInfos = info;
     if (m_appPreviewTips) m_appPreviewTips->setWindowInfos(m_windowInfos, m_itemEntryInter->GetAllowedCloseWindows().value());
+
+//    qDebug() << "=================================" << "window info changed";
+    for (auto iter = info.begin(); iter != info.end(); ++iter) {
+        qDebug() << iter->title << iter->attention;
+    }
+
+    Q_EMIT windowInfoChanged();
+
     m_updateIconGeometryTimer->start();
 
     // process attention effect
@@ -622,6 +632,10 @@ void AppItem::refershIcon()
 void AppItem::activeChanged()
 {
     m_active = !m_active;
+
+//    qDebug() << "==================================" << "activeChanged triggered" << this->m_itemEntryInter->currentWindow() << m_active;
+
+    Q_EMIT windowInfoChanged();
 }
 
 void AppItem::showPreview()
@@ -723,4 +737,9 @@ void AppItem::onThemeTypeChanged(DGuiApplicationHelper::ColorType themeType)
 {
     m_themeType = themeType;
     update();
+}
+
+void AppItem::windowChanged(uint windowId) {
+//    qDebug() << "====================================================" << windowId;
+    Q_EMIT windowInfoChanged();
 }

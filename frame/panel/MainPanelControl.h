@@ -5,10 +5,14 @@
 #ifndef DDE_TOP_PANEL_MAINPANELCONTROL_H
 #define DDE_TOP_PANEL_MAINPANELCONTROL_H
 
-
 #include <QWidget>
 #include <QBoxLayout>
 #include "item/traypluginitem.h"
+#include <com_deepin_dde_daemon_dock_entry.h>
+#include <controller/dockitemmanager.h>
+#include "../widgets/ActiveWindowControlWidget.h"
+
+using DockEntryInter = com::deepin::dde::daemon::dock::Entry;
 
 class MainPanelControl : public QWidget
 {
@@ -43,10 +47,13 @@ private:
     QBoxLayout *m_trayAreaLayout;
     QWidget *m_pluginAreaWidget;
     QBoxLayout *m_pluginLayout;
+    DockItemManager *m_itemManager;
     Position m_position;
 
     int m_trayIconCount;
+
     TrayPluginItem *m_tray = nullptr;
+    ActiveWindowControlWidget *activeWindowControlWidget;
 };
 
 

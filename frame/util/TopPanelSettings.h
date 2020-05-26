@@ -13,6 +13,7 @@
 #include "dbus/dbusdisplay.h"
 
 using namespace Dock;
+using DBusDock = com::deepin::dde::daemon::Dock;    // use dbus to get the height/width, position and hide mode of the dock
 
 class TopPanelSettings : public QObject
 {
@@ -34,6 +35,7 @@ public:
     const QRect primaryRect() const;
 
     void showDockSettingsMenu();
+    void calculateWindowConfig();
 
     QSize m_mainWindowSize;
 
@@ -41,8 +43,6 @@ private slots:
     void menuActionClicked(QAction *action);
 
 private:
-    void calculateWindowConfig();
-
     explicit TopPanelSettings(QWidget *parent = 0);
     TopPanelSettings(TopPanelSettings const &) = delete;
     TopPanelSettings operator =(TopPanelSettings const &) = delete;
@@ -51,6 +51,7 @@ private:
     qreal dockRatio() const;
 
 private:
+    DBusDock *m_dockInter;
     int m_dockWindowSize;
     Position m_position;
 

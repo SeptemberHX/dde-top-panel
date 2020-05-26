@@ -38,6 +38,14 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/dde-dock" TYPE FILE FILES
+    "/home/septemberhx/Workspace/git/dde-top-panel/interfaces/constants.h"
+    "/home/septemberhx/Workspace/git/dde-top-panel/interfaces/pluginproxyinterface.h"
+    "/home/septemberhx/Workspace/git/dde-top-panel/interfaces/pluginsiteminterface.h"
+    )
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/septemberhx/Workspace/git/dde-top-panel/dde-dock.pc")
 endif()
 
@@ -64,6 +72,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/frame/cmake_install.cmake")
+  include("/home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug/plugins/cmake_install.cmake")
 
 endif()
 

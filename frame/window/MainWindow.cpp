@@ -9,6 +9,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : DBlurEffectWidget(parent)
+    , m_dockInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
     , m_mainPanel(new MainPanelControl(this))
     , m_xcbMisc(XcbMisc::instance())
     , m_platformWindowHandle(this, this)
@@ -41,12 +42,17 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_curDockPos = m_settings->position();
     setStrutPartial();
+
+    connect(this->m_dockInter, &DBusDock::PositionChanged, this, &MainWindow::resizeMainPanelWindow);
+    connect(this->m_dockInter, &DBusDock::DisplayModeChanged, this, &MainWindow::resizeMainPanelWindow);
+    connect(this->m_dockInter, &DBusDock::HideModeChanged, this, &MainWindow::resizeMainPanelWindow);
+    connect(this->m_dockInter, &DBusDock::WindowSizeChanged, this, &MainWindow::resizeMainPanelWindow);
 }
 
 void MainWindow::resizeMainPanelWindow()
 {
+    m_settings->calculateWindowConfig();
     m_mainPanel->setFixedSize(m_settings->m_mainWindowSize);
-
 //    switch (m_curDockPos) {
 //        case Dock::Top:
 //            m_dragWidget->setGeometry(0, height() - DRAG_AREA_SIZE, width(), DRAG_AREA_SIZE);
@@ -95,7 +101,7 @@ void MainWindow::setStrutPartial()
     const int maxScreenHeight = m_settings->screenRawHeight();
     const int maxScreenWidth = m_settings->screenRawWidth();
     const Position side = m_curDockPos;
-    const QPoint &p = rawXPosition(m_settings->windowRect(m_curDockPos, false).topLeft());
+    const QPoint &p = rawXPosition(m_settings->windowRect(Top, false).topLeft());
     const QSize &s = m_settings->windowSize();
     const QRect &primaryRawRect = m_settings->primaryRawRect();
 

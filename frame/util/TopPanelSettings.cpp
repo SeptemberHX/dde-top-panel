@@ -17,6 +17,7 @@ extern const QPoint rawXPosition(const QPoint &scaledPos);
 
 TopPanelSettings::TopPanelSettings(QWidget *parent)
         : QObject(parent)
+        , m_dockInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
         , m_dockWindowSize(EffICIENT_DEFAULT_HEIGHT)
         , m_position(Top)
         , m_displayMode(Dock::Efficient)
@@ -99,7 +100,13 @@ void TopPanelSettings::calculateWindowConfig()
         }
 
         m_mainWindowSize.setHeight(m_dockWindowSize);
-        m_mainWindowSize.setWidth(primaryRect().width() - 40);
+
+        int dockWidth = 0;
+        if (!this->m_dockInter->hideMode()
+            && (this->m_dockInter->position() == Left || this->m_dockInter->position() == Right)) {
+            dockWidth = this->m_dockInter->frontendWindowRect().operator QRect().width();
+        }
+        m_mainWindowSize.setWidth(primaryRect().width() - dockWidth);
     } else {
         Q_ASSERT(false);
     }

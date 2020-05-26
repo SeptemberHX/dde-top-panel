@@ -63,6 +63,8 @@ signals:
     void requestCancelPreview() const;
     void dragReady(QWidget *dragWidget);
 
+    void windowInfoChanged() const;
+
 private:
     void moveEvent(QMoveEvent *e) override;
     void paintEvent(QPaintEvent *e) override;
@@ -97,6 +99,8 @@ private slots:
     void onGSettingsChanged(const QString& key);
     bool checkGSettingsControl() const;
     void onThemeTypeChanged(DGuiApplicationHelper::ColorType themeType);
+
+    void windowChanged(uint windowId);
 
 private:
     TipsWidget *m_appNameTips;

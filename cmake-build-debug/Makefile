@@ -182,6 +182,32 @@ dde-top-panel_autogen/fast:
 	$(MAKE) -f frame/CMakeFiles/dde-top-panel_autogen.dir/build.make frame/CMakeFiles/dde-top-panel_autogen.dir/build
 .PHONY : dde-top-panel_autogen/fast
 
+#=============================================================================
+# Target rules for targets named tray
+
+# Build rule for target.
+tray: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tray
+.PHONY : tray
+
+# fast build rule for target.
+tray/fast:
+	$(MAKE) -f plugins/tray/CMakeFiles/tray.dir/build.make plugins/tray/CMakeFiles/tray.dir/build
+.PHONY : tray/fast
+
+#=============================================================================
+# Target rules for targets named tray_autogen
+
+# Build rule for target.
+tray_autogen: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tray_autogen
+.PHONY : tray_autogen
+
+# fast build rule for target.
+tray_autogen/fast:
+	$(MAKE) -f plugins/tray/CMakeFiles/tray_autogen.dir/build.make plugins/tray/CMakeFiles/tray_autogen.dir/build
+.PHONY : tray_autogen/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -196,6 +222,8 @@ help:
 	@echo "... install"
 	@echo "... dde-top-panel"
 	@echo "... dde-top-panel_autogen"
+	@echo "... tray"
+	@echo "... tray_autogen"
 .PHONY : help
 
 

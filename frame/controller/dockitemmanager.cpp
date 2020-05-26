@@ -44,6 +44,7 @@ DockItemManager::DockItemManager(QObject *parent)
         connect(it, &AppItem::requestActivateWindow, m_appInter, &DBusDock::ActivateWindow, Qt::QueuedConnection);
         connect(it, &AppItem::requestPreviewWindow, m_appInter, &DBusDock::PreviewWindow);
         connect(it, &AppItem::requestCancelPreview, m_appInter, &DBusDock::CancelPreviewWindow);
+        connect(it, &AppItem::windowInfoChanged, this, &DockItemManager::windowInfoChanged);
 
         m_itemList.append(it);
     }
@@ -188,6 +189,7 @@ void DockItemManager::appItemAdded(const QDBusObjectPath &path, const int index)
     connect(item, &AppItem::requestActivateWindow, m_appInter, &DBusDock::ActivateWindow, Qt::QueuedConnection);
     connect(item, &AppItem::requestPreviewWindow, m_appInter, &DBusDock::PreviewWindow);
     connect(item, &AppItem::requestCancelPreview, m_appInter, &DBusDock::CancelPreviewWindow);
+    connect(item, &AppItem::windowInfoChanged, this, &DockItemManager::windowInfoChanged);
 
     m_itemList.insert(insertIndex, item);
 

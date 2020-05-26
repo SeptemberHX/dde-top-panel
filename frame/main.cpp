@@ -34,7 +34,6 @@ int main(int argc, char *argv[]) {
     DockItemManager::instance()->startLoadPlugins();
 
     mw.show();
-    qDebug() << mw.pos();
 
     return app.exec();
 }

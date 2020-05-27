@@ -1,7 +1,0 @@
-/home/septemberhx/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/septemberhx/Workspace/git/dde-top-panel
-OS: Deepin, Version: 20 Beta
-Deepin OS Type: Desktop
-Deepin OS Version: 20 Beta
--- Configuring done
--- Generating done
--- Build files have been written to: /home/septemberhx/Workspace/git/dde-top-panel/cmake-build-debug

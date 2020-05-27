@@ -1,6 +1,0 @@
-# Hashes of file build rules.
-1ef271a943f73761d0d526860ca7801a frame/CMakeFiles/dde-top-panel_autogen
-080a439773bb117b892dc65ade2b4f87 frame/dde-top-panel_autogen/EWIEGA46WW/qrc_frame.cpp
-84f6709495b9955fbcf901074c640f5f frame/dde-top-panel_autogen/GCPDG3WMVT/qrc_item.cpp
-d9041ea971bc4b5b06e93a7e4e5e5ec9 plugins/tray/CMakeFiles/tray_autogen
-85fcdc15ccda2d439504e8cc41a9718e plugins/tray/tray_autogen/EWIEGA46WW/qrc_tray.cpp

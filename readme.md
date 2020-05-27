@@ -27,6 +27,7 @@ Know issues:
 ## Screenshot
 
 ![](./screenshots/toppanel.png)
+![](./screenshots/demo.gif)
 
 ## How to run
 

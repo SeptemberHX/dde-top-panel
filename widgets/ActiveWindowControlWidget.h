@@ -50,6 +50,8 @@ private:
     QToolButton *minButton;
     QToolButton *maxButton;
 
+    QLabel *m_iconLabel;
+
     DBusDock *m_appInter;
 };
 

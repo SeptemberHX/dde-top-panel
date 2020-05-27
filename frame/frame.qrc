@@ -6,5 +6,6 @@
         <file alias="close.svg">resources/icons/close.svg</file>
         <file alias="maximum.svg">resources/icons/maximum.svg</file>
         <file alias="minimum.svg">resources/icons/minimum.svg</file>
+        <file alias="linux.svg">resources/icons/linux.svg</file>
     </qresource>
 </RCC>

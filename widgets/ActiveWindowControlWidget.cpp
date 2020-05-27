@@ -12,8 +12,13 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 {
     this->m_layout = new QHBoxLayout(this);
     this->m_layout->setSpacing(12);
-    this->m_layout->setContentsMargins(10, 10, 10, 10);
+    this->m_layout->setContentsMargins(10, 5, 10, 5);
     this->setLayout(this->m_layout);
+
+    this->m_iconLabel = new QLabel(this);
+    this->m_iconLabel->setFixedSize(30, 30);
+    this->m_iconLabel->setScaledContents(true);
+    this->m_layout->addWidget(this->m_iconLabel);
 
     int buttonSize = 24;
     this->closeButton = new QToolButton(this);
@@ -61,6 +66,10 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     if (activeWinTitle != this->currActiveWinTitle) {
         this->currActiveWinTitle = activeWinTitle;
         this->m_winTitleLabel->setText(this->currActiveWinTitle);
+    }
+
+    if (!activeWinTitle.isEmpty()) {
+        this->m_iconLabel->setPixmap(XUtils::getWindowIconName(this->currActiveWinId));
     }
 
     if (XUtils::checkIfWinMaximum(this->currActiveWinId)) {

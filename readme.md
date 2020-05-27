@@ -22,11 +22,11 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 Know issues:
 * it seems impossible to set the minimum height of the top panel less than 40, or there will be abnormal left and right spacing/margin around the plugin widgets. `setMargins` and `setSpacing` seem not work.
 * The position of the top panel somethings will not be the top when there are some windows block it.
-* The corner of the top panel is round. `setRadius` doesn't help
 
 ## Screenshot
 
-![](./screenshots/toppanel.png)
+![](./screenshots/toppanel1.png)
+![](./screenshots/toppanel2.png)
 ![](./screenshots/demo.gif)
 
 ## How to run

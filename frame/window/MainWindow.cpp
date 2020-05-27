@@ -22,14 +22,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     m_settings = &TopPanelSettings::Instance();
     m_xcbMisc->set_window_type(winId(), XcbMisc::Dock);
-//    m_size = m_settings->m_mainWindowSize;
     m_mainPanel->setDisplayMode(m_settings->displayMode());
     m_mainPanel->move(0, 0);
 
     this->resizeMainPanelWindow();
     this->initConnections();
 
-//    m_mainPanel->setDelegate(this);
     for (auto item : DockItemManager::instance()->itemList())
         m_mainPanel->insertItem(-1, item);
 

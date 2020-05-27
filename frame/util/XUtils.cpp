@@ -2,11 +2,14 @@
 // Created by septemberhx on 2020/5/26.
 //
 
+#include <QImage>
 #include "XUtils.h"
 #include "xdo.h"
 #include <X11/Xlib.h>
 #include <X11/Xw32defs.h>
 #include <iostream>
+#include <X11/Xutil.h>
+#include <X11/Xatom.h>
 
 xdo_t *XUtils::m_xdo = nullptr;
 Display *XUtils::m_display = nullptr;
@@ -113,6 +116,54 @@ void XUtils::unmaximizeWindow(int winId) {
     xev.xclient.data.l[2] = max_vert;
 
     XSendEvent(m_xdo->xdpy, DefaultRootWindow(m_xdo->xdpy), True, SubstructureNotifyMask, &xev);
+}
+
+QPixmap XUtils::getWindowIconName(int winId) {
+    openXdo();
+
+    Atom prop = XInternAtom(m_xdo->xdpy, "_NET_WM_ICON", False);
+    Atom actualType;
+    unsigned char *data;
+    int actualFormat;
+    ulong nitem;
+    ulong bytes;
+    XGetWindowProperty(m_xdo->xdpy, winId, prop, 0, 2, False, XA_CARDINAL, &actualType, &actualFormat, &nitem, &bytes, &data);
+
+    unsigned long *cur_set = (unsigned long *)data;
+    if (cur_set == NULL) {  // return default image
+        return QPixmap(":/icons/linux.svg");
+    }
+
+    int width = cur_set[0];
+    int height = cur_set[1];
+    XFree(data);
+
+    XGetWindowProperty(m_xdo->xdpy, winId, prop, 2, width * height, False, XA_CARDINAL, &actualType, &actualFormat, &nitem, &bytes, &data);
+    unsigned int* imgData = new unsigned int[width * height];
+    unsigned long* ul = (unsigned long*) data;
+    for (int i=0; i < nitem; ++i)
+    {
+        imgData[i] = (unsigned int)ul[i];
+    }
+    XFree(data);
+
+    QImage image(width, height, QImage::Format_ARGB32);
+    unsigned char* argb = (unsigned char*)imgData;
+    for(int y = 0; y < height; y++)
+    {
+        for(int x = 0; x < width; x++)
+        {
+            unsigned char a = argb[3];
+            unsigned char r = argb[2] * a / 255;
+            unsigned char g = argb[1] * a / 255;
+            unsigned char b = argb[0] * a / 255;
+            QRgb value = qRgba(r, g, b, a);
+            image.setPixel(x, y, value);
+            argb += 4;
+        }
+    }
+
+    return QPixmap::fromImage(image);
 }
 
 //int XUtils::cmd_getActiveWindow(context_t *context) {

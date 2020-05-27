@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <schema path="/com/deepin/dde/toppanel/" id="com.deepin.dde.toppanel">
+        <key type="u" name="icon-size">
+            <default>36</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key type="u" name="window-size-efficient">
+            <default>40</default>
+            <range min="40" max="100" />
+            <summary>Efficient mode window size</summary>
+            <description></description>
+        </key>
+
+        <key type="u" name="delay-plugins-time">
+            <default>0</default>
+            <summary>Control plug-in delay loading time</summary>
+            <description></description>
+        </key>
+
+        <key type="s" name="plugin-settings">
+            <default>'{}'</default>
+            <summary></summary>
+            <description></description>
+        </key>
+    </schema>
+</schemalist>

@@ -109,6 +109,7 @@ void MainWindow::setStrutPartial()
 
     XcbMisc::Orientation orientation = XcbMisc::OrientationTop;
     uint strut = 0;
+    uint strutTop = 0;
     uint strutStart = 0;
     uint strutEnd = 0;
 
@@ -117,8 +118,10 @@ void MainWindow::setStrutPartial()
         case Position::Top:
             orientation = XcbMisc::OrientationTop;
             strut = p.y() + s.height() * ratio;
+            strutTop = p.y();
             strutStart = p.x();
             strutEnd = qMin(qRound(p.x() + s.width() * ratio), primaryRawRect.right());
+            strutTop.setTop(strutTop);
             strutArea.setLeft(strutStart);
             strutArea.setRight(strutEnd);
             strutArea.setBottom(strut);

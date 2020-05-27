@@ -31,8 +31,9 @@ Know issues:
 
 ## How to run
 
-1. cp `xml/*.xml` to `/usr/share/glib-2.0/schemas`, and run `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
-2. download the file `bin/dde-top-panel` and run it.
+1. download zip from release page and unzip it
+1. cp `*.xml` to `/usr/share/glib-2.0/schemas`, and run `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
+2. run `./dde-top-panel`
 3. for removing the title bar of maximized windows, make sure your `~/.config/kwinrc` contains items below, then logout.
 ```shell script
 [Windows]

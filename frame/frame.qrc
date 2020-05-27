@@ -2,4 +2,9 @@
     <qresource prefix="/">
         <file>qss/frame.qss</file>
     </qresource>
+    <qresource prefix="/icons">
+        <file alias="close.svg">resources/icons/close.svg</file>
+        <file alias="maximum.svg">resources/icons/maximum.svg</file>
+        <file alias="minimum.svg">resources/icons/minimum.svg</file>
+    </qresource>
 </RCC>

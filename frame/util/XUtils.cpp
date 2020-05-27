@@ -35,11 +35,11 @@ int XUtils::getFocusWindowId() {
 }
 
 QString XUtils::getWindowName(int winId) {
-    int nameLen;
+    int nameLen = -1;
     int nameType;
     unsigned char *windowName;
     int ret = xdo_get_window_name(m_xdo, winId, &windowName, &nameLen, &nameType);
-    if (ret != XDO_SUCCESS) {
+    if (ret != XDO_SUCCESS || nameLen < 0 || nameLen > 256) {
         return "";
     }
 

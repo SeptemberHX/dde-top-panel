@@ -36,9 +36,17 @@ public slots:
     void removeItem(DockItem *item);
     void itemUpdated(DockItem *item);
 
+signals:
+    void emptyAreaDoubleClicked();
+
 private:
     void init();
     void resizeDockIcon();
+
+protected:
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
+
+private:
     void calcuDockIconSize(const int w, const int h, PluginsItem *trashPlugin, PluginsItem *shutdownPlugin, PluginsItem *keyboardPlugin);
 
 private:

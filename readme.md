@@ -11,14 +11,18 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 
 > Still in development.
 
+## Features
+
+* show window title on top panel
+* show title buttons on top panel when current window maximized
+* double click on empty area on top panel will maximize current window
+* coping with `~/.config/kwinrc` can remove the window title bar when maximized
+
 
 Know issues:
 * it seems impossible to set the minimum height of the top panel less than 40, or there will be abnormal left and right spacing/margin around the plugin widgets. `setMargins` and `setSpacing` seem not work.
 * The position of the top panel somethings will not be the top when there are some windows block it.
 * The corner of the top panel is round. `setRadius` doesn't help
-
-
-There are still many issues, but at least it works with tray and plugins.
 
 ## Screenshot
 
@@ -28,3 +32,8 @@ There are still many issues, but at least it works with tray and plugins.
 
 1. cp `xml/*.xml` to `/usr/share/glib-2.0/schemas`, and run `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
 2. download the file `bin/dde-top-panel` and run it.
+3. for removing the title bar of maximized windows, make sure your `~/.config/kwinrc` contains items below, then logout.
+```shell script
+[Windows]
+BorderlessMaximizedWindows=true
+```

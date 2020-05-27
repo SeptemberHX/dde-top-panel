@@ -47,6 +47,7 @@ void MainPanelControl::init() {
 
 //    this->m_xdo = xdo_new(nullptr);
     connect(m_itemManager, &DockItemManager::windowInfoChanged, this->activeWindowControlWidget, &ActiveWindowControlWidget::activeWindowInfoChanged);
+    connect(this, &MainPanelControl::emptyAreaDoubleClicked, this->activeWindowControlWidget, &ActiveWindowControlWidget::maximizeWindow);
     this->activeWindowControlWidget->activeWindowInfoChanged();
     this->setMouseTracking(true);
 }
@@ -305,6 +306,14 @@ void MainPanelControl::addPluginAreaItem(int index, QWidget *wdg) {
     qDebug() << "Plugin widget size: " << wdg->size();
     resizeDockIcon();
     m_pluginAreaWidget->adjustSize();
+}
+
+void MainPanelControl::mouseDoubleClickEvent(QMouseEvent *event) {
+    QWidget::mouseDoubleClickEvent(event);
+    QWidget *clickedWidget = childAt(event->pos());
+    if (clickedWidget == nullptr) {
+        Q_EMIT emptyAreaDoubleClicked();
+    }
 }
 
 // ----------> For tray area end <----------

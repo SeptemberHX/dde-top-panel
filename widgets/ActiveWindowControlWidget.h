@@ -22,6 +22,10 @@ public:
 
 public slots:
     void activeWindowInfoChanged();
+    void maximizeWindow();
+
+protected:
+    void mouseDoubleClickEvent(QMouseEvent *event) override;
 
 protected:
     void enterEvent(QEvent *event) override;
@@ -32,6 +36,8 @@ private:
 
 private slots:
     void maxButtonClicked();
+    void minButtonClicked();
+    void closeButtonClicked();
 
 private:
     QHBoxLayout *m_layout;

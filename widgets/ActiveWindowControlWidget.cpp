@@ -11,18 +11,24 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
 {
     this->m_layout = new QHBoxLayout(this);
+    this->m_layout->setSpacing(12);
+    this->m_layout->setContentsMargins(10, 10, 10, 10);
     this->setLayout(this->m_layout);
 
+    int buttonSize = 24;
     this->closeButton = new QToolButton(this);
-    this->closeButton->setIcon(QIcon::fromTheme("close"));
+    this->closeButton->setFixedSize(buttonSize, buttonSize);
+    this->closeButton->setIcon(QIcon(":/icons/close.svg"));
     this->m_layout->addWidget(this->closeButton);
 
     this->minButton = new QToolButton(this);
-    this->minButton->setIcon(QIcon::fromTheme("minimum"));
+    this->minButton->setFixedSize(buttonSize, buttonSize);
+    this->minButton->setIcon(QIcon(":/icons/minimum.svg"));
     this->m_layout->addWidget(this->minButton);
 
     this->maxButton = new QToolButton(this);
-    this->maxButton->setIcon(QIcon::fromTheme("maximum"));
+    this->maxButton->setFixedSize(buttonSize, buttonSize);
+    this->maxButton->setIcon(QIcon(":/icons/maximum.svg"));
     this->m_layout->addWidget(this->maxButton);
 
     this->m_winTitleLabel = new QLabel(this);
@@ -35,6 +41,8 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->setMouseTracking(true);
 
     connect(this->maxButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::maxButtonClicked);
+    connect(this->minButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::minButtonClicked);
+    connect(this->closeButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::closeButtonClicked);
 }
 
 void ActiveWindowControlWidget::activeWindowInfoChanged() {
@@ -91,4 +99,23 @@ void ActiveWindowControlWidget::maxButtonClicked() {
         // sadly the dbus maximizeWindow cannot unmaximize window :(
         this->m_appInter->MaximizeWindow(this->currActiveWinId);
     }
+
+    this->activeWindowInfoChanged();
+}
+
+void ActiveWindowControlWidget::minButtonClicked() {
+    this->m_appInter->MinimizeWindow(this->currActiveWinId);
+}
+
+void ActiveWindowControlWidget::closeButtonClicked() {
+    this->m_appInter->CloseWindow(this->currActiveWinId);
+}
+
+void ActiveWindowControlWidget::maximizeWindow() {
+    this->maxButtonClicked();
+}
+
+void ActiveWindowControlWidget::mouseDoubleClickEvent(QMouseEvent *event) {
+    this->maximizeWindow();
+    QWidget::mouseDoubleClickEvent(event);
 }

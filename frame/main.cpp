@@ -33,7 +33,5 @@ int main(int argc, char *argv[]) {
     MainWindow mw;
     DockItemManager::instance()->startLoadPlugins();
 
-    mw.show();
-
     return app.exec();
 }

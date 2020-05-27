@@ -20,13 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     setMouseTracking(true);
     setAcceptDrops(true);
 
-    DPlatformWindowHandle::enableDXcbForWindow(this, true);
-    m_platformWindowHandle.setEnableBlurWindow(true);
-    m_platformWindowHandle.setTranslucentBackground(true);
-    m_platformWindowHandle.setWindowRadius(0);
-    m_platformWindowHandle.setShadowOffset(QPoint(0, 5));
-    m_platformWindowHandle.setShadowColor(QColor(0, 0, 0, 0.3 * 255));
-
     m_settings = &TopPanelSettings::Instance();
     m_xcbMisc->set_window_type(winId(), XcbMisc::Dock);
 //    m_size = m_settings->m_mainWindowSize;
@@ -47,6 +40,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->m_dockInter, &DBusDock::DisplayModeChanged, this, &MainWindow::resizeMainPanelWindow);
     connect(this->m_dockInter, &DBusDock::HideModeChanged, this, &MainWindow::resizeMainPanelWindow);
     connect(this->m_dockInter, &DBusDock::WindowSizeChanged, this, &MainWindow::resizeMainPanelWindow);
+
+
+    setVisible(true);
+    // platformwindowhandle only works when the widget is visible...
+    DPlatformWindowHandle::enableDXcbForWindow(this, true);
+    m_platformWindowHandle.setEnableBlurWindow(true);
+    m_platformWindowHandle.setTranslucentBackground(true);
+    m_platformWindowHandle.setWindowRadius(0);  // have no idea why it doesn't work :(
+    m_platformWindowHandle.setShadowOffset(QPoint(0, 5));
+    m_platformWindowHandle.setShadowColor(QColor(0, 0, 0, 0.3 * 255));
+    m_platformWindowHandle.setBorderWidth(1);
 }
 
 void MainWindow::resizeMainPanelWindow()

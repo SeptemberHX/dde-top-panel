@@ -31,6 +31,8 @@
 *.out
 *.app
 
+# Complied executable file
+bin/ddedde-top-panel
 
 .idea
 cmake-build-debug

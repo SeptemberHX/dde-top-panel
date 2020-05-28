@@ -30,10 +30,10 @@ int main(int argc, char *argv[]) {
     app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
     app.setAttribute(Qt::AA_UseHighDpiPixmaps, false);
 
-    MainWindow mw(qApp->primaryScreen());
-    mw.loadPlugins();
+//    MainWindow mw(qApp->primaryScreen());
+//    mw.loadPlugins();
 
-//    TopPanelLauncher launcher;
+    TopPanelLauncher launcher;
 
     return app.exec();
 }

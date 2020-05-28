@@ -42,6 +42,15 @@ TopPanelSettings::TopPanelSettings(DockItemManager *itemManager, QScreen *screen
     calculateWindowConfig();
 }
 
+void TopPanelSettings::moveToScreen(QScreen *screen) {
+    this->m_screen = screen;
+    m_primaryRawRect = screen->geometry();
+    m_screenRawWidth = screen->geometry().width();
+    m_screenRawHeight = screen->geometry().height();
+
+    calculateWindowConfig();
+}
+
 void TopPanelSettings::showDockSettingsMenu()
 {
     // create actions

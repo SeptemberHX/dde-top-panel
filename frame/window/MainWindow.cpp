@@ -7,9 +7,9 @@
 #include "controller/dockitemmanager.h"
 #include "util/utils.h"
 
-MainWindow::MainWindow(QScreen *screen, QWidget *parent)
+MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     : DBlurEffectWidget(parent)
-    , m_itemManager(new DockItemManager(this, false))
+    , m_itemManager(new DockItemManager(this, enableBlacklist))
     , m_dockInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
     , m_mainPanel(new MainPanelControl(this))
     , m_xcbMisc(XcbMisc::instance())
@@ -200,14 +200,91 @@ void MainWindow::loadPlugins() {
     this->m_itemManager->startLoadPlugins();
 }
 
+void MainWindow::moveToScreen(QScreen *screen) {
+    m_settings->moveToScreen(screen);
+    QThread::msleep(300);  // sleep for a short while to make sure the movement is successful
+    this->move(m_settings->m_frontendRect.topLeft());
+    this->setStrutPartial();
+}
+
+void MainWindow::setRaidus(int radius) {
+    m_platformWindowHandle.setWindowRadius(radius);  // have no idea why it doesn't work :(
+}
+
 TopPanelLauncher::TopPanelLauncher()
     : m_display(new DBusDisplay(this))
 {
+    primaryScreen = qApp->primaryScreen();
     connect(m_display, &DBusDisplay::MonitorsChanged, this, &TopPanelLauncher::monitorsChanged);
+    connect(m_display, &DBusDisplay::PrimaryChanged, this, &TopPanelLauncher::primaryChanged);
+    this->rearrange();
 }
 
 void TopPanelLauncher::monitorsChanged() {
     for (auto p_screen : qApp->screens()) {
         qDebug() << p_screen << p_screen->name() << p_screen->geometry();
     }
+
+    rearrange();
+}
+
+void TopPanelLauncher::rearrange() {
+    for (auto p_screen : qApp->screens()) {
+        if (mwMap.contains(p_screen->name())) {
+            continue;
+        }
+
+        MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
+        mw->loadPlugins();
+        mwMap.insert(p_screen->name(), mw);
+    }
+
+    for (auto screen : mwMap.keys()) {
+        QScreen *targetScreen = nullptr;
+        for (auto s : qApp->screens()) {
+            if (s->name() == screen) {
+                targetScreen = s;
+                break;
+            }
+        }
+
+        if (targetScreen == nullptr) {
+            mwMap[screen]->close();
+            mwMap.remove(screen);
+        }
+    }
+}
+
+void TopPanelLauncher::primaryChanged() {
+    QScreen *currPrimaryScreen = qApp->primaryScreen();
+    if (currPrimaryScreen == primaryScreen) return;
+
+    // prevent raw primary screen is destroyed (unplugged)
+    bool ifRawPrimaryExists = qApp->screens().contains(primaryScreen);
+
+    MainWindow *pMw = nullptr;
+    if (ifRawPrimaryExists) {
+        pMw = mwMap[primaryScreen->name()];
+        pMw->hide();
+    }
+
+    if (mwMap.contains(currPrimaryScreen->name())) {
+        mwMap[currPrimaryScreen->name()]->hide();
+        mwMap[currPrimaryScreen->name()]->moveToScreen(primaryScreen);
+
+        if (mwMap.contains(primaryScreen->name())) {
+            mwMap[primaryScreen->name()] = mwMap[currPrimaryScreen->name()];
+        }
+    }
+
+    if (ifRawPrimaryExists) {
+        pMw->moveToScreen(currPrimaryScreen);
+        mwMap[currPrimaryScreen->name()] = pMw;
+        pMw->show();
+        pMw->setRaidus(0);
+        mwMap[primaryScreen->name()]->show();
+        mwMap[primaryScreen->name()]->setRaidus(0);
+    }
+
+    this->primaryScreen = currPrimaryScreen;
 }

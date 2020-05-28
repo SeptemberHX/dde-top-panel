@@ -21,11 +21,12 @@ class MainWindow : public DBlurEffectWidget
     Q_OBJECT
 
 public:
-    explicit MainWindow(QScreen *screen, QWidget *parent = 0);
+    explicit MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent = 0);
     ~MainWindow() override;
 
     void loadPlugins();
-
+    void moveToScreen(QScreen *screen);
+    void setRaidus(int radius);
 signals:
     void panelGeometryChanged();
 
@@ -54,9 +55,13 @@ public:
 
 private slots:
     void monitorsChanged();
+    void primaryChanged();
 
 private:
+    QScreen *primaryScreen;
     DBusDisplay *m_display;
+    QMap<QString, MainWindow *> mwMap;
+    void rearrange();
 };
 
 

@@ -41,6 +41,8 @@ public:
     QSize m_mainWindowSize;
     QRect m_frontendRect;
 
+    void moveToScreen(QScreen *screen);
+
 private slots:
     void menuActionClicked(QAction *action);
 

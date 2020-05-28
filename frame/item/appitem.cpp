@@ -580,9 +580,9 @@ void AppItem::updateWindowInfos(const WindowInfoMap &info)
     if (m_appPreviewTips) m_appPreviewTips->setWindowInfos(m_windowInfos, m_itemEntryInter->GetAllowedCloseWindows().value());
 
 //    qDebug() << "=================================" << "window info changed";
-    for (auto iter = info.begin(); iter != info.end(); ++iter) {
-        qDebug() << iter->title << iter->attention;
-    }
+//    for (auto iter = info.begin(); iter != info.end(); ++iter) {
+//        qDebug() << iter->title << iter->attention;
+//    }
 
     Q_EMIT windowInfoChanged();
 

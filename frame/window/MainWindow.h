@@ -27,6 +27,7 @@ public:
     void loadPlugins();
     void moveToScreen(QScreen *screen);
     void setRaidus(int radius);
+    void adjustPanelSize();
 signals:
     void panelGeometryChanged();
 
@@ -45,6 +46,7 @@ private:
     XcbMisc *m_xcbMisc;
     Position m_curDockPos;
     DPlatformWindowHandle m_platformWindowHandle;
+    QVBoxLayout *m_layout;
 };
 
 class TopPanelLauncher : public QObject {
@@ -60,7 +62,7 @@ private slots:
 private:
     QScreen *primaryScreen;
     DBusDisplay *m_display;
-    QMap<QString, MainWindow *> mwMap;
+    QMap<QScreen *, MainWindow *> mwMap;
     void rearrange();
 };
 

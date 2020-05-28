@@ -14,12 +14,20 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     , m_mainPanel(new MainPanelControl(this))
     , m_xcbMisc(XcbMisc::instance())
     , m_platformWindowHandle(this, this)
+    , m_layout(new QVBoxLayout(this))
 {
     setAccessibleName("dock-top-panel-mainwindow");
     m_mainPanel->setAccessibleName("dock-top-panel-mainpanel");
     setAttribute(Qt::WA_TranslucentBackground);
     setMouseTracking(true);
     setAcceptDrops(true);
+
+    this->setLayout(this->m_layout);
+    this->m_layout->addWidget(m_mainPanel);
+    this->setFixedHeight(40);
+    this->m_layout->setContentsMargins(0, 0, 0, 0);
+    this->m_layout->setSpacing(0);
+    this->m_layout->setMargin(0);
 
     m_settings = new TopPanelSettings(m_itemManager, screen, this);
     m_xcbMisc->set_window_type(winId(), XcbMisc::Dock);
@@ -202,7 +210,10 @@ void MainWindow::loadPlugins() {
 
 void MainWindow::moveToScreen(QScreen *screen) {
     m_settings->moveToScreen(screen);
-    QThread::msleep(300);  // sleep for a short while to make sure the movement is successful
+    this->resize(m_settings->m_mainWindowSize);
+    m_mainPanel->resize(m_settings->m_mainWindowSize);
+    m_mainPanel->adjustSize();
+    QThread::msleep(100);  // sleep for a short while to make sure the movement is successful
     this->move(m_settings->m_frontendRect.topLeft());
     this->setStrutPartial();
 }
@@ -211,45 +222,45 @@ void MainWindow::setRaidus(int radius) {
     m_platformWindowHandle.setWindowRadius(radius);  // have no idea why it doesn't work :(
 }
 
+void MainWindow::adjustPanelSize() {
+    this->m_mainPanel->adjustSize();
+}
+
 TopPanelLauncher::TopPanelLauncher()
     : m_display(new DBusDisplay(this))
 {
-    primaryScreen = qApp->primaryScreen();
     connect(m_display, &DBusDisplay::MonitorsChanged, this, &TopPanelLauncher::monitorsChanged);
-    connect(m_display, &DBusDisplay::PrimaryChanged, this, &TopPanelLauncher::primaryChanged);
+//    connect(m_display, &DBusDisplay::PrimaryChanged, this, &TopPanelLauncher::primaryChanged);
     this->rearrange();
 }
 
 void TopPanelLauncher::monitorsChanged() {
-    for (auto p_screen : qApp->screens()) {
-        qDebug() << p_screen << p_screen->name() << p_screen->geometry();
-    }
-
     rearrange();
 }
 
 void TopPanelLauncher::rearrange() {
+    this->primaryChanged();
+
     for (auto p_screen : qApp->screens()) {
-        if (mwMap.contains(p_screen->name())) {
+        if (mwMap.contains(p_screen)) {
+            // adjust size
+            mwMap[p_screen]->hide();
+            mwMap[p_screen]->moveToScreen(p_screen);
+            mwMap[p_screen]->show();
+            mwMap[p_screen]->setRaidus(0);
             continue;
         }
 
+        qDebug() << "===========> create top panel on" << p_screen->name();
         MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
         mw->loadPlugins();
-        mwMap.insert(p_screen->name(), mw);
+        mwMap.insert(p_screen, mw);
     }
 
     for (auto screen : mwMap.keys()) {
-        QScreen *targetScreen = nullptr;
-        for (auto s : qApp->screens()) {
-            if (s->name() == screen) {
-                targetScreen = s;
-                break;
-            }
-        }
-
-        if (targetScreen == nullptr) {
+        if (!qApp->screens().contains(screen)) {
             mwMap[screen]->close();
+            qDebug() << "===========> close top panel";
             mwMap.remove(screen);
         }
     }
@@ -258,32 +269,53 @@ void TopPanelLauncher::rearrange() {
 void TopPanelLauncher::primaryChanged() {
     QScreen *currPrimaryScreen = qApp->primaryScreen();
     if (currPrimaryScreen == primaryScreen) return;
+    if (primaryScreen == nullptr) {
+        primaryScreen = currPrimaryScreen;
+        return;
+    }
 
     // prevent raw primary screen is destroyed (unplugged)
     bool ifRawPrimaryExists = qApp->screens().contains(primaryScreen);
+    bool ifCurrPrimaryExisted = mwMap.contains(currPrimaryScreen);
+    bool ifRawPrimaryExisted = mwMap.contains(primaryScreen);
 
     MainWindow *pMw = nullptr;
-    if (ifRawPrimaryExists) {
-        pMw = mwMap[primaryScreen->name()];
+    if (ifRawPrimaryExisted) {
+        pMw = mwMap[primaryScreen];
         pMw->hide();
     }
 
-    if (mwMap.contains(currPrimaryScreen->name())) {
-        mwMap[currPrimaryScreen->name()]->hide();
-        mwMap[currPrimaryScreen->name()]->moveToScreen(primaryScreen);
-
-        if (mwMap.contains(primaryScreen->name())) {
-            mwMap[primaryScreen->name()] = mwMap[currPrimaryScreen->name()];
+    if (ifCurrPrimaryExisted) {
+        mwMap[currPrimaryScreen]->hide();
+        if (ifRawPrimaryExists) {
+            mwMap[currPrimaryScreen]->moveToScreen(primaryScreen);
+            mwMap[primaryScreen] = mwMap[currPrimaryScreen];
+        } else {
+            mwMap[currPrimaryScreen]->close();
+            mwMap.remove(primaryScreen);
         }
     }
 
-    if (ifRawPrimaryExists) {
+    if (ifRawPrimaryExisted) {
         pMw->moveToScreen(currPrimaryScreen);
-        mwMap[currPrimaryScreen->name()] = pMw;
+        if (mwMap.contains(currPrimaryScreen)) {
+            mwMap[currPrimaryScreen] = pMw;
+        } else {
+            mwMap.insert(currPrimaryScreen, pMw);
+        }
         pMw->show();
         pMw->setRaidus(0);
-        mwMap[primaryScreen->name()]->show();
-        mwMap[primaryScreen->name()]->setRaidus(0);
+
+        if (ifRawPrimaryExists) {
+            mwMap[primaryScreen]->show();
+            mwMap[primaryScreen]->setRaidus(0);
+        } else {
+            mwMap.remove(primaryScreen);
+        }
+
+        if (!ifCurrPrimaryExisted) {
+            mwMap.remove(primaryScreen);
+        }
     }
 
     this->primaryScreen = currPrimaryScreen;

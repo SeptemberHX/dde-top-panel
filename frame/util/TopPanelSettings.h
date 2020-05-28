@@ -40,6 +40,7 @@ public:
 
     QSize m_mainWindowSize;
     QRect m_frontendRect;
+    QScreen *m_screen;
 
     void moveToScreen(QScreen *screen);
 
@@ -66,7 +67,6 @@ private:
     DockItemManager *m_itemManager;
     int m_screenRawHeight;
     int m_screenRawWidth;
-    QScreen *m_screen;
 };
 
 

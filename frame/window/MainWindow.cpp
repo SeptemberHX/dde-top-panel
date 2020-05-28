@@ -7,8 +7,9 @@
 #include "controller/dockitemmanager.h"
 #include "util/utils.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QScreen *screen, QWidget *parent)
     : DBlurEffectWidget(parent)
+    , m_itemManager(new DockItemManager(this, false))
     , m_dockInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
     , m_mainPanel(new MainPanelControl(this))
     , m_xcbMisc(XcbMisc::instance())
@@ -20,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     setMouseTracking(true);
     setAcceptDrops(true);
 
-    m_settings = &TopPanelSettings::Instance();
+    m_settings = new TopPanelSettings(m_itemManager, screen, this);
     m_xcbMisc->set_window_type(winId(), XcbMisc::Dock);
     m_mainPanel->setDisplayMode(m_settings->displayMode());
     m_mainPanel->move(0, 0);
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     this->resizeMainPanelWindow();
     this->initConnections();
 
-    for (auto item : DockItemManager::instance()->itemList())
+    for (auto item : m_itemManager->itemList())
         m_mainPanel->insertItem(-1, item);
 
     m_curDockPos = m_settings->position();
@@ -39,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->m_dockInter, &DBusDock::HideModeChanged, this, &MainWindow::resizeMainPanelWindow);
     connect(this->m_dockInter, &DBusDock::WindowSizeChanged, this, &MainWindow::resizeMainPanelWindow);
 
+//    this->windowHandle()->setScreen(screen);
+    this->move(m_settings->m_frontendRect.topLeft());
 
     setVisible(true);
     // platformwindowhandle only works when the widget is visible...
@@ -121,7 +124,7 @@ void MainWindow::setStrutPartial()
             strutTop = p.y();
             strutStart = p.x();
             strutEnd = qMin(qRound(p.x() + s.width() * ratio), primaryRawRect.right());
-            strutTop.setTop(strutTop);
+            strutArea.setTop(strutTop);
             strutArea.setLeft(strutStart);
             strutArea.setRight(strutEnd);
             strutArea.setBottom(strut);
@@ -179,9 +182,9 @@ void MainWindow::setStrutPartial()
 
 void MainWindow::initConnections() {
 //    connect(m_settings, &DockSettings::windowHideModeChanged, this, &MainWindow::setStrutPartial, Qt::QueuedConnection);
-    connect(DockItemManager::instance(), &DockItemManager::itemInserted, m_mainPanel, &MainPanelControl::insertItem, Qt::DirectConnection);
-    connect(DockItemManager::instance(), &DockItemManager::itemUpdated, m_mainPanel, &MainPanelControl::itemUpdated, Qt::DirectConnection);
-    connect(DockItemManager::instance(), &DockItemManager::itemRemoved, m_mainPanel, &MainPanelControl::removeItem, Qt::DirectConnection);
+    connect(m_itemManager, &DockItemManager::itemInserted, m_mainPanel, &MainPanelControl::insertItem, Qt::DirectConnection);
+    connect(m_itemManager, &DockItemManager::itemUpdated, m_mainPanel, &MainPanelControl::itemUpdated, Qt::DirectConnection);
+    connect(m_itemManager, &DockItemManager::itemRemoved, m_mainPanel, &MainPanelControl::removeItem, Qt::DirectConnection);
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *e)
@@ -190,5 +193,21 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
     if (e->button() == Qt::RightButton) {
         m_settings->showDockSettingsMenu();
         return;
+    }
+}
+
+void MainWindow::loadPlugins() {
+    this->m_itemManager->startLoadPlugins();
+}
+
+TopPanelLauncher::TopPanelLauncher()
+    : m_display(new DBusDisplay(this))
+{
+    connect(m_display, &DBusDisplay::MonitorsChanged, this, &TopPanelLauncher::monitorsChanged);
+}
+
+void TopPanelLauncher::monitorsChanged() {
+    for (auto p_screen : qApp->screens()) {
+        qDebug() << p_screen << p_screen->name() << p_screen->geometry();
     }
 }

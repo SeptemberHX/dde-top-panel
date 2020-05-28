@@ -40,6 +40,7 @@ class DockItemManager : public QObject
 
 public:
     static DockItemManager *instance(QObject *parent = nullptr);
+    explicit DockItemManager(QObject *parent = nullptr, bool enableBlacklist = false);
 
     const QList<QPointer<DockItem> > itemList() const;
     const QList<PluginsItemInterface *> pluginList() const;
@@ -66,7 +67,6 @@ public slots:
     void itemAdded(const QString &appDesktop, int idx);
 
 private:
-    explicit DockItemManager(QObject *parent = nullptr);
     void appItemAdded(const QDBusObjectPath &path, const int index);
     void appItemRemoved(const QString &appId);
     void appItemRemoved(AppItem *appItem);
@@ -83,6 +83,8 @@ private:
     static DockItemManager *INSTANCE;
 
     QList<QPointer<DockItem>> m_itemList;
+
+    bool enableBlacklist;
 };
 
 #endif // DOCKITEMMANAGER_H

@@ -21,8 +21,10 @@ class MainWindow : public DBlurEffectWidget
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QScreen *screen, QWidget *parent = 0);
     ~MainWindow() override;
+
+    void loadPlugins();
 
 signals:
     void panelGeometryChanged();
@@ -35,12 +37,26 @@ private:
     void initConnections();
 
 private:
+    DockItemManager *m_itemManager;
     DBusDock *m_dockInter;
     MainPanelControl *m_mainPanel;
     TopPanelSettings *m_settings;
     XcbMisc *m_xcbMisc;
     Position m_curDockPos;
     DPlatformWindowHandle m_platformWindowHandle;
+};
+
+class TopPanelLauncher : public QObject {
+    Q_OBJECT
+
+public:
+    explicit TopPanelLauncher();
+
+private slots:
+    void monitorsChanged();
+
+private:
+    DBusDisplay *m_display;
 };
 
 

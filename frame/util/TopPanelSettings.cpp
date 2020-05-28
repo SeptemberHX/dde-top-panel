@@ -15,18 +15,19 @@
 extern const QPoint rawXPosition(const QPoint &scaledPos);
 
 
-TopPanelSettings::TopPanelSettings(QWidget *parent)
+TopPanelSettings::TopPanelSettings(DockItemManager *itemManager, QScreen *screen, QWidget *parent)
         : QObject(parent)
         , m_dockInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
         , m_dockWindowSize(EffICIENT_DEFAULT_HEIGHT)
         , m_position(Top)
         , m_displayMode(Dock::Efficient)
         , m_displayInter(new DBusDisplay(this))
-        , m_itemManager(DockItemManager::instance(this))
+        , m_itemManager(itemManager)
+        , m_screen(screen)
 {
-    m_primaryRawRect = m_displayInter->primaryRawRect();
-    m_screenRawHeight = m_displayInter->screenRawHeight();
-    m_screenRawWidth = m_displayInter->screenRawWidth();
+    m_primaryRawRect = screen->geometry();
+    m_screenRawHeight = screen->geometry().height();
+    m_screenRawWidth = screen->geometry().width();
 
     m_hideSubMenu = new QMenu(&m_settingsMenu);
     m_hideSubMenu->setAccessibleName("pluginsmenu");
@@ -103,6 +104,7 @@ void TopPanelSettings::calculateWindowConfig()
 
         int dockWidth = 0;
         if (!this->m_dockInter->hideMode()
+            && this->m_screen == qApp->primaryScreen()
             && (this->m_dockInter->position() == Left || this->m_dockInter->position() == Right)) {
             dockWidth = this->m_dockInter->frontendWindowRect().operator QRect().width();
         }
@@ -149,8 +151,8 @@ const QRect TopPanelSettings::windowRect(const Position position, const bool hid
     }
 
     const QRect primaryRect = this->primaryRect();
-    const int offsetX = (primaryRect.width() - size.width()) / 2;
-    const int offsetY = (primaryRect.height() - size.height()) / 2;
+    const int offsetX = (primaryRect.width() - size.width());
+    const int offsetY = (primaryRect.height() - size.height());
     int margin = hide ?  0 : this->dockMargin();
     QPoint p(0, 0);
     switch (position) {
@@ -182,10 +184,4 @@ qreal TopPanelSettings::dockRatio() const
     QScreen const *screen = Utils::screenAtByScaled(m_frontendRect.center());
 
     return screen ? screen->devicePixelRatio() : qApp->devicePixelRatio();
-}
-
-TopPanelSettings &TopPanelSettings::Instance()
-{
-    static TopPanelSettings settings;
-    return settings;
 }

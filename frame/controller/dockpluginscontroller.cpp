@@ -27,10 +27,11 @@
 #include <QDir>
 #include <QDrag>
 
-DockPluginsController::DockPluginsController(QObject *parent)
+DockPluginsController::DockPluginsController(bool enableBlacklist, QObject *parent)
     : AbstractPluginsController(parent)
 {
     setObjectName("DockPlugin");
+    this->enableBlacklist = enableBlacklist;
 }
 
 void DockPluginsController::itemAdded(PluginsItemInterface *const itemInter, const QString &itemKey)

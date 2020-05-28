@@ -30,11 +30,11 @@
 
 DockItemManager *DockItemManager::INSTANCE = nullptr;
 
-DockItemManager::DockItemManager(QObject *parent)
+DockItemManager::DockItemManager(QObject *parent, bool enableBlacklist)
     : QObject(parent)
     , m_updatePluginsOrderTimer(new QTimer(this))
     , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
-    , m_pluginsInter(new DockPluginsController(this))
+    , m_pluginsInter(new DockPluginsController(enableBlacklist, this))
 {
     // 应用区域
     for (auto entry : m_appInter->entries()) {

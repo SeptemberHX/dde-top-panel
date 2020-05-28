@@ -188,6 +188,13 @@ void AbstractPluginsController::loadPlugin(const QString &pluginFile)
             return;
     }
 
+    if (enableBlacklist) {
+        if (interface->pluginName() == "tray") {
+            qDebug() << "Prevent from loading tray plugin due to the blacklist";
+            return;
+        }
+    }
+
     m_pluginsMap.insert(interface, QMap<QString, QObject *>());
 
     QString dbusService = meta.value("depends-daemon-dbus-service").toString();

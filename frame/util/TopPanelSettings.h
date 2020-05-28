@@ -20,6 +20,8 @@ class TopPanelSettings : public QObject
     Q_OBJECT
 
 public:
+    explicit TopPanelSettings(DockItemManager *itemManager, QScreen *screen, QWidget *parent = 0);
+
     inline DisplayMode displayMode() const { return m_displayMode; }
     inline Position position() const { return m_position; }
     inline int screenRawHeight() const { return m_screenRawHeight; }
@@ -31,19 +33,18 @@ public:
 
     const int dockMargin() const;
 
-    static TopPanelSettings &Instance();
     const QRect primaryRect() const;
 
     void showDockSettingsMenu();
     void calculateWindowConfig();
 
     QSize m_mainWindowSize;
+    QRect m_frontendRect;
 
 private slots:
     void menuActionClicked(QAction *action);
 
 private:
-    explicit TopPanelSettings(QWidget *parent = 0);
     TopPanelSettings(TopPanelSettings const &) = delete;
     TopPanelSettings operator =(TopPanelSettings const &) = delete;
 
@@ -58,12 +59,12 @@ private:
     DisplayMode m_displayMode;
     DBusDisplay *m_displayInter;
     QRect m_primaryRawRect;
-    QRect m_frontendRect;
     QMenu m_settingsMenu;
     QMenu *m_hideSubMenu;
     DockItemManager *m_itemManager;
     int m_screenRawHeight;
     int m_screenRawWidth;
+    QScreen *m_screen;
 };
 
 

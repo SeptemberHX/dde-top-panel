@@ -49,6 +49,7 @@ protected:
     QObject *pluginItemAt(PluginsItemInterface * const itemInter, const QString &itemKey) const;
     PluginsItemInterface *pluginInterAt(const QString &itemKey);
     PluginsItemInterface *pluginInterAt(QObject *destItem);
+    bool enableBlacklist;
 
 protected Q_SLOTS:
     void startLoader(PluginLoader *loader);

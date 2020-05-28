@@ -167,9 +167,7 @@ void AbstractPluginsController::loadPlugin(const QString &pluginFile)
         pluginIsValid = false;
     }
 
-    qDebug() << "======================================================" << pluginLoader->isLoaded();
     PluginsItemInterface *interface = qobject_cast<PluginsItemInterface *>(pluginLoader->instance());
-    qDebug() << "====================================================== create plug instance:" << interface->pluginName();
     if (!interface) {
         qWarning() << objectName() << "load plugin failed!!!" << pluginLoader->errorString() << pluginFile;
 

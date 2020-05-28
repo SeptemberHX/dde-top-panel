@@ -253,7 +253,9 @@ void TopPanelLauncher::rearrange() {
 
         qDebug() << "===========> create top panel on" << p_screen->name();
         MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
-        mw->loadPlugins();
+        if (p_screen == qApp->primaryScreen()) {
+            mw->loadPlugins();
+        }
         mwMap.insert(p_screen, mw);
     }
 

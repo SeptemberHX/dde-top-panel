@@ -1,5 +1,7 @@
 # DDE Top Panel
 
+【中文请看】：[Deepin 论坛](https://bbs.deepin.org/forum.php?mod=viewthread&tid=195128&extra=)
+
 Top panel for deepin desktop environment v20.
 
 This is a modification of dde-dock for top panel. Comparing to dde-dock, it:

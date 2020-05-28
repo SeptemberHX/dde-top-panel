@@ -19,11 +19,11 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 * show title buttons on top panel when current window maximized
 * double click on empty area on top panel will maximize current window
 * coping with `~/.config/kwinrc` can remove the window title bar when maximized
-
+* support multi monitors
 
 Know issues:
 * it seems impossible to set the minimum height of the top panel less than 40, or there will be abnormal left and right spacing/margin around the plugin widgets. `setMargins` and `setSpacing` seem not work.
-* The position of the top panel somethings will not be the top when there are some windows block it.
+* panels on **non-primary monitors** only have the window title function. The plugins can not work on them. `It is not an issue` because the `QPluginLoader` can only create one instance from one plugin file. So the panel cannot create as many plugin widgets as the panels. Still trying to add the plugin back to all panels
 
 ## Screenshot
 

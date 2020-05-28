@@ -203,7 +203,7 @@ void DockItemManager::appItemAdded(const QDBusObjectPath &path, const int index)
 
 void DockItemManager::appItemRemoved(const QString &appId)
 {
-    for (int i(0); i != m_itemList.size(); ++i) {
+    for (int i(0); i < m_itemList.size(); ++i) {
         if (m_itemList[i]->itemType() != DockItem::App)
             continue;
 

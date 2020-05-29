@@ -41,3 +41,4 @@ Know issues:
 [Windows]
 BorderlessMaximizedWindows=true
 ```
+4. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`

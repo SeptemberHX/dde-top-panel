@@ -15,6 +15,7 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 
 ## Features
 
+* 34px height (40px height before)
 * show window title on top panel
 * show title buttons on top panel when current window maximized
 * double click on empty area on top panel will maximize current window
@@ -22,7 +23,6 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 * support multi monitors
 
 Know issues:
-* it seems impossible to set the minimum height of the top panel less than 40, or there will be abnormal left and right spacing/margin around the plugin widgets. `setMargins` and `setSpacing` seem not work.
 * panels on **non-primary monitors** only have the window title function. The plugins can not work on them. `It is not an issue` because the `QPluginLoader` can only create one instance from one plugin file. So the panel cannot create as many plugin widgets as the panels. Still trying to add the plugin back to all panels
 * title bar feature not works with Aurorae theme !
 

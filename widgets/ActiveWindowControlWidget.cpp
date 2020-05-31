@@ -24,19 +24,19 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->closeButton = new QToolButton(this);
     this->closeButton->setFixedSize(buttonSize, buttonSize);
     this->closeButton->setIcon(QIcon(":/icons/close.svg"));
-    this->closeButton->setIconSize(this->closeButton->size());
+    this->closeButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     this->m_layout->addWidget(this->closeButton);
 
     this->minButton = new QToolButton(this);
     this->minButton->setFixedSize(buttonSize, buttonSize);
     this->minButton->setIcon(QIcon(":/icons/minimum.svg"));
-    this->minButton->setIconSize(this->minButton->size());
+    this->minButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     this->m_layout->addWidget(this->minButton);
 
     this->maxButton = new QToolButton(this);
     this->maxButton->setFixedSize(buttonSize, buttonSize);
     this->maxButton->setIcon(QIcon(":/icons/maximum.svg"));
-    this->maxButton->setIconSize(this->maxButton->size());
+    this->maxButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     this->m_layout->addWidget(this->maxButton);
 
     this->m_winTitleLabel = new QLabel(this);

@@ -26,8 +26,10 @@ TopPanelSettings::TopPanelSettings(DockItemManager *itemManager, QScreen *screen
         , m_screen(screen)
 {
     m_primaryRawRect = screen->geometry();
-    m_screenRawHeight = screen->geometry().height();
-    m_screenRawWidth = screen->geometry().width();
+    m_primaryRawRect.setHeight(m_primaryRawRect.height() * screen->devicePixelRatio());
+    m_primaryRawRect.setWidth(m_primaryRawRect.width() * screen->devicePixelRatio());
+    m_screenRawHeight = m_primaryRawRect.height();
+    m_screenRawWidth = m_primaryRawRect.width();
 
     m_hideSubMenu = new QMenu(&m_settingsMenu);
     m_hideSubMenu->setAccessibleName("pluginsmenu");
@@ -45,8 +47,10 @@ TopPanelSettings::TopPanelSettings(DockItemManager *itemManager, QScreen *screen
 void TopPanelSettings::moveToScreen(QScreen *screen) {
     this->m_screen = screen;
     m_primaryRawRect = screen->geometry();
-    m_screenRawWidth = screen->geometry().width();
-    m_screenRawHeight = screen->geometry().height();
+    m_primaryRawRect.setHeight(m_primaryRawRect.height() * screen->devicePixelRatio());
+    m_primaryRawRect.setWidth(m_primaryRawRect.width() * screen->devicePixelRatio());
+    m_screenRawWidth = m_primaryRawRect.width();
+    m_screenRawHeight = m_primaryRawRect.height();
 
     calculateWindowConfig();
 }
@@ -115,7 +119,7 @@ void TopPanelSettings::calculateWindowConfig()
         if (!this->m_dockInter->hideMode()
             && this->m_screen == qApp->primaryScreen()
             && (this->m_dockInter->position() == Left || this->m_dockInter->position() == Right)) {
-            dockWidth = this->m_dockInter->frontendWindowRect().operator QRect().width();
+            dockWidth = this->m_dockInter->frontendWindowRect().operator QRect().width() / qApp->primaryScreen()->devicePixelRatio();
         }
         m_mainWindowSize.setWidth(primaryRect().width() - dockWidth);
     } else {
@@ -128,7 +132,7 @@ void TopPanelSettings::calculateWindowConfig()
 const QRect TopPanelSettings::primaryRect() const
 {
     QRect rect = m_primaryRawRect;
-    qreal scale = qApp->primaryScreen()->devicePixelRatio();
+    qreal scale = this->m_screen->devicePixelRatio();
 
     rect.setWidth(std::round(qreal(rect.width()) / scale));
     rect.setHeight(std::round(qreal(rect.height()) / scale));

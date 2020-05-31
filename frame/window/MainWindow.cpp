@@ -50,7 +50,7 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     setStrutPartial();
 
 //    this->windowHandle()->setScreen(screen);
-    this->move(m_settings->m_frontendRect.topLeft());
+    this->move(m_settings->m_frontendRect.topLeft() / m_settings->m_screen->devicePixelRatio());
 
     setVisible(true);
     // platformwindowhandle only works when the widget is visible...
@@ -185,7 +185,6 @@ void MainWindow::setStrutPartial()
         qWarning() << maxScreenHeight << maxScreenWidth << side << p << s;
         return;
     }
-
     m_xcbMisc->set_strut_partial(winId(), orientation, strut + m_settings->dockMargin() * ratio, strutStart, strutEnd);
 }
 
@@ -222,7 +221,7 @@ void MainWindow::moveToScreen(QScreen *screen) {
     m_mainPanel->resize(m_settings->m_mainWindowSize);
     m_mainPanel->adjustSize();
     QThread::msleep(100);  // sleep for a short while to make sure the movement is successful
-    this->move(m_settings->m_frontendRect.topLeft());
+    this->move(m_settings->m_frontendRect.topLeft() / m_settings->m_screen->devicePixelRatio());
     this->setStrutPartial();
 }
 

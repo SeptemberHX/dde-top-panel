@@ -56,6 +56,23 @@ QString XUtils::getWindowName(int winId) {
     return QString(name);
 }
 
+bool XUtils::checkIfBadWindow(int winId) {
+    openXdo();
+
+    unsigned char *value;
+    long n;
+
+    Atom atom = XInternAtom(m_xdo->xdpy, "_NET_WM_NAME", false);
+    Atom actualType;
+    unsigned long ntimes;
+    unsigned long bytes_after;
+    int actualFormat;
+    unsigned char *prop;
+
+    int status = XGetWindowProperty(m_xdo->xdpy, winId, atom, 0, (~0L), False, AnyPropertyType, &actualType, &actualFormat, &ntimes, &bytes_after, &prop);
+    return status == BadWindow;
+}
+
 void XUtils::openDisplay() {
     if (m_display == nullptr) {
         m_display = XOpenDisplay(NULL);

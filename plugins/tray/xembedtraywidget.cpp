@@ -79,8 +79,13 @@ XEmbedTrayWidget::XEmbedTrayWidget(quint32 winId, QWidget *parent)
     : AbstractTrayWidget(parent)
     , m_windowId(winId)
     , m_appName(getAppNameForWindow(winId))
+    , m_shared(new QSharedMemory("__tray__2020_05_31"))
 {
-    wrapWindow();
+    m_containerWindowTimer = new QTimer(this);
+    m_containerWindowTimer->setInterval(1000);
+    connect(m_containerWindowTimer, &QTimer::timeout, this, &XEmbedTrayWidget::refreshContainerWindowId);
+    m_containerWindowTimer->start();
+    refreshContainerWindowId();
 
     m_updateTimer = new QTimer(this);
     m_updateTimer->setInterval(100);
@@ -516,4 +521,54 @@ bool XEmbedTrayWidget::isBadWindow()
     auto cookie = xcb_get_geometry(c, m_windowId);
     QScopedPointer<xcb_get_geometry_reply_t> clientGeom(xcb_get_geometry_reply(c, cookie, Q_NULLPTR));
     return clientGeom.isNull();
+}
+
+void XEmbedTrayWidget::refreshContainerWindowId() {
+    bool ifNeedWrap = true;
+    if (!m_shared->isAttached()) {
+        if (m_shared->attach()) {
+            qDebug() << "shared memory attached successfully";
+        } else {
+            if (m_shared->error() == QSharedMemory::NotFound) {  // doesn't exists
+                if (m_shared->create(1024 * 1024)) {  // 1MB shared memory
+                } else {
+                    qWarning() << "Failed to create shared memory for xembedtraywidget !";
+                }
+            } else {
+
+            }
+        }
+    }
+
+    char *data = static_cast<char *>(m_shared->data());
+    QJsonObject dataJson = QJsonDocument::fromJson(QString(data).toUtf8()).object();
+
+    if (m_shared->isAttached()) {
+        if (dataJson.contains(QString::number(this->m_windowId))) {  // container exists
+            qlonglong existsContainerId = dataJson.value(QString::number(this->m_windowId)).toVariant().value<qlonglong>();
+            QWindow *win = QWindow::fromWinId(existsContainerId);
+            if (win != nullptr) {
+                this->m_containerWid = existsContainerId;
+                ifNeedWrap = false;
+            } else {
+                qDebug() << "Invalid container window id";
+            }
+        }
+    }
+
+    if (ifNeedWrap) {
+        wrapWindow();
+        if (m_shared->isAttached()) {  // update the shared window ids
+            m_shared->lock();
+
+            dataJson.insert(QString::number(m_windowId), QString::number(m_containerWid));
+
+            QString dataJsonStr = QJsonDocument(dataJson).toJson();
+            memcpy(data, dataJsonStr.toStdString().data(), dataJsonStr.toStdString().size());
+
+            m_shared->unlock();
+        } else {  // we can't attatch to the shared memory...
+            qWarning() << "Cannot save the container window id !";
+        }
+    }
 }

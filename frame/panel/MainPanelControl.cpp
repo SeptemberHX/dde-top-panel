@@ -33,13 +33,13 @@ void MainPanelControl::init() {
     m_trayAreaWidget->setAccessibleName("trayarea");
     m_trayAreaLayout->setMargin(0);
     m_trayAreaLayout->setSpacing(0);
-    m_trayAreaLayout->setContentsMargins(0, 10, 0, 10);
+    m_trayAreaLayout->setContentsMargins(0, 6, 0, 6);
 
     // 插件
     m_pluginAreaWidget->setLayout(m_pluginLayout);
     m_pluginAreaWidget->setAccessibleName("pluginarea");
     m_pluginLayout->setMargin(0);
-    m_pluginLayout->setSpacing(10);
+    m_pluginLayout->setSpacing(8);
     m_pluginLayout->setContentsMargins(10, 0, 10, 0);
 
     m_pluginAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
@@ -49,7 +49,7 @@ void MainPanelControl::init() {
     connect(m_itemManager, &DockItemManager::windowInfoChanged, this->activeWindowControlWidget, &ActiveWindowControlWidget::activeWindowInfoChanged);
     connect(this, &MainPanelControl::emptyAreaDoubleClicked, this->activeWindowControlWidget, &ActiveWindowControlWidget::maximizeWindow);
     this->activeWindowControlWidget->activeWindowInfoChanged();
-    this->setFixedHeight(40);
+    this->setFixedHeight(32);
     this->setMouseTracking(true);
 }
 
@@ -210,7 +210,7 @@ void MainPanelControl::calcuDockIconSize(int w, int h, PluginsItem *trashPlugin,
 
     if ((m_position == Position::Top) || (m_position == Position::Bottom)) {
         w = qBound(20, w, 40);
-        tray_item_size = std::min(w, h - 20);
+        tray_item_size = std::min(w, h);
     } else {
         h = qBound(20, h, 40);
         tray_item_size = std::min(w - 20, h);
@@ -247,7 +247,9 @@ void MainPanelControl::calcuDockIconSize(int w, int h, PluginsItem *trashPlugin,
                 } else if (pItem->pluginName() == "AiAssistant"){
                     pItem->setFixedSize(tray_item_size, h - 20);
                 } else {
+                    qDebug() << pItem->pluginName() << pItem->size();
                     pItem->setFixedSize(pItem->sizeHint().width(), h);
+                    qDebug() << pItem->pluginName() << "width:" << pItem->sizeHint().width() << "height:" << h;
                 }
             }
         }
@@ -299,14 +301,14 @@ void MainPanelControl::getTrayVisableItemCount()
 }
 
 void MainPanelControl::setDisplayMode(DisplayMode mode) {
-    qDebug() << "Not allowed to change display mode";
+    qDebug() << "Not allowed to cQhange display mode";
 }
 
 void MainPanelControl::addPluginAreaItem(int index, QWidget *wdg) {
     m_pluginLayout->insertWidget(index, wdg, 0, Qt::AlignCenter);
     qDebug() << "Plugin widget size: " << wdg->size();
-    resizeDockIcon();
     m_pluginAreaWidget->adjustSize();
+    resizeDockIcon();
 }
 
 void MainPanelControl::mouseDoubleClickEvent(QMouseEvent *event) {

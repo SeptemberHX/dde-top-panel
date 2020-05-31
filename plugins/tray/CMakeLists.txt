@@ -13,7 +13,8 @@ file(GLOB_RECURSE SRCS "*.h" "*.cpp" "../../widgets/*.h" "../../widgets/*.cpp"
     "../../frame/dbus/dbusmenu.h" "../../frame/dbus/dbusmenu.cpp"
     "../../frame/dbus/dbusmenumanager.h" "../../frame/dbus/dbusmenumanager.cpp"
      "../../widgets/*.h" "../../widgets/*.cpp"
-     "../../frame/util/imageutil.h" "../../frame/util/imageutil.cpp")
+     "../../frame/util/imageutil.h" "../../frame/util/imageutil.cpp"
+        "../../frame/util/XUtils.h" "../../frame/util/XUtils.cpp")
 
 find_package(PkgConfig REQUIRED)
 find_package(Qt5Widgets REQUIRED)
@@ -49,6 +50,7 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE
     ${DFrameworkDBus_LIBRARIES}
     ${QGSettings_LIBRARIES}
     pthread
+    xdo
 )
 
 install(TARGETS ${PLUGIN_NAME} LIBRARY DESTINATION lib/dde-dock/plugins)

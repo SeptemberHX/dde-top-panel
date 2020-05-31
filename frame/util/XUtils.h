@@ -26,6 +26,7 @@ public:
     static bool checkIfWinMaximum(int winId);
     static void unmaximizeWindow(int winId);
     static QPixmap getWindowIconName(int winId);
+    static bool checkIfBadWindow(int winid);
 //    static int cmd_getActiveWindow(context_t *context);
     static xdo_t *m_xdo;
 

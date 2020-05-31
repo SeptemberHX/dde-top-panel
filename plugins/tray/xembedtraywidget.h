@@ -26,6 +26,7 @@
 
 #include <QWidget>
 #include <QTimer>
+#include <QSharedMemory>
 
 class XEmbedTrayWidget : public AbstractTrayWidget
 {
@@ -64,6 +65,8 @@ private slots:
     void setWindowOnTop(const bool top);
     bool isBadWindow();
 
+    void refreshContainerWindowId();
+
 private:
     bool m_active = false;
     WId m_windowId;
@@ -73,6 +76,9 @@ private:
 
     QTimer *m_updateTimer;
     QTimer *m_sendHoverEvent;
+
+    QTimer *m_containerWindowTimer;
+    QSharedMemory *m_shared;
     bool m_valid = true;
 };
 

@@ -8,9 +8,9 @@
 #include <QScreen>
 #include <QAction>
 
-#define EffICIENT_DEFAULT_HEIGHT 40
+#define EffICIENT_DEFAULT_HEIGHT 32
 #define WINDOW_MAX_SIZE          100
-#define WINDOW_MIN_SIZE          40
+#define WINDOW_MIN_SIZE          32
 
 extern const QPoint rawXPosition(const QPoint &scaledPos);
 

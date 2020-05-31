@@ -7,6 +7,9 @@
 #include "controller/dockitemmanager.h"
 #include "util/utils.h"
 
+#define SNI_WATCHER_SERVICE "org.kde.StatusNotifierWatcher"
+#define SNI_WATCHER_PATH "/StatusNotifierWatcher"
+
 MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     : DBlurEffectWidget(parent)
     , m_itemManager(new DockItemManager(this, enableBlacklist))
@@ -15,6 +18,8 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     , m_xcbMisc(XcbMisc::instance())
     , m_platformWindowHandle(this, this)
     , m_layout(new QVBoxLayout(this))
+    , m_dbusDaemonInterface(QDBusConnection::sessionBus().interface())
+    , m_sniWatcher(new org::kde::StatusNotifierWatcher(SNI_WATCHER_SERVICE, SNI_WATCHER_PATH, QDBusConnection::sessionBus(), this))
 {
     setAccessibleName("dock-top-panel-mainwindow");
     m_mainPanel->setAccessibleName("dock-top-panel-mainpanel");
@@ -24,7 +29,7 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
 
     this->setLayout(this->m_layout);
     this->m_layout->addWidget(m_mainPanel);
-    this->setFixedHeight(40);
+    this->setFixedHeight(32);
     this->m_layout->setContentsMargins(0, 0, 0, 0);
     this->m_layout->setSpacing(0);
     this->m_layout->setMargin(0);
@@ -34,19 +39,15 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     m_mainPanel->setDisplayMode(m_settings->displayMode());
     m_mainPanel->move(0, 0);
 
-    this->resizeMainPanelWindow();
+    this->initSNIHost();
     this->initConnections();
+    this->resizeMainPanelWindow();
 
     for (auto item : m_itemManager->itemList())
         m_mainPanel->insertItem(-1, item);
 
     m_curDockPos = m_settings->position();
     setStrutPartial();
-
-    connect(this->m_dockInter, &DBusDock::PositionChanged, this, &MainWindow::resizeMainPanelWindow);
-    connect(this->m_dockInter, &DBusDock::DisplayModeChanged, this, &MainWindow::resizeMainPanelWindow);
-    connect(this->m_dockInter, &DBusDock::HideModeChanged, this, &MainWindow::resizeMainPanelWindow);
-    connect(this->m_dockInter, &DBusDock::WindowSizeChanged, this, &MainWindow::resizeMainPanelWindow);
 
 //    this->windowHandle()->setScreen(screen);
     this->move(m_settings->m_frontendRect.topLeft());
@@ -193,6 +194,13 @@ void MainWindow::initConnections() {
     connect(m_itemManager, &DockItemManager::itemInserted, m_mainPanel, &MainPanelControl::insertItem, Qt::DirectConnection);
     connect(m_itemManager, &DockItemManager::itemUpdated, m_mainPanel, &MainPanelControl::itemUpdated, Qt::DirectConnection);
     connect(m_itemManager, &DockItemManager::itemRemoved, m_mainPanel, &MainPanelControl::removeItem, Qt::DirectConnection);
+
+    connect(this->m_dockInter, &DBusDock::PositionChanged, this, &MainWindow::resizeMainPanelWindow);
+    connect(this->m_dockInter, &DBusDock::DisplayModeChanged, this, &MainWindow::resizeMainPanelWindow);
+    connect(this->m_dockInter, &DBusDock::HideModeChanged, this, &MainWindow::resizeMainPanelWindow);
+    connect(this->m_dockInter, &DBusDock::WindowSizeChanged, this, &MainWindow::resizeMainPanelWindow);
+
+    connect(m_dbusDaemonInterface, &QDBusConnectionInterface::serviceOwnerChanged, this, &MainWindow::onDbusNameOwnerChanged);
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *e)
@@ -224,6 +232,30 @@ void MainWindow::setRaidus(int radius) {
 
 void MainWindow::adjustPanelSize() {
     this->m_mainPanel->adjustSize();
+}
+
+void MainWindow::onDbusNameOwnerChanged(const QString &name, const QString &oldOwner, const QString &newOwner) {
+    Q_UNUSED(oldOwner)
+
+    if (name == SNI_WATCHER_SERVICE && !newOwner.isEmpty()) {
+        qDebug() << SNI_WATCHER_SERVICE << "SNI watcher daemon started, register dock to watcher as SNI Host";
+        m_sniWatcher->RegisterStatusNotifierHost(m_sniHostService);
+    }
+}
+
+void MainWindow::initSNIHost()
+{
+    // registor dock as SNI Host on dbus
+    QDBusConnection dbusConn = QDBusConnection::sessionBus();
+    m_sniHostService = QString("org.kde.StatusNotifierHost-") + QString::number(qApp->applicationPid());
+    dbusConn.registerService(m_sniHostService);
+    dbusConn.registerObject("/StatusNotifierHost", this);
+
+    if (m_sniWatcher->isValid()) {
+        m_sniWatcher->RegisterStatusNotifierHost(m_sniHostService);
+    } else {
+        qDebug() << SNI_WATCHER_SERVICE << "SNI watcher daemon is not exist for now!";
+    }
 }
 
 TopPanelLauncher::TopPanelLauncher()

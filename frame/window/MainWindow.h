@@ -10,6 +10,8 @@
 #include "../panel/MainPanelControl.h"
 #include "util/TopPanelSettings.h"
 #include "xcb/xcb_misc.h"
+#include "dbus/sni/statusnotifierwatcher_interface.h"
+
 
 DWIDGET_USE_NAMESPACE
 
@@ -31,12 +33,16 @@ public:
 signals:
     void panelGeometryChanged();
 
+private slots:
+    void onDbusNameOwnerChanged(const QString &name, const QString &oldOwner, const QString &newOwner);
+
 private:
     void mousePressEvent(QMouseEvent *e);
     void resizeMainPanelWindow();
     void clearStrutPartial();
     void setStrutPartial();
     void initConnections();
+    void initSNIHost();
 
 private:
     DockItemManager *m_itemManager;
@@ -47,6 +53,9 @@ private:
     Position m_curDockPos;
     DPlatformWindowHandle m_platformWindowHandle;
     QVBoxLayout *m_layout;
+    QDBusConnectionInterface *m_dbusDaemonInterface;
+    org::kde::StatusNotifierWatcher *m_sniWatcher;
+    QString m_sniHostService;
 };
 
 class TopPanelLauncher : public QObject {

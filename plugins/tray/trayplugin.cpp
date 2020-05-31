@@ -83,8 +83,8 @@ void TrayPlugin::init(PluginProxyInterface *proxyInter)
     m_refreshSNIItemsTimer = new QTimer(this);
     m_tipsLabel = new TipsWidget;
 
-    m_refreshXEmbedItemsTimer->setInterval(0);
-    m_refreshXEmbedItemsTimer->setSingleShot(true);
+    m_refreshXEmbedItemsTimer->setInterval(1000);
+//    m_refreshXEmbedItemsTimer->setSingleShot(true);
 
     m_refreshSNIItemsTimer->setInterval(0);
     m_refreshSNIItemsTimer->setSingleShot(true);

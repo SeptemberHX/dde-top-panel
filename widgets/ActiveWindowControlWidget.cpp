@@ -41,6 +41,11 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 
     this->m_winTitleLabel = new QLabel(this);
     this->m_winTitleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
+    QPalette sample_palette;
+    sample_palette.setColor(QPalette::WindowText, Qt::black);
+    this->m_winTitleLabel->setPalette(sample_palette);
+
     this->m_layout->addWidget(this->m_winTitleLabel);
 
     this->m_layout->addStretch();

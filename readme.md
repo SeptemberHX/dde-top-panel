@@ -11,7 +11,6 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 * separate plugin config gsetting path `/com/deepin/dde/toppanel`
 * different plugin directories: `/usr/lib/dde-top-panel/plugins` and `~/.local/lib/dde-top-panel/plugins`
 
-> Still in development.
 
 ## Features
 
@@ -39,6 +38,8 @@ Know issues:
 ![](./screenshots/toppanel2.png)
 ![](./screenshots/demo.gif)
 
+![](./screenshots/globalmenu.gif)
+
 ## How to run
 
 1. download zip from release page and unzip it
@@ -50,7 +51,7 @@ Know issues:
 BorderlessMaximizedWindows=true
 ```
 4. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`
-5. If you want to enable the global menu, please install (dde-globalmenu-service)[https://github.com/SeptemberHX/dde-globalmenu-service.git]
+5. If you want to enable the global menu, please install !(dde-globalmenu-service)[https://github.com/SeptemberHX/dde-globalmenu-service.git]
 
 
 ## For tray icons of wine applications

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.7)
 set(BIN_NAME dde-top-panel)
 
 # Sources files
-file(GLOB_RECURSE SRCS "*.h" "*.cpp" "../widgets/*.h" "../widgets/*.cpp" "util/XUtils.h" "util/XUtils.cpp")
+file(GLOB_RECURSE SRCS "*.h" "*.cpp" "../widgets/*.h" "../widgets/*.cpp" "util/XUtils.h" "util/XUtils.cpp" "../appmenu/*.h" "../appmenu/*.cpp")
 
 # Find the library
 find_package(PkgConfig REQUIRED)
@@ -14,6 +14,7 @@ find_package(Qt5DBus REQUIRED)
 find_package(Qt5Svg REQUIRED)
 find_package(DtkWidget REQUIRED)
 find_package(DtkCMake REQUIRED)
+find_package(KF5WindowSystem REQUIRED)
 
 pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh x11)
 pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
@@ -43,6 +44,7 @@ target_link_libraries(${BIN_NAME} PRIVATE
         ${QGSettings_LIBRARIES}
         ${DtkGUI_LIBRARIES}
         ${Qt5Svg_LIBRARIES}
+        KF5::WindowSystem
         xdo
         X11
         )

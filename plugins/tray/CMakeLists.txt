@@ -49,6 +49,7 @@ target_link_libraries(${PLUGIN_NAME} PRIVATE
     ${DDE-Network-Utils_LIBRARIES}
     ${DFrameworkDBus_LIBRARIES}
     ${QGSettings_LIBRARIES}
+    dde-appmenu
     pthread
     xdo
 )

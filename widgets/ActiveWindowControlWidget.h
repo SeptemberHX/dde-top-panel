@@ -10,6 +10,9 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <com_deepin_dde_daemon_dock.h>
+#include <QMenuBar>
+#include "../appmenu/appmenumodel.h"
+#include "QClickableLabel.h"
 
 using DBusDock = com::deepin::dde::daemon::Dock;
 
@@ -33,11 +36,15 @@ protected:
 
 private:
     void setButtonsVisible(bool visible);
+    QMenu *createMenu(int idx) const;
+    void trigger(QWidget *ctx, int idx);
 
 private slots:
     void maxButtonClicked();
     void minButtonClicked();
     void closeButtonClicked();
+    void updateMenu();
+    void menuLabelClicked();
 
 private:
     QHBoxLayout *m_layout;
@@ -51,6 +58,11 @@ private:
     QToolButton *maxButton;
 
     QLabel *m_iconLabel;
+    QWidget *m_menuWidget;
+    QLayout *m_menuLayout;
+    AppMenuModel *m_appMenuModel;
+
+    QList<QClickableLabel*> buttonLabelList;
 
     DBusDock *m_appInter;
 };

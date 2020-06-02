@@ -42,11 +42,16 @@ file(GLOB INTERFACES "interfaces/*.h")
 
 add_subdirectory("frame")
 add_subdirectory("plugins")
+add_subdirectory("appmenu")
 
 # Install settings
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX /usr)
 endif ()
+
+if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+    add_definitions(-DQT_NO_DEBUG_OUTPUT)
+endif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 
 ## qm files
 file(GLOB QM_FILES "translations/*.qm")

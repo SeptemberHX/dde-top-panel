@@ -20,7 +20,7 @@ MainPanelControl::MainPanelControl(QWidget *parent)
 
 void MainPanelControl::init() {
     this->m_mainPanelLayout->addWidget(this->activeWindowControlWidget);
-    this->m_mainPanelLayout->addStretch();
+//    this->m_mainPanelLayout->addStretch();
     this->m_mainPanelLayout->addWidget(this->m_trayAreaWidget);
     this->m_mainPanelLayout->addWidget(this->m_pluginAreaWidget);
 

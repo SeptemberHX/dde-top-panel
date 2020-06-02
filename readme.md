@@ -25,6 +25,8 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 
 Know issues:
 * panels on **non-primary monitors** only have the window title function. The plugins can not work on them. `It is not an issue` because the `QPluginLoader` can only create one instance from one plugin file. So the panel cannot create as many plugin widgets as the panels. Still trying to add the plugin back to all panels
+* Shortcuts of the global menu not work yet
+
 
 ## Behaviors
 

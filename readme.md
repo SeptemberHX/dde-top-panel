@@ -15,6 +15,7 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 
 ## Features
 
+* global menu support (with dde-globalmenu-service)
 * 34px height (40px height before)
 * show window title on top panel
 * show title buttons on top panel when current window maximized
@@ -24,7 +25,11 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 
 Know issues:
 * panels on **non-primary monitors** only have the window title function. The plugins can not work on them. `It is not an issue` because the `QPluginLoader` can only create one instance from one plugin file. So the panel cannot create as many plugin widgets as the panels. Still trying to add the plugin back to all panels
-* title bar feature not works with Aurorae theme !
+
+## Behaviors
+
+* Always show title buttons for maxmized window and hide for unmaxminzed window
+* Show window title only when no global menu for current window
 
 ## Screenshot
 
@@ -43,6 +48,8 @@ Know issues:
 BorderlessMaximizedWindows=true
 ```
 4. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`
+5. If you want to enable the global menu, please install (dde-globalmenu-service)[https://github.com/SeptemberHX/dde-globalmenu-service.git]
+
 
 ## For tray icons of wine applications
 

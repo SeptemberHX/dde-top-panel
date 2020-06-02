@@ -408,7 +408,7 @@ void DBusMenuImporter::slotGetLayoutFinished(QDBusPendingCallWatcher *watcher)
     DBusMenuLayoutItem rootItem = reply.argumentAt<1>();
 
     if (!menu) {
-        qDebug() << "No menu for id" << parentId;
+//        qDebug() << "No menu for id" << parentId;
         return;
     }
 

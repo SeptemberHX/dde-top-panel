@@ -159,17 +159,31 @@ void ActiveWindowControlWidget::updateMenu() {
     for (auto m_label : this->buttonLabelList) {
         this->m_menuLayout->removeWidget(m_label);
         m_label->close();
+        delete m_label;
     }
     this->buttonLabelList.clear();
 
+    QList<QString> existedMenu;  // tricks for twice menu of libreoffice
     for (int r = 0; r < m_appMenuModel->rowCount(); ++r) {
         QString menuStr = m_appMenuModel->data(m_appMenuModel->index(r, 0), AppMenuModel::MenuRole).toString();
+
+        if (existedMenu.contains(menuStr)) {
+            int index = existedMenu.indexOf(menuStr);
+            auto *m_label = this->buttonLabelList.at(index);
+            m_label->hide();
+        }
+
+        existedMenu.append(menuStr);
         auto *m_label = new QClickableLabel(this->m_menuWidget);
         m_label->setText(QString("  %1  ").arg(menuStr.remove('&')));
         m_label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         connect(m_label, &QClickableLabel::clicked, this, &ActiveWindowControlWidget::menuLabelClicked);
         this->m_menuLayout->addWidget(m_label);
         this->buttonLabelList.append(m_label);
+
+        if (menuStr.isEmpty()) {
+            m_label->hide();
+        }
     }
     this->m_menuWidget->show();
 

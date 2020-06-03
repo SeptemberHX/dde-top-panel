@@ -1,6 +1,7 @@
 # DDE Top Panel
 
 【中文请看】：[Deepin 论坛](https://bbs.deepin.org/forum.php?mod=viewthread&tid=195128&extra=)
+【全局菜单基本原理请看】：[Github WIKI](https://github.com/SeptemberHX/dde-top-panel/wiki/Linux-%E4%B8%8A%E7%9A%84%E5%85%A8%E5%B1%80%E8%8F%9C%E5%8D%95%E5%8E%9F%E7%90%86)
 
 Top panel for deepin desktop environment v20.
 

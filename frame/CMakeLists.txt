@@ -30,6 +30,7 @@ target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${PROJECT_BINARY_DIR}
         ${QGSettings_INCLUDE_DIRS}
         ${DtkGUI_INCLUDE_DIRS}
+        ${KF5WindowSystem_INCLUDE_DIRS}
         ../interfaces
         )
 

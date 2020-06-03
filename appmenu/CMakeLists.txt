@@ -33,12 +33,13 @@ set(SRCS
         dbusmenuimporter.h dbusmenuimporter.cpp
         dbusmenu_interface.h dbusmenu_interface.cpp
         utils_p.h utils.cpp
+        menuimporteradaptor.h menuimporteradaptor.cpp
         )
 
-qt5_add_dbus_adaptor(SRCS com.canonical.AppMenu.Registrar.xml
-    menuimporter.h MenuImporter menuimporteradaptor MenuImporterAdaptor)
-
-qt5_add_dbus_interface(SRCS com.canonical.dbusmenu.xml dbusmenu_interface)
+#qt5_add_dbus_adaptor(SRCS com.canonical.AppMenu.Registrar.xml
+#    menuimporter.h MenuImporter menuimporteradaptor MenuImporterAdaptor)
+#
+#qt5_add_dbus_interface(SRCS com.canonical.dbusmenu.xml dbusmenu_interface)
 
 
 add_library(${PROJECT} ${SRCS})

@@ -38,6 +38,8 @@ public slots:
 
 signals:
     void emptyAreaDoubleClicked();
+    void itemMoved(DockItem *sourceItem, DockItem *targetItem);
+    void itemAdded(const QString &appDesktop, int idx);
 
 private:
     void init();
@@ -45,8 +47,21 @@ private:
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
+    void dragMoveEvent(QDragMoveEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+
+    void dragLeaveEvent(QDragLeaveEvent *event) override;
+
+    void dragEnterEvent(QDragEnterEvent *event) override;
+
+public:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
+    void startDrag(DockItem *);
+    void handleDragMove(QDragMoveEvent *e);
+    DockItem *dropTargetItem(DockItem *sourceItem, QPoint point);
+    void moveItem(DockItem *sourceItem, DockItem *targetItem);
     void calcuDockIconSize(const int w, const int h, PluginsItem *trashPlugin, PluginsItem *shutdownPlugin, PluginsItem *keyboardPlugin);
 
 private:
@@ -62,6 +77,8 @@ private:
 
     TrayPluginItem *m_tray = nullptr;
     ActiveWindowControlWidget *activeWindowControlWidget;
+    QPoint m_mousePressPos;
+    AppDragWidget *m_appDragWidget;
 };
 
 

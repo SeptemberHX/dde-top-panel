@@ -21,6 +21,7 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     , m_dbusDaemonInterface(QDBusConnection::sessionBus().interface())
     , m_sniWatcher(new org::kde::StatusNotifierWatcher(SNI_WATCHER_SERVICE, SNI_WATCHER_PATH, QDBusConnection::sessionBus(), this))
 {
+//    setWindowFlag(Qt::WindowDoesNotAcceptFocus);
     setAccessibleName("dock-top-panel-mainwindow");
     m_mainPanel->setAccessibleName("dock-top-panel-mainpanel");
     setAttribute(Qt::WA_TranslucentBackground);
@@ -193,6 +194,9 @@ void MainWindow::initConnections() {
     connect(m_itemManager, &DockItemManager::itemInserted, m_mainPanel, &MainPanelControl::insertItem, Qt::DirectConnection);
     connect(m_itemManager, &DockItemManager::itemUpdated, m_mainPanel, &MainPanelControl::itemUpdated, Qt::DirectConnection);
     connect(m_itemManager, &DockItemManager::itemRemoved, m_mainPanel, &MainPanelControl::removeItem, Qt::DirectConnection);
+
+    connect(m_mainPanel, &MainPanelControl::itemMoved, DockItemManager::instance(), &DockItemManager::itemMoved, Qt::DirectConnection);
+    connect(m_mainPanel, &MainPanelControl::itemAdded, DockItemManager::instance(), &DockItemManager::itemAdded, Qt::DirectConnection);
 
     connect(this->m_dockInter, &DBusDock::PositionChanged, this, &MainWindow::resizeMainPanelWindow);
     connect(this->m_dockInter, &DBusDock::DisplayModeChanged, this, &MainWindow::resizeMainPanelWindow);

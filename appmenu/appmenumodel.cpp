@@ -230,6 +230,10 @@ void AppMenuModel::onActiveWindowChanged(WId id)
     }
 
     if (!id) {
+        return;  // temporary fix for losing focus when pressing Alt on deepin v20; or just Alt shortcut ? not sure.
+    }
+
+    if (!id) {
         setMenuAvailable(false);
         emit modelNeedsUpdate();
         return;

@@ -13,7 +13,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 {
     this->m_layout = new QHBoxLayout(this);
     this->m_layout->setSpacing(12);
-    this->m_layout->setContentsMargins(10, 5, 10, 5);
+    this->m_layout->setContentsMargins(10, 5, 0, 5);
     this->setLayout(this->m_layout);
 
     this->m_iconLabel = new QLabel(this);
@@ -22,23 +22,30 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->m_layout->addWidget(this->m_iconLabel);
 
     int buttonSize = 22;
-    this->closeButton = new QToolButton(this);
+    this->m_buttonWidget = new QWidget(this);
+    this->m_buttonLayout = new QHBoxLayout(this->m_buttonWidget);
+    this->m_buttonLayout->setContentsMargins(0, 0, 0, 0);
+    this->m_buttonLayout->setSpacing(12);
+    this->m_buttonLayout->setMargin(0);
+
+    this->closeButton = new QToolButton(this->m_buttonWidget);
     this->closeButton->setFixedSize(buttonSize, buttonSize);
     this->closeButton->setIcon(QIcon(":/icons/close.svg"));
     this->closeButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
-    this->m_layout->addWidget(this->closeButton);
+    this->m_buttonLayout->addWidget(this->closeButton);
 
-    this->minButton = new QToolButton(this);
+    this->minButton = new QToolButton(this->m_buttonWidget);
     this->minButton->setFixedSize(buttonSize, buttonSize);
     this->minButton->setIcon(QIcon(":/icons/minimum.svg"));
     this->minButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
-    this->m_layout->addWidget(this->minButton);
+    this->m_buttonLayout->addWidget(this->minButton);
 
-    this->maxButton = new QToolButton(this);
+    this->maxButton = new QToolButton(this->m_buttonWidget);
     this->maxButton->setFixedSize(buttonSize, buttonSize);
     this->maxButton->setIcon(QIcon(":/icons/maximum.svg"));
     this->maxButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
-    this->m_layout->addWidget(this->maxButton);
+    this->m_buttonLayout->addWidget(this->maxButton);
+    this->m_layout->addWidget(this->m_buttonWidget);
 
     this->m_menuWidget = new QWidget(this);
     this->m_layout->addWidget(this->m_menuWidget);
@@ -60,12 +67,23 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 
     this->m_layout->addStretch();
 
+    this->m_buttonShowAnimation = new QPropertyAnimation(this->m_buttonWidget, "maximumWidth");
+    this->m_buttonShowAnimation->setEndValue(this->m_buttonWidget->width());
+    this->m_buttonShowAnimation->setDuration(150);
+
+    this->m_buttonHideAnimation = new QPropertyAnimation(this->m_buttonWidget, "maximumWidth");
+    this->m_buttonHideAnimation->setEndValue(0);
+    this->m_buttonHideAnimation->setDuration(150);
+
     this->setButtonsVisible(false);
     this->setMouseTracking(true);
 
     connect(this->maxButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::maxButtonClicked);
     connect(this->minButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::minButtonClicked);
     connect(this->closeButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::closeButtonClicked);
+
+    // detect whether active window maximized signal
+    connect(KWindowSystem::self(), qOverload<WId>(&KWindowSystem::windowChanged), this, &ActiveWindowControlWidget::windowChanged);
 }
 
 void ActiveWindowControlWidget::activeWindowInfoChanged() {
@@ -99,22 +117,20 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
 }
 
 void ActiveWindowControlWidget::setButtonsVisible(bool visible) {
-    this->closeButton->setVisible(visible);
-    this->minButton->setVisible(visible);
-    this->maxButton->setVisible(visible);
+    if (visible) {
+        this->m_buttonShowAnimation->setStartValue(this->m_buttonWidget->width());
+        this->m_buttonShowAnimation->start();
+    } else {
+        this->m_buttonHideAnimation->setStartValue(this->m_buttonWidget->width());
+        this->m_buttonHideAnimation->start();
+    }
 }
 
 void ActiveWindowControlWidget::enterEvent(QEvent *event) {
-    if (XUtils::checkIfWinMaximum(this->currActiveWinId)) {
-        this->setButtonsVisible(true);
-    }
     QWidget::enterEvent(event);
 }
 
 void ActiveWindowControlWidget::leaveEvent(QEvent *event) {
-    if (!XUtils::checkIfWinMaximum(this->currActiveWinId)) {
-        this->setButtonsVisible(false);
-    }
     QWidget::leaveEvent(event);
 }
 
@@ -127,11 +143,9 @@ void ActiveWindowControlWidget::maxButtonClicked() {
         //   my test shows unmaximizeWindow by XSendEvent will work when others try to fetch its properties.
         //   i.e., checkIfWinMaximum
         XUtils::checkIfWinMaximum(this->currActiveWinId);
-        this->setButtonsVisible(false);
     } else {
         // sadly the dbus maximizeWindow cannot unmaximize window :(
         this->m_appInter->MaximizeWindow(this->currActiveWinId);
-        this->setButtonsVisible(true);
     }
 
 //    this->activeWindowInfoChanged();
@@ -274,4 +288,12 @@ void ActiveWindowControlWidget::trigger(QWidget *ctx, int idx) {
 //        connect(actionMenu, &QMenu::aboutToHide, this, &AppMenuApplet::onMenuAboutToHide, Qt::UniqueConnection);
         return;
     }
+}
+
+void ActiveWindowControlWidget::windowChanged() {
+    if (KWindowSystem::activeWindow() != this->currActiveWinId) {
+        return;
+    }
+
+    this->setButtonsVisible(XUtils::checkIfWinMaximum(KWindowSystem::activeWindow()));
 }

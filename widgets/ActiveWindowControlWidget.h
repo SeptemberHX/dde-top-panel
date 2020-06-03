@@ -45,6 +45,7 @@ private slots:
     void closeButtonClicked();
     void updateMenu();
     void menuLabelClicked();
+    void windowChanged();
 
 private:
     QHBoxLayout *m_layout;
@@ -53,6 +54,8 @@ private:
     int currActiveWinId;
     QString currActiveWinTitle;
 
+    QWidget *m_buttonWidget;
+    QHBoxLayout *m_buttonLayout;
     QToolButton *closeButton;
     QToolButton *minButton;
     QToolButton *maxButton;
@@ -65,6 +68,9 @@ private:
     QList<QClickableLabel*> buttonLabelList;
 
     DBusDock *m_appInter;
+
+    QPropertyAnimation *m_buttonShowAnimation;
+    QPropertyAnimation *m_buttonHideAnimation;
 };
 
 

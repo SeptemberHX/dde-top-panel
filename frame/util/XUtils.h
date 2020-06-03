@@ -18,6 +18,11 @@ extern "C" {
 //};
 
 
+/**
+ * This class is implemented before I realized that deepin depends on kwin now.
+ *   So they can be replaced by the KWindowSystem::XXX
+ *   However, those functions work well, so I do not plan to change them unless bugs happen
+ */
 class XUtils {
 
 public:

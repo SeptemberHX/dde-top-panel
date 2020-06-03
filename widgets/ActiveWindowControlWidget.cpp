@@ -93,6 +93,11 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
         return;
     }
 
+    // fix strange focus losing when pressing alt in some applications like chrome
+    if (activeWinId == 0) {
+        return;
+    }
+
     // fix focus moving to top panel bug with aurorae
     if (activeWinId == this->winId()) {
         return;
@@ -291,9 +296,10 @@ void ActiveWindowControlWidget::trigger(QWidget *ctx, int idx) {
 }
 
 void ActiveWindowControlWidget::windowChanged() {
-    if (KWindowSystem::activeWindow() != this->currActiveWinId) {
+    // we still don't know why active window is 0 when pressing alt in some applications like chrome.
+    if (KWindowSystem::activeWindow() != this->currActiveWinId && KWindowSystem::activeWindow() != 0) {
         return;
     }
 
-    this->setButtonsVisible(XUtils::checkIfWinMaximum(KWindowSystem::activeWindow()));
+    this->setButtonsVisible(XUtils::checkIfWinMaximum(this->currActiveWinId));
 }

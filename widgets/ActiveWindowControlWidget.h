@@ -13,8 +13,10 @@
 #include <QMenuBar>
 #include "../appmenu/appmenumodel.h"
 #include "QClickableLabel.h"
+#include <com_deepin_wm.h>
 
 using DBusDock = com::deepin::dde::daemon::Dock;
+using DBusWM = com::deepin::wm;
 
 class ActiveWindowControlWidget : public QWidget {
 
@@ -68,6 +70,17 @@ private:
     QList<QClickableLabel*> buttonLabelList;
 
     DBusDock *m_appInter;
+    DBusWM  *m_wmInter;
+    bool mouseClicked;
+
+protected:
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+    void mouseMoveEvent(QMouseEvent *event) override;
+
+    void mousePressEvent(QMouseEvent *event) override;
+
+private:
 
     QPropertyAnimation *m_buttonShowAnimation;
     QPropertyAnimation *m_buttonHideAnimation;

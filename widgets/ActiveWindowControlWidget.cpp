@@ -6,10 +6,15 @@
 #include <QWindow>
 #include "ActiveWindowControlWidget.h"
 #include "util/XUtils.h"
+#include <QMouseEvent>
+#include <NETWM>
+#include <QtX11Extras/QX11Info>
 
 ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     : QWidget(parent)
     , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
+    , m_wmInter(new DBusWM("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
+    , mouseClicked(false)
 {
     this->m_layout = new QHBoxLayout(this);
     this->m_layout->setSpacing(12);
@@ -302,4 +307,30 @@ void ActiveWindowControlWidget::windowChanged() {
     }
 
     this->setButtonsVisible(XUtils::checkIfWinMaximum(this->currActiveWinId));
+}
+
+void ActiveWindowControlWidget::mousePressEvent(QMouseEvent *event) {
+    this->mouseClicked = true;
+    QWidget::mousePressEvent(event);
+}
+
+void ActiveWindowControlWidget::mouseReleaseEvent(QMouseEvent *event) {
+    this->mouseClicked = false;
+    QWidget::mouseReleaseEvent(event);
+}
+
+void ActiveWindowControlWidget::mouseMoveEvent(QMouseEvent *event) {
+    if (this->mouseClicked) {
+        if (XUtils::checkIfWinMaximum(this->currActiveWinId)) {
+            NETRootInfo ri(QX11Info::connection(), NET::WMMoveResize);
+            ri.moveResizeRequest(
+                    this->currActiveWinId,
+                    event->globalX() * this->devicePixelRatio(),
+                    (this->height() + event->globalY()) * this->devicePixelRatio(),
+                    NET::Move
+            );
+            this->mouseClicked = false;
+        }
+    }
+    QWidget::mouseMoveEvent(event);
 }

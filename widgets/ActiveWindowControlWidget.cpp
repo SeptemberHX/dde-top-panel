@@ -88,7 +88,17 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     connect(this->closeButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::closeButtonClicked);
 
     // detect whether active window maximized signal
-    connect(KWindowSystem::self(), qOverload<WId>(&KWindowSystem::windowChanged), this, &ActiveWindowControlWidget::windowChanged);
+    connect(KWindowSystem::self(), qOverload<WId, NET::Properties, NET::Properties2>(&KWindowSystem::windowChanged), this, &ActiveWindowControlWidget::windowChanged);
+
+    this->m_fixTimer = new QTimer(this);
+    this->m_fixTimer->setSingleShot(true);
+    this->m_fixTimer->setInterval(100);
+    connect(this->m_fixTimer, &QTimer::timeout, this, &ActiveWindowControlWidget::activeWindowInfoChanged);
+    // some applications like Gtk based and electron based seems still holds the focus after clicking the close button for a little while
+    // Thus, we need to check the active window when some windows are closed.
+    // However, we will use the dock dbus signal instead of other X operations.
+    connect(this->m_appInter, &DBusDock::EntryRemoved, this->m_fixTimer, qOverload<>(&QTimer::start));
+    connect(this->m_appInter, &DBusDock::EntryAdded, this, &ActiveWindowControlWidget::activeWindowInfoChanged);
 }
 
 void ActiveWindowControlWidget::activeWindowInfoChanged() {
@@ -307,7 +317,7 @@ void ActiveWindowControlWidget::trigger(QWidget *ctx, int idx) {
     }
 }
 
-void ActiveWindowControlWidget::windowChanged() {
+void ActiveWindowControlWidget::windowChanged(WId id, NET::Properties properties, NET::Properties2 properties2) {
     // we still don't know why active window is 0 when pressing alt in some applications like chrome.
     if (KWindowSystem::activeWindow() != this->currActiveWinId && KWindowSystem::activeWindow() != 0) {
         return;

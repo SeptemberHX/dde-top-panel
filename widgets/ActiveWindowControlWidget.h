@@ -47,7 +47,7 @@ private slots:
     void closeButtonClicked();
     void updateMenu();
     void menuLabelClicked();
-    void windowChanged();
+    void windowChanged(WId, NET::Properties, NET::Properties2);
 
 private:
     QHBoxLayout *m_layout;
@@ -84,6 +84,7 @@ private:
 
     QPropertyAnimation *m_buttonShowAnimation;
     QPropertyAnimation *m_buttonHideAnimation;
+    QTimer *m_fixTimer;
 };
 
 

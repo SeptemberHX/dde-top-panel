@@ -44,33 +44,6 @@ add_subdirectory("frame")
 add_subdirectory("plugins")
 add_subdirectory("appmenu")
 
-# Install settings
-if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-    set(CMAKE_INSTALL_PREFIX /usr)
-endif ()
-
 if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
     add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
-
-## qm files
-file(GLOB QM_FILES "translations/*.qm")
-install(FILES ${QM_FILES}
-        DESTINATION share/dde-dock/translations)
-
-## dev files
-install(FILES ${INTERFACES}
-        DESTINATION include/dde-dock)
-
-install(FILES "dde-dock.pc"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-
-install(FILES "cmake/DdeDock/DdeDockConfig.cmake"
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DdeDock)
-
-## services files
-install(FILES frame/com.deepin.dde.Dock.service
-        DESTINATION /usr/share/dbus-1/services)
-
-install(FILES gschema/com.deepin.dde.dock.module.gschema.xml
-        DESTINATION share/glib-2.0/schemas)

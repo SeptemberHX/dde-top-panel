@@ -39,17 +39,17 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->closeButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     this->m_buttonLayout->addWidget(this->closeButton);
 
-    this->minButton = new QToolButton(this->m_buttonWidget);
-    this->minButton->setFixedSize(buttonSize, buttonSize);
-    this->minButton->setIcon(QIcon(":/icons/minimum.svg"));
-    this->minButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
-    this->m_buttonLayout->addWidget(this->minButton);
-
     this->maxButton = new QToolButton(this->m_buttonWidget);
     this->maxButton->setFixedSize(buttonSize, buttonSize);
     this->maxButton->setIcon(QIcon(":/icons/maximum.svg"));
     this->maxButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     this->m_buttonLayout->addWidget(this->maxButton);
+
+    this->minButton = new QToolButton(this->m_buttonWidget);
+    this->minButton->setFixedSize(buttonSize, buttonSize);
+    this->minButton->setIcon(QIcon(":/icons/minimum.svg"));
+    this->minButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
+    this->m_buttonLayout->addWidget(this->minButton);
     this->m_layout->addWidget(this->m_buttonWidget);
 
     this->m_menuWidget = new QWidget(this);
@@ -310,7 +310,10 @@ void ActiveWindowControlWidget::windowChanged() {
 }
 
 void ActiveWindowControlWidget::mousePressEvent(QMouseEvent *event) {
-    this->mouseClicked = true;
+    QWidget *pressedWidget = childAt(event->pos());
+    if (pressedWidget == nullptr) {
+        this->mouseClicked = true;
+    }
     QWidget::mousePressEvent(event);
 }
 

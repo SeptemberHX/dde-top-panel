@@ -59,9 +59,6 @@ QString XUtils::getWindowName(int winId) {
 bool XUtils::checkIfBadWindow(int winId) {
     openXdo();
 
-    unsigned char *value;
-    long n;
-
     Atom atom = XInternAtom(m_xdo->xdpy, "_NET_WM_NAME", false);
     Atom actualType;
     unsigned long ntimes;
@@ -70,6 +67,8 @@ bool XUtils::checkIfBadWindow(int winId) {
     unsigned char *prop;
 
     int status = XGetWindowProperty(m_xdo->xdpy, winId, atom, 0, (~0L), False, AnyPropertyType, &actualType, &actualFormat, &ntimes, &bytes_after, &prop);
+    XFree(prop);
+
     return status == BadWindow;
 }
 
@@ -180,6 +179,7 @@ QPixmap XUtils::getWindowIconName(int winId) {
         }
     }
 
+    free(imgData);
     return QPixmap::fromImage(image);
 }
 

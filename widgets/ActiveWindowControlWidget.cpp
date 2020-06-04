@@ -190,7 +190,6 @@ void ActiveWindowControlWidget::updateMenu() {
     this->m_menuWidget->hide();
     for (auto m_label : this->buttonLabelList) {
         this->m_menuLayout->removeWidget(m_label);
-        m_label->close();
         delete m_label;
     }
     this->buttonLabelList.clear();
@@ -319,7 +318,7 @@ void ActiveWindowControlWidget::windowChanged() {
 
 void ActiveWindowControlWidget::mousePressEvent(QMouseEvent *event) {
     QWidget *pressedWidget = childAt(event->pos());
-    if (pressedWidget == nullptr) {
+    if (pressedWidget == nullptr || pressedWidget == m_winTitleLabel) {
         this->mouseClicked = !this->mouseClicked;
     }
     QWidget::mousePressEvent(event);

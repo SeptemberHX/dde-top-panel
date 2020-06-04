@@ -52,7 +52,7 @@ QString XUtils::getWindowName(int winId) {
         name[i] = windowName[i];
     }
     name[nameLen] = '\0';
-    free(windowName);
+    XFree(windowName);
     return QString(name);
 }
 
@@ -84,7 +84,6 @@ int XUtils::getFocusWindowIdByX() {
     Window w;
     int revert_to;
     XGetInputFocus(m_display, &w, &revert_to);
-    std::cout << "==================> X: " << w << std::endl;
 }
 
 bool XUtils::checkIfWinMaximum(int winId) {
@@ -110,7 +109,7 @@ bool XUtils::checkIfWinMaximum(int winId) {
             vMaxFlag = true;
         }
     }
-    free(value);
+    XFree(value);
     return hMaxFlag && vMaxFlag;
 }
 
@@ -179,7 +178,7 @@ QPixmap XUtils::getWindowIconName(int winId) {
         }
     }
 
-    free(imgData);
+    delete[] imgData;
     return QPixmap::fromImage(image);
 }
 

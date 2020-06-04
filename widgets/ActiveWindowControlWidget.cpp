@@ -317,9 +317,11 @@ void ActiveWindowControlWidget::windowChanged() {
 }
 
 void ActiveWindowControlWidget::mousePressEvent(QMouseEvent *event) {
-    QWidget *pressedWidget = childAt(event->pos());
-    if (pressedWidget == nullptr || pressedWidget == m_winTitleLabel) {
-        this->mouseClicked = !this->mouseClicked;
+    if (event->button() == Qt::LeftButton) {
+        QWidget *pressedWidget = childAt(event->pos());
+        if (pressedWidget == nullptr || pressedWidget == m_winTitleLabel) {
+            this->mouseClicked = !this->mouseClicked;
+        }
     }
     QWidget::mousePressEvent(event);
 }

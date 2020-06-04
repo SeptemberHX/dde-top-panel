@@ -124,6 +124,14 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     if (!activeWinTitle.isEmpty()) {
         this->m_iconLabel->setPixmap(XUtils::getWindowIconName(this->currActiveWinId));
     }
+
+    // KWindowSystem will not update menu for desktop when focusing on the desktop
+    // It is not a good idea to do the filter here instead of the AppmenModel.
+    // However, it works, and works pretty well.
+    if (activeWinTitle == tr("桌面")) {
+        this->m_menuWidget->hide();
+        this->m_winTitleLabel->show();
+    }
 }
 
 void ActiveWindowControlWidget::setButtonsVisible(bool visible) {

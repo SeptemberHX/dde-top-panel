@@ -23,6 +23,7 @@
 #include "../xembedtraywidget.h"
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QDebug>
 #include <QMouseEvent>
 #include <QDrag>

@@ -23,6 +23,7 @@
 
 #include <QMouseEvent>
 #include <QPainter>
+#include <QPainterPath>
 #include <DHiDPIHelper>
 #include <DStyle>
 #include <DGuiApplicationHelper>

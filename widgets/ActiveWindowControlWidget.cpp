@@ -312,7 +312,7 @@ void ActiveWindowControlWidget::windowChanged() {
 void ActiveWindowControlWidget::mousePressEvent(QMouseEvent *event) {
     QWidget *pressedWidget = childAt(event->pos());
     if (pressedWidget == nullptr) {
-        this->mouseClicked = true;
+        this->mouseClicked = !this->mouseClicked;
     }
     QWidget::mousePressEvent(event);
 }

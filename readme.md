@@ -16,10 +16,10 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 ## Features
 
 * global menu support (with dde-globalmenu-service)
-* 34px height (40px height before)
 * show window title on top panel
 * show title buttons on top panel when current window maximized
 * double click on empty area on top panel will maximize current window
+* dragging and moving current maximized window by dragging empty area of top panel
 * coping with `~/.config/kwinrc` can remove the window title bar when maximized
 * support multi monitors
 

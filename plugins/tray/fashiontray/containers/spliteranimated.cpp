@@ -1,6 +1,7 @@
 #include "spliteranimated.h"
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QDebug>
 
 #define OpacityMax 0.3

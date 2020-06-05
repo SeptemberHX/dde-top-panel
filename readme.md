@@ -22,6 +22,7 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 * dragging and moving current maximized window by dragging empty area of top panel
 * coping with `~/.config/kwinrc` can remove the window title bar when maximized
 * support multi monitors
+* personal customization
 
 Know issues:
 * panels on **non-primary monitors** only have the window title function. The plugins can not work on them. `It is not an issue` because the `QPluginLoader` can only create one instance from one plugin file. So the panel cannot create as many plugin widgets as the panels. Still trying to add the plugin back to all panels
@@ -37,9 +38,12 @@ Know issues:
 
 ![](./screenshots/toppanel1.png)
 ![](./screenshots/toppanel2.png)
+
 ![](./screenshots/demo.gif)
 
 ![](./screenshots/globalmenu.gif)
+
+![](./screenshots/settings.png)
 
 ## How to run
 

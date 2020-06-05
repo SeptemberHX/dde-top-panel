@@ -3,7 +3,8 @@ cmake_minimum_required(VERSION 3.7)
 set(BIN_NAME dde-top-panel)
 
 # Sources files
-file(GLOB_RECURSE SRCS "*.h" "*.cpp" "../widgets/*.h" "../widgets/*.cpp" "util/XUtils.h" "util/XUtils.cpp" "../appmenu/*.h" "../appmenu/*.cpp")
+file(GLOB_RECURSE SRCS "*.h" "*.cpp" "../widgets/*.h" "../widgets/*.cpp" "util/XUtils.h"
+        "util/XUtils.cpp" "../appmenu/*.h" "../appmenu/*.cpp" "../widgets/*.ui")
 
 # Find the library
 find_package(PkgConfig REQUIRED)

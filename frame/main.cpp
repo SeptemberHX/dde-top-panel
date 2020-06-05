@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     app.setOrganizationName("septemberhx");
     app.setApplicationName("dde-top-panel");
     app.setApplicationDisplayName("DDE Top Panel");
-    app.setApplicationVersion("0.1.0");
+    app.setApplicationVersion("0.4.0");
     app.loadTranslator();
     app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
     app.setAttribute(Qt::AA_UseHighDpiPixmaps, false);

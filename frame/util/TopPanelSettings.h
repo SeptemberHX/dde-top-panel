@@ -44,6 +44,9 @@ public:
 
     void moveToScreen(QScreen *screen);
 
+signals:
+    void settingActionClicked();
+
 private slots:
     void menuActionClicked(QAction *action);
 

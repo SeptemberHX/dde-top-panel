@@ -12,6 +12,7 @@
 #include "xcb/xcb_misc.h"
 #include "dbus/sni/statusnotifierwatcher_interface.h"
 #include "util/CustomSettings.h"
+#include "../widgets/mainsettingwidget.h"
 
 
 DWIDGET_USE_NAMESPACE
@@ -34,6 +35,7 @@ public:
     void applyCustomSettings(const CustomSettings& customSettings);
 signals:
     void panelGeometryChanged();
+    void settingActionClicked();
 
 private slots:
     void onDbusNameOwnerChanged(const QString &name, const QString &oldOwner, const QString &newOwner);
@@ -71,6 +73,8 @@ private slots:
     void primaryChanged();
 
 private:
+    MainSettingWidget *m_settingWidget;
+
     QScreen *primaryScreen;
     DBusDisplay *m_display;
     QMap<QScreen *, MainWindow *> mwMap;

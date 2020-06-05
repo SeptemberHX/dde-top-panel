@@ -10,6 +10,7 @@
 #include <iostream>
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
+#include "util/CustomSettings.h"
 
 xdo_t *XUtils::m_xdo = nullptr;
 Display *XUtils::m_display = nullptr;
@@ -148,7 +149,7 @@ QPixmap XUtils::getWindowIconName(int winId) {
 
     unsigned long *cur_set = (unsigned long *)data;
     if (cur_set == NULL) {  // return default image
-        return QPixmap(":/icons/linux.svg");
+        return QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath());
     }
 
     int width = cur_set[0];

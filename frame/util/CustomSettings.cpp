@@ -3,6 +3,7 @@
 //
 
 #include "CustomSettings.h"
+#include <QSettings>
 
 CustomSettings::CustomSettings() {
     this->setDefaultPanelOpacity();
@@ -14,6 +15,9 @@ CustomSettings::CustomSettings() {
     this->setDefaultActiveDefaultAppIconPath();
     this->setDefaultActiveMinimizedIconPath();
     this->setDefaultActiveUnmaximizedIconPath();
+
+    this->readSettings();
+    connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
 }
 
 CustomSettings *CustomSettings::instance() {
@@ -27,6 +31,7 @@ qreal CustomSettings::getPanelOpacity() const {
 
 void CustomSettings::setPanelOpacity(qreal panelOpacity) {
     CustomSettings::panelOpacity = panelOpacity;
+    emit settingsChanged();
 }
 
 const QColor &CustomSettings::getPanelBgColor() const {
@@ -35,6 +40,7 @@ const QColor &CustomSettings::getPanelBgColor() const {
 
 void CustomSettings::setPanelBgColor(const QColor &panelBgColor) {
     CustomSettings::panelBgColor = panelBgColor;
+    emit settingsChanged();
 }
 
 bool CustomSettings::isPanelEnablePluginsOnAllScreen() const {
@@ -43,6 +49,7 @@ bool CustomSettings::isPanelEnablePluginsOnAllScreen() const {
 
 void CustomSettings::setPanelEnablePluginsOnAllScreen(bool panelEnablePluginsOnAllScreen) {
     CustomSettings::panelEnablePluginsOnAllScreen = panelEnablePluginsOnAllScreen;
+    emit settingsChanged();
 }
 
 const QColor &CustomSettings::getActiveFontColor() const {
@@ -51,6 +58,7 @@ const QColor &CustomSettings::getActiveFontColor() const {
 
 void CustomSettings::setActiveFontColor(const QColor &activeFontColor) {
     CustomSettings::activeFontColor = activeFontColor;
+    emit settingsChanged();
 }
 
 const QFont &CustomSettings::getActiveFont() const {
@@ -59,6 +67,7 @@ const QFont &CustomSettings::getActiveFont() const {
 
 void CustomSettings::setActiveFont(const QFont &activeFont) {
     CustomSettings::activeFont = activeFont;
+    emit settingsChanged();
 }
 
 const QString &CustomSettings::getActiveCloseIconPath() const {
@@ -67,6 +76,7 @@ const QString &CustomSettings::getActiveCloseIconPath() const {
 
 void CustomSettings::setActiveCloseIconPath(const QString &activeCloseIconPath) {
     CustomSettings::activeCloseIconPath = activeCloseIconPath;
+    emit settingsChanged();
 }
 
 const QString &CustomSettings::getActiveUnmaximizedIconPath() const {
@@ -75,6 +85,7 @@ const QString &CustomSettings::getActiveUnmaximizedIconPath() const {
 
 void CustomSettings::setActiveUnmaximizedIconPath(const QString &activeUnmaximizedIconPath) {
     CustomSettings::activeUnmaximizedIconPath = activeUnmaximizedIconPath;
+    emit settingsChanged();
 }
 
 const QString &CustomSettings::getActiveMinimizedIconPath() const {
@@ -83,6 +94,7 @@ const QString &CustomSettings::getActiveMinimizedIconPath() const {
 
 void CustomSettings::setActiveMinimizedIconPath(const QString &activeMinimizedIconPath) {
     CustomSettings::activeMinimizedIconPath = activeMinimizedIconPath;
+    emit settingsChanged();
 }
 
 const QString &CustomSettings::getActiveDefaultAppIconPath() const {
@@ -91,6 +103,7 @@ const QString &CustomSettings::getActiveDefaultAppIconPath() const {
 
 void CustomSettings::setActiveDefaultAppIconPath(const QString &activeDefaultAppIconPath) {
     CustomSettings::activeDefaultAppIconPath = activeDefaultAppIconPath;
+    emit settingsChanged();
 }
 
 void CustomSettings::setDefaultActiveCloseIconPath() {
@@ -125,4 +138,45 @@ void CustomSettings::setDefaultPanelOpacity() {
     this->panelOpacity = 50;
 }
 
+void CustomSettings::resetCloseIconPath() {
+    this->setDefaultActiveCloseIconPath();
+    emit settingsChanged();
+}
 
+void CustomSettings::resetUnmaxIconPath() {
+    this->setDefaultActiveUnmaximizedIconPath();
+    emit settingsChanged();
+}
+
+void CustomSettings::resetMinIconPath() {
+    this->setDefaultActiveMinimizedIconPath();
+    emit settingsChanged();
+}
+
+void CustomSettings::resetDefaultIconPath() {
+    this->setDefaultActiveDefaultAppIconPath();
+    emit settingsChanged();
+}
+
+void CustomSettings::saveSettings() {
+    QSettings settings("dde-top-panel", "top-panel");
+
+    settings.setValue("panel/bgColor", this->getPanelBgColor());
+    settings.setValue("panel/opacity", this->getPanelOpacity());
+    settings.setValue("windowControl/fontColor", this->getActiveFontColor());
+    settings.setValue("windowControl/closeIcon", this->getActiveCloseIconPath());
+    settings.setValue("windowControl/unmaxIcon", this->getActiveUnmaximizedIconPath());
+    settings.setValue("windowControl/minIcon", this->getActiveMinimizedIconPath());
+    settings.setValue("windowControl/defaultIcon", this->getActiveDefaultAppIconPath());
+}
+
+void CustomSettings::readSettings() {
+    QSettings settings("dde-top-panel", "top-panel");
+    this->panelBgColor = settings.value("panel/bgColor", this->panelBgColor).value<QColor>();
+    this->panelOpacity = settings.value("panel/opacity", this->panelOpacity).toUInt();
+    this->activeFontColor = settings.value("windowControl/fontColor", this->activeFontColor).value<QColor>();
+    this->activeCloseIconPath = settings.value("windowControl/closeIcon", this->activeCloseIconPath).toString();
+    this->activeUnmaximizedIconPath = settings.value("windowControl/unmaxIcon", this->activeUnmaximizedIconPath).toString();
+    this->activeMinimizedIconPath = settings.value("windowControl/minIcon", this->activeMinimizedIconPath).toString();
+    this->activeDefaultAppIconPath = settings.value("windowControl/defaultIcon", this->activeDefaultAppIconPath).toString();
+}

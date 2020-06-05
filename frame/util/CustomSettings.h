@@ -9,7 +9,9 @@
 #include <QColor>
 #include <QFont>
 
-class CustomSettings {
+class CustomSettings : public QObject {
+
+    Q_OBJECT
 
 public:
     static CustomSettings* instance();
@@ -50,6 +52,14 @@ public:
 
     void setActiveDefaultAppIconPath(const QString &activeDefaultAppIconPath);
 
+    void saveSettings();
+    void readSettings();
+
+    void resetCloseIconPath();
+    void resetUnmaxIconPath();
+    void resetMinIconPath();
+    void resetDefaultIconPath();
+
     void setDefaultPanelOpacity();
     void setDefaultPanelBgColor();
     void setDefaultActiveFontColor();
@@ -58,6 +68,9 @@ public:
     void setDefaultActiveUnmaximizedIconPath();
     void setDefaultActiveMinimizedIconPath();
     void setDefaultActiveDefaultAppIconPath();
+
+signals:
+    void settingsChanged();
 
 private:
     CustomSettings();

@@ -206,6 +206,10 @@ void MainWindow::initConnections() {
     connect(this->m_dockInter, &DBusDock::WindowSizeChanged, this, &MainWindow::resizeMainPanelWindow);
 
     connect(m_dbusDaemonInterface, &QDBusConnectionInterface::serviceOwnerChanged, this, &MainWindow::onDbusNameOwnerChanged);
+    connect(m_settings, &TopPanelSettings::settingActionClicked, this, &MainWindow::settingActionClicked);
+    connect(CustomSettings::instance(), &CustomSettings::settingsChanged, this, [this]() {
+        this->applyCustomSettings(*CustomSettings::instance());
+    });
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *e)
@@ -272,6 +276,7 @@ void MainWindow::applyCustomSettings(const CustomSettings &customSettings) {
 TopPanelLauncher::TopPanelLauncher()
     : m_display(new DBusDisplay(this))
 {
+    this->m_settingWidget = new MainSettingWidget();
     connect(m_display, &DBusDisplay::MonitorsChanged, this, &TopPanelLauncher::monitorsChanged);
 //    connect(m_display, &DBusDisplay::PrimaryChanged, this, &TopPanelLauncher::primaryChanged);
     this->rearrange();
@@ -296,6 +301,11 @@ void TopPanelLauncher::rearrange() {
 
         qDebug() << "===========> create top panel on" << p_screen->name();
         MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
+        connect(mw, &MainWindow::settingActionClicked, this, [this]() {
+            int screenNum = QApplication::desktop()->screenNumber(dynamic_cast<MainWindow*>(sender()));
+            this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().center() - this->m_settingWidget->rect().center());
+            this->m_settingWidget->show();
+        });
         if (p_screen == qApp->primaryScreen()) {
             mw->loadPlugins();
         }

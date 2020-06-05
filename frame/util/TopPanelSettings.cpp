@@ -39,7 +39,11 @@ TopPanelSettings::TopPanelSettings(DockItemManager *itemManager, QScreen *screen
     m_settingsMenu.addAction(hideSubMenuAct);
     m_settingsMenu.setTitle("Settings Menu");
 
+    QAction *settingAction = new QAction(tr("Settings"), this);
+    m_settingsMenu.addAction(settingAction);
+
     connect(&m_settingsMenu, &QMenu::triggered, this, &TopPanelSettings::menuActionClicked);
+    connect(settingAction, &QAction::triggered, this, &TopPanelSettings::settingActionClicked);
 
     calculateWindowConfig();
 }

@@ -4,6 +4,7 @@
 
 #include "QClickableLabel.h"
 #include <QDebug>
+#include <QMouseEvent>
 
 QClickableLabel::QClickableLabel(QWidget *parent)
     : QLabel(parent)
@@ -37,6 +38,10 @@ void QClickableLabel::leaveEvent(QEvent *event) {
 }
 
 void QClickableLabel::mousePressEvent(QMouseEvent *ev) {
+    if (ev->button() != Qt::LeftButton) {
+        return;
+    }
+
     Q_EMIT clicked();
     QLabel::mousePressEvent(ev);
 }

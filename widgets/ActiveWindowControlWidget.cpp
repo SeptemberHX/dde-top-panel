@@ -139,7 +139,19 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     // It is not a good idea to do the filter here instead of the AppmenModel.
     // However, it works, and works pretty well.
     if (activeWinTitle == tr("桌面")) {
+        // hide buttons
+        this->setButtonsVisible(false);
+
+        // clear menu
         this->m_menuWidget->hide();
+        for (auto m_label : this->buttonLabelList) {
+            this->m_menuLayout->removeWidget(m_label);
+            delete m_label;
+        }
+        this->buttonLabelList.clear();
+        this->m_menuWidget->show();
+
+        // show title
         this->m_winTitleLabel->show();
     }
 

@@ -98,7 +98,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     // Thus, we need to check the active window when some windows are closed.
     // However, we will use the dock dbus signal instead of other X operations.
     connect(this->m_appInter, &DBusDock::EntryRemoved, this->m_fixTimer, qOverload<>(&QTimer::start));
-    connect(this->m_appInter, &DBusDock::EntryAdded, this, &ActiveWindowControlWidget::activeWindowInfoChanged);
+    connect(this->m_appInter, &DBusDock::EntryAdded, this->m_fixTimer, qOverload<>(&QTimer::start));
 }
 
 void ActiveWindowControlWidget::activeWindowInfoChanged() {
@@ -142,6 +142,10 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
         this->m_menuWidget->hide();
         this->m_winTitleLabel->show();
     }
+
+    // some applications like KWrite will expose its global menu with an invalid dbus path
+    //   thus we need to recheck it again :(
+    this->m_appMenuModel->setWinId(this->currActiveWinId);
 }
 
 void ActiveWindowControlWidget::setButtonsVisible(bool visible) {

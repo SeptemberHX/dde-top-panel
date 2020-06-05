@@ -46,6 +46,8 @@ QString XUtils::getWindowName(int winId) {
         return "";
     }
 
+    if (windowName == nullptr)
+        return "";
     QString result;
     char name[nameLen + 1];
     for (int i = 0; i < nameLen; ++i) {

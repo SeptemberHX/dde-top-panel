@@ -7,12 +7,15 @@
 
 
 #include <QLabel>
+#include "../frame/util/CustomSettings.h"
 
 class QClickableLabel : public QLabel {
     Q_OBJECT
 
 public:
     explicit QClickableLabel(QWidget *parent);
+
+    void setDefaultFontColor(const QColor &defaultFontColor);
 
 signals:
     void clicked();
@@ -23,6 +26,9 @@ protected:
 
     void mousePressEvent(QMouseEvent *ev) override;
     void mouseReleaseEvent(QMouseEvent *ev) override;
+
+private:
+    QColor defaultFontColor = CustomSettings::instance()->getActiveFontColor();
 };
 
 

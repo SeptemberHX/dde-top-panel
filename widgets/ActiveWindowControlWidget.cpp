@@ -16,6 +16,10 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     , m_wmInter(new DBusWM("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
     , mouseClicked(false)
 {
+    QPalette palette1 = this->palette();
+    palette1.setColor(QPalette::Background, Qt::transparent);
+    this->setPalette(palette1);
+
     this->m_layout = new QHBoxLayout(this);
     this->m_layout->setSpacing(12);
     this->m_layout->setContentsMargins(10, 5, 0, 5);
@@ -63,11 +67,6 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 
     this->m_winTitleLabel = new QLabel(this);
     this->m_winTitleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-
-    QPalette sample_palette;
-    sample_palette.setColor(QPalette::WindowText, Qt::black);
-    this->m_winTitleLabel->setPalette(sample_palette);
-
     this->m_layout->addWidget(this->m_winTitleLabel);
 
     this->m_layout->addStretch();
@@ -99,6 +98,8 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     // However, we will use the dock dbus signal instead of other X operations.
     connect(this->m_appInter, &DBusDock::EntryRemoved, this->m_fixTimer, qOverload<>(&QTimer::start));
     connect(this->m_appInter, &DBusDock::EntryAdded, this->m_fixTimer, qOverload<>(&QTimer::start));
+
+    applyCustomSettings(*CustomSettings::instance());
 }
 
 void ActiveWindowControlWidget::activeWindowInfoChanged() {
@@ -136,7 +137,7 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     }
 
     // KWindowSystem will not update menu for desktop when focusing on the desktop
-    // It is not a good idea to do the filter here instead of the AppmenModel.
+    // It is not a good idea to do the filter here instead of the AppmenuModel.
     // However, it works, and works pretty well.
     if (activeWinTitle == tr("桌面")) {
         // hide buttons
@@ -371,4 +372,25 @@ void ActiveWindowControlWidget::mouseMoveEvent(QMouseEvent *event) {
         }
     }
     QWidget::mouseMoveEvent(event);
+}
+
+void ActiveWindowControlWidget::applyCustomSettings(const CustomSettings& settings) {
+    // title
+    QPalette palette = this->m_winTitleLabel->palette();
+    palette.setColor(QPalette::WindowText, settings.getActiveFontColor());
+    this->m_winTitleLabel->setPalette(palette);
+    this->m_winTitleLabel->setFont(settings.getActiveFont());
+
+    // menu
+    for (auto menuItem : this->buttonLabelList) {
+        menuItem->setFont(settings.getActiveFont());
+        menuItem->setDefaultFontColor(settings.getActiveFontColor());
+    }
+
+    // buttons
+    this->closeButton->setIcon(QIcon(settings.getActiveCloseIconPath()));
+    this->maxButton->setIcon(QIcon(settings.getActiveUnmaximizedIconPath()));
+    this->minButton->setIcon(QIcon(settings.getActiveMinimizedIconPath()));
+
+    // todo: default app icon
 }

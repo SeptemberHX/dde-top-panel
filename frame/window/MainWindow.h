@@ -11,6 +11,7 @@
 #include "util/TopPanelSettings.h"
 #include "xcb/xcb_misc.h"
 #include "dbus/sni/statusnotifierwatcher_interface.h"
+#include "util/CustomSettings.h"
 
 
 DWIDGET_USE_NAMESPACE
@@ -30,6 +31,7 @@ public:
     void moveToScreen(QScreen *screen);
     void setRaidus(int radius);
     void adjustPanelSize();
+    void applyCustomSettings(const CustomSettings& customSettings);
 signals:
     void panelGeometryChanged();
 

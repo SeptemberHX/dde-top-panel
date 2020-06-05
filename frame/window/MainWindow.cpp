@@ -62,6 +62,8 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     m_platformWindowHandle.setShadowOffset(QPoint(0, 5));
     m_platformWindowHandle.setShadowColor(QColor(0, 0, 0, 0.3 * 255));
     m_platformWindowHandle.setBorderWidth(1);
+
+    this->applyCustomSettings(*CustomSettings::instance());
 }
 
 void MainWindow::resizeMainPanelWindow()
@@ -259,6 +261,12 @@ void MainWindow::initSNIHost()
     } else {
         qDebug() << SNI_WATCHER_SERVICE << "SNI watcher daemon is not exist for now!";
     }
+}
+
+void MainWindow::applyCustomSettings(const CustomSettings &customSettings) {
+    this->setMaskAlpha(customSettings.getPanelOpacity());
+    this->setMaskColor(customSettings.getPanelBgColor());
+    this->m_mainPanel->applyCustomSettings(customSettings);
 }
 
 TopPanelLauncher::TopPanelLauncher()

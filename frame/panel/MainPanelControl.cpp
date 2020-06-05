@@ -23,6 +23,10 @@ MainPanelControl::MainPanelControl(QWidget *parent)
     this->setFixedHeight(32);
     this->setMouseTracking(true);
     this->setAcceptDrops(true);
+
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Background, Qt::transparent);
+    this->setPalette(palette);
 }
 
 void MainPanelControl::init() {
@@ -472,4 +476,8 @@ void MainPanelControl::dragEnterEvent(QDragEnterEvent *e) {
 
 void MainPanelControl::dragLeaveEvent(QDragLeaveEvent *event) {
     QWidget::dragLeaveEvent(event);
+}
+
+void MainPanelControl::applyCustomSettings(const CustomSettings &customSettings) {
+    this->activeWindowControlWidget->applyCustomSettings(customSettings);
 }

@@ -10,7 +10,7 @@ QClickableLabel::QClickableLabel(QWidget *parent)
     : QLabel(parent)
 {
     QPalette palette = this->palette();
-    palette.setColor(QPalette::WindowText, Qt::black);
+    palette.setColor(QPalette::WindowText, this->defaultFontColor);
     palette.setColor(QPalette::Background, Qt::transparent);
     this->setPalette(palette);
     this->setMouseTracking(true);
@@ -30,7 +30,7 @@ void QClickableLabel::enterEvent(QEvent *event) {
 void QClickableLabel::leaveEvent(QEvent *event) {
     QPalette palette = this->palette();
     palette.setColor(QPalette::Background, Qt::transparent);
-    palette.setColor(QPalette::WindowText, Qt::black);
+    palette.setColor(QPalette::WindowText, this->defaultFontColor);
     this->setPalette(palette);
     this->repaint();
 
@@ -48,4 +48,12 @@ void QClickableLabel::mousePressEvent(QMouseEvent *ev) {
 
 void QClickableLabel::mouseReleaseEvent(QMouseEvent *ev) {
     QLabel::mouseReleaseEvent(ev);
+}
+
+void QClickableLabel::setDefaultFontColor(const QColor &defaultFontColor) {
+    this->defaultFontColor = defaultFontColor;
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::WindowText, this->defaultFontColor);
+    this->setPalette(palette);
+    this->repaint();
 }

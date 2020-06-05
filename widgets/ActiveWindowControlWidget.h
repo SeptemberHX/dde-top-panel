@@ -14,6 +14,7 @@
 #include "../appmenu/appmenumodel.h"
 #include "QClickableLabel.h"
 #include <com_deepin_wm.h>
+#include "../frame/util/CustomSettings.h"
 
 using DBusDock = com::deepin::dde::daemon::Dock;
 using DBusWM = com::deepin::wm;
@@ -28,6 +29,8 @@ public:
 public slots:
     void activeWindowInfoChanged();
     void maximizeWindow();
+
+    void applyCustomSettings(const CustomSettings& settings);
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;

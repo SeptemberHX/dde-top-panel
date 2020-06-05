@@ -11,6 +11,7 @@
 #include <com_deepin_dde_daemon_dock_entry.h>
 #include <controller/dockitemmanager.h>
 #include "../widgets/ActiveWindowControlWidget.h"
+#include "util/CustomSettings.h"
 
 using DockEntryInter = com::deepin::dde::daemon::dock::Entry;
 
@@ -30,6 +31,7 @@ public:
     void addPluginAreaItem(int index, QWidget *wdg);
 
     void setDisplayMode(DisplayMode mode);
+    void applyCustomSettings(const CustomSettings& customSettings);
 
 public slots:
     void insertItem(const int index, DockItem *item);

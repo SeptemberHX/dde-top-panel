@@ -43,7 +43,7 @@ Know issues:
 
 ![](./screenshots/globalmenu.gif)
 
-![](./screenshots/settings.png)
+<img src="./screenshots/settings.png" width="400px" />
 
 ## How to run
 

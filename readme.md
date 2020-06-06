@@ -70,3 +70,7 @@ For now, I use QSharedMemory to share the window id of the container widget. How
 This part needs help.
 
 If you want to fix it in my way, just use the `libtray.so` (DO NOT FORGET to back up the system one) 
+
+------
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

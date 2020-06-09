@@ -42,7 +42,7 @@ endif()
 file(GLOB INTERFACES "interfaces/*.h")
 
 add_subdirectory("frame")
-add_subdirectory("plugins")
+#add_subdirectory("plugins")
 add_subdirectory("appmenu")
 
 if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")

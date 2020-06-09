@@ -102,7 +102,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/config.svg"/>
+             <iconset theme=":/icons/config.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -247,7 +248,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/config.svg"/>
+             <iconset theme=":/icons/config.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -351,7 +353,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/config.svg"/>
+             <iconset theme=":/icons/config.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -376,7 +379,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/reset.svg"/>
+             <iconset theme=":/icons/reset.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -461,7 +465,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/config.svg"/>
+             <iconset theme=":/icons/config.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -486,7 +491,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/reset.svg"/>
+             <iconset theme=":/icons/reset.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -571,7 +577,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/config.svg"/>
+             <iconset theme=":/icons/config.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -596,7 +603,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/reset.svg"/>
+             <iconset theme=":/icons/reset.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -681,7 +689,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/config.svg"/>
+             <iconset theme=":/icons/config.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>
@@ -706,7 +715,8 @@
              <string/>
             </property>
             <property name="icon">
-             <iconset theme=":/icons/reset.svg"/>
+             <iconset theme=":/icons/reset.svg">
+              <normaloff>.</normaloff>.</iconset>
             </property>
            </widget>
           </item>

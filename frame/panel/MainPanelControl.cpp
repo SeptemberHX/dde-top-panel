@@ -67,14 +67,14 @@ void MainPanelControl::init() {
 void MainPanelControl::insertItem(int index, DockItem *item)
 {
     item->installEventFilter(this);
-    qDebug() << item->itemType();
+//    qDebug() << item->itemType();
 
     switch (item->itemType()) {
         case DockItem::Launcher:
         case DockItem::FixedPlugin:
         case DockItem::App:
         case DockItem::Placeholder:
-            qDebug() << "Abandon the plugin" << item->objectName() << "due to the unnecessary plugin type";
+//            qDebug() << "Abandon the plugin" << item->objectName() << "due to the unnecessary plugin type";
             break;
         case DockItem::TrayPlugin:
             qDebug() << "Add tray plugin item";

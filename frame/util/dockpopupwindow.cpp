@@ -39,7 +39,7 @@ DockPopupWindow::DockPopupWindow(QWidget *parent)
 {
     m_acceptDelayTimer->setSingleShot(true);
     m_acceptDelayTimer->setInterval(100);
-
+    
     setAccessibleName("popup");
 
     m_wmHelper = DWindowManagerHelper::instance();

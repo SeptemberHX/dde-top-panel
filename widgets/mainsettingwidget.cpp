@@ -27,6 +27,17 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->appNameLabel->setText(QApplication::applicationDisplayName());
     ui->appVersionLabel->setText(QApplication::applicationVersion());
 
+    ui->panelColorToolButton->setIcon(QIcon(":/icons/config.svg"));
+    ui->fontColorToolButton->setIcon(QIcon(":/icons/config.svg"));
+    ui->defaultIconResetToolButton->setIcon(QIcon(":/icons/reset.svg"));
+    ui->defaultIconToolButton->setIcon(QIcon(":/icons/config.svg"));
+    ui->minToolButton->setIcon(QIcon(":/icons/config.svg"));
+    ui->minResetToolButton->setIcon(QIcon(":/icons/reset.svg"));
+    ui->unmaxButtonToolButton->setIcon(QIcon(":/icons/config.svg"));
+    ui->unmaxResetToolButton->setIcon(QIcon(":/icons/reset.svg"));
+    ui->closeButtonToolButton->setIcon(QIcon(":/icons/config.svg"));
+    ui->closeResetToolButton->setIcon(QIcon(":/icons/reset.svg"));
+
     movie = new QMovie(":/icons/doge.gif");
     ui->pMovieLabel->setMovie(movie);
     movie->start();

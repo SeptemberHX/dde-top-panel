@@ -22,6 +22,7 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->unmaxButtonLabel->setPixmap(QIcon(CustomSettings::instance()->getActiveUnmaximizedIconPath()).pixmap(ui->unmaxButtonLabel->size()));
     ui->minButtonLabel->setPixmap(QIcon(CustomSettings::instance()->getActiveMinimizedIconPath()).pixmap(ui->minButtonLabel->size()));
     ui->defaultIconLabel->setPixmap(QIcon(CustomSettings::instance()->getActiveDefaultAppIconPath()).pixmap(ui->defaultIconLabel->size()));
+    ui->menuOnHoverCheckBox->setChecked(CustomSettings::instance()->isShowGlobalMenuOnHover());
 
     ui->appNameLabel->setText(QApplication::applicationDisplayName());
     ui->appVersionLabel->setText(QApplication::applicationVersion());
@@ -41,6 +42,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     connect(ui->minResetToolButton, &QToolButton::clicked, this, &MainSettingWidget::minResetButtonClicked);
     connect(ui->defaultIconToolButton, &QToolButton::clicked, this, &MainSettingWidget::defaultButtonClicked);
     connect(ui->defaultIconResetToolButton, &QToolButton::clicked, this, &MainSettingWidget::defaultResetButtonClicked);
+    connect(ui->menuOnHoverCheckBox, &QCheckBox::stateChanged, this, [this]() {
+        CustomSettings::instance()->setShowGlobalMenuOnHover(ui->menuOnHoverCheckBox->isChecked());
+    });
 }
 
 MainSettingWidget::~MainSettingWidget()

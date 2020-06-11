@@ -66,8 +66,14 @@ public:
     void setDefaultActiveFont();
     void setDefaultActiveCloseIconPath();
     void setDefaultActiveUnmaximizedIconPath();
+
+    bool isShowGlobalMenuOnHover() const;
+
+    void setShowGlobalMenuOnHover(bool showGlobalMenuOnHover);
+
     void setDefaultActiveMinimizedIconPath();
     void setDefaultActiveDefaultAppIconPath();
+    void setDefaultShowGlobalMenuOnHover();
 
 signals:
     void settingsChanged();
@@ -80,6 +86,7 @@ private:
     quint8 panelOpacity;
     QColor panelBgColor;
     bool panelEnablePluginsOnAllScreen;
+    bool showGlobalMenuOnHover;
 
     // active window control
     QColor activeFontColor;

@@ -84,7 +84,12 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
 
 private:
+    bool isMenuShown;
+public:
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
+private:
+    void leaveTopPanel();
     QPropertyAnimation *m_buttonShowAnimation;
     QPropertyAnimation *m_buttonHideAnimation;
     QTimer *m_fixTimer;

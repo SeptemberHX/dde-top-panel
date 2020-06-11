@@ -31,7 +31,7 @@ Know issues:
 
 ## Behaviors
 
-* Always show title buttons for maxmized window and hide for unmaxminzed window
+* Always show title buttons for maxmized window and hide for unmaxminzed window (optional: show menu for maximized window on hover)
 * Show window title only when no global menu for current window
 
 ## Screenshot

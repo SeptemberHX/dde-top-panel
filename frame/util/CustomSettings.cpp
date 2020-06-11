@@ -15,6 +15,7 @@ CustomSettings::CustomSettings() {
     this->setDefaultActiveDefaultAppIconPath();
     this->setDefaultActiveMinimizedIconPath();
     this->setDefaultActiveUnmaximizedIconPath();
+    this->setDefaultShowGlobalMenuOnHover();
 
     this->readSettings();
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
@@ -158,6 +159,19 @@ void CustomSettings::resetDefaultIconPath() {
     emit settingsChanged();
 }
 
+void CustomSettings::setDefaultShowGlobalMenuOnHover() {
+    this->showGlobalMenuOnHover = false;
+}
+
+bool CustomSettings::isShowGlobalMenuOnHover() const {
+    return showGlobalMenuOnHover;
+}
+
+void CustomSettings::setShowGlobalMenuOnHover(bool showGlobalMenuOnHover) {
+    CustomSettings::showGlobalMenuOnHover = showGlobalMenuOnHover;
+    emit settingsChanged();
+}
+
 void CustomSettings::saveSettings() {
     QSettings settings("dde-top-panel", "top-panel");
 
@@ -168,6 +182,7 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/unmaxIcon", this->getActiveUnmaximizedIconPath());
     settings.setValue("windowControl/minIcon", this->getActiveMinimizedIconPath());
     settings.setValue("windowControl/defaultIcon", this->getActiveDefaultAppIconPath());
+    settings.setValue("windowControl/showMenuOnHover", this->isShowGlobalMenuOnHover());
 }
 
 void CustomSettings::readSettings() {
@@ -179,4 +194,5 @@ void CustomSettings::readSettings() {
     this->activeUnmaximizedIconPath = settings.value("windowControl/unmaxIcon", this->activeUnmaximizedIconPath).toString();
     this->activeMinimizedIconPath = settings.value("windowControl/minIcon", this->activeMinimizedIconPath).toString();
     this->activeDefaultAppIconPath = settings.value("windowControl/defaultIcon", this->activeDefaultAppIconPath).toString();
+    this->showGlobalMenuOnHover = settings.value("windowControl/showMenuOnHover", this->showGlobalMenuOnHover).toBool();
 }

@@ -15,6 +15,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
     , m_wmInter(new DBusWM("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
     , mouseClicked(false)
+    , isMenuShown(false)
 {
     QPalette palette1 = this->palette();
     palette1.setColor(QPalette::Background, Qt::transparent);
@@ -172,10 +173,17 @@ void ActiveWindowControlWidget::setButtonsVisible(bool visible) {
 }
 
 void ActiveWindowControlWidget::enterEvent(QEvent *event) {
+    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && !this->buttonLabelList.isEmpty()
+        && XUtils::checkIfWinMaximum(this->currActiveWinId)) {
+        this->m_menuWidget->show();
+        this->m_winTitleLabel->hide();
+    }
+
     QWidget::enterEvent(event);
 }
 
 void ActiveWindowControlWidget::leaveEvent(QEvent *event) {
+    this->leaveTopPanel();
     QWidget::leaveEvent(event);
 }
 
@@ -243,12 +251,20 @@ void ActiveWindowControlWidget::updateMenu() {
             m_label->hide();
         }
     }
-    this->m_menuWidget->show();
 
-    if (this->buttonLabelList.isEmpty()) {
-        this->m_winTitleLabel->show();
+    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && XUtils::checkIfWinMaximum(this->currActiveWinId)) {
+        if (!this->buttonLabelList.isEmpty()) {
+            this->m_menuWidget->hide();
+            this->m_winTitleLabel->show();
+        }
     } else {
-        this->m_winTitleLabel->hide();
+        if (this->buttonLabelList.isEmpty()) {
+            this->m_menuWidget->hide();
+            this->m_winTitleLabel->show();
+        } else {
+            this->m_menuWidget->show();
+            this->m_winTitleLabel->hide();
+        }
     }
 }
 
@@ -311,7 +327,9 @@ void ActiveWindowControlWidget::trigger(QWidget *ctx, int idx) {
 
         actionMenu->winId();//create window handle
         actionMenu->windowHandle()->setTransientParent(this->windowHandle());
-        actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()));
+        actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()) + QPoint(0, 6));
+        actionMenu->installEventFilter(this);
+        this->isMenuShown = true;
 
 //        if (view() == FullView) {
 //            // hide the old menu only after showing the new one to avoid brief flickering
@@ -393,4 +411,20 @@ void ActiveWindowControlWidget::applyCustomSettings(const CustomSettings& settin
     this->minButton->setIcon(QIcon(settings.getActiveMinimizedIconPath()));
 
     // todo: default app icon
+}
+
+bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
+    if (event->type() == QEvent::Hide) {
+        this->isMenuShown = false;
+        this->leaveTopPanel();
+    }
+    return false;
+}
+
+void ActiveWindowControlWidget::leaveTopPanel() {
+    if (!isMenuShown && CustomSettings::instance()->isShowGlobalMenuOnHover() && !this->buttonLabelList.isEmpty()
+        && XUtils::checkIfWinMaximum(this->currActiveWinId)) {
+        this->m_menuWidget->hide();
+        this->m_winTitleLabel->show();
+    }
 }

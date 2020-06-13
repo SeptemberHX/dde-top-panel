@@ -18,6 +18,16 @@ public:
 private:
     Ui::MainSettingWidget *ui;
     QMovie *movie;
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+protected:
+    void hideEvent(QHideEvent *event) override;
+
+protected:
+    void showEvent(QShowEvent *event) override;
+
+private:
 
     void opacityValueChanged(int value);
     void panelColorButtonClicked();

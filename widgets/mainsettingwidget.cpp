@@ -40,7 +40,6 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
 
     movie = new QMovie(":/icons/doge.gif");
     ui->pMovieLabel->setMovie(movie);
-    movie->start();
 
     connect(ui->opacitySpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &MainSettingWidget::opacityValueChanged);
     connect(ui->panelColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::panelColorButtonClicked);
@@ -130,4 +129,19 @@ void MainSettingWidget::defaultButtonClicked() {
 void MainSettingWidget::defaultResetButtonClicked() {
     CustomSettings::instance()->resetDefaultIconPath();
     ui->defaultIconLabel->setPixmap(QIcon(CustomSettings::instance()->getActiveDefaultAppIconPath()).pixmap(ui->defaultIconLabel->size()));
+}
+
+void MainSettingWidget::showEvent(QShowEvent *event) {
+    movie->start();
+    QWidget::showEvent(event);
+}
+
+void MainSettingWidget::hideEvent(QHideEvent *event) {
+    movie->stop();
+    QWidget::hideEvent(event);
+}
+
+void MainSettingWidget::closeEvent(QCloseEvent *event) {
+    movie->stop();
+    QWidget::closeEvent(event);
 }

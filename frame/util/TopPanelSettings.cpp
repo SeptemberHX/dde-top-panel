@@ -168,7 +168,14 @@ const QRect TopPanelSettings::windowRect(const Position position, const bool hid
     }
 
     const QRect primaryRect = this->primaryRect();
-    const int offsetX = (primaryRect.width() - size.width());
+    int offsetX = (primaryRect.width() - size.width());
+
+    if (!this->m_dockInter->hideMode()
+        && this->m_screen == qApp->primaryScreen()
+        && this->m_dockInter->position() == Right) {
+        offsetX = 0;
+    }
+
     const int offsetY = (primaryRect.height() - size.height());
     int margin = hide ?  0 : this->dockMargin();
     QPoint p(0, 0);

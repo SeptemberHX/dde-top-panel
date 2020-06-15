@@ -47,6 +47,8 @@ Know issues:
 
 ## How to run
 
+### For Deepin V20
+
 1. download zip from release page and unzip it
 1. cp `*.xml` to `/usr/share/glib-2.0/schemas`, and run `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
 2. run `./dde-top-panel`
@@ -58,6 +60,22 @@ BorderlessMaximizedWindows=true
 4. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`
 5. If you want to enable the global menu, please install !(dde-globalmenu-service)[https://github.com/SeptemberHX/dde-globalmenu-service.git]
 
+### For Other distributions
+
+I only have deepin v20 installed on my computer, and I cannot compile it for other distributions. So it needs to be built from source.
+
+Dependency: `Qt5Widgets, Qt5Concurrent, Qt5X11Extras, Qt5DBus, Qt5Svg, DtkWidget, DtkCMake, KF5WindowSystem, XCB_EWMH, DFrameworkDBus, QGSettings, DtkGUI`
+
+```shell
+git clone https://github.com/SeptemberHX/dde-top-panel.git
+cd dde-top-panel
+mkdir build
+cd build
+cmake ..
+make
+```
+Then `dde-top-panel` should be in `build/frame/dde-top-panel`.
+Then go to step 2 in How to run for Deepin V20
 
 ## For tray icons of wine applications
 

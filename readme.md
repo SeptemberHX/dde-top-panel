@@ -60,6 +60,10 @@ BorderlessMaximizedWindows=true
 4. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`
 5. If you want to enable the global menu, please install !(dde-globalmenu-service)[https://github.com/SeptemberHX/dde-globalmenu-service.git]
 
+### For Arch
+
+Thanks to @JunioCalu . dde-top-panel is in the AUR now. [https://aur.archlinux.org/packages/dde-top-panel](https://aur.archlinux.org/packages/dde-top-panel)
+
 ### For Other distributions
 
 I only have deepin v20 installed on my computer, and I cannot compile it for other distributions. So it needs to be built from source.

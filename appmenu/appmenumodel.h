@@ -28,6 +28,7 @@
 #include <KWindowSystem>
 #include <QPointer>
 #include <QRect>
+#include <QWidget>
 
 class QMenu;
 class QAction;
@@ -131,6 +132,8 @@ private:
     QString m_menuObjectPath;
 
     QPointer<KDBusMenuImporter> m_importer;
+
+    QWidget invisibleWidget;
 };
 
 #endif

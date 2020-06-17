@@ -9,6 +9,9 @@
 #include <QMouseEvent>
 #include <NETWM>
 #include <QtX11Extras/QX11Info>
+#include <QApplication>
+#include <QScreen>
+#include <QDesktopWidget>
 
 ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     : QWidget(parent)
@@ -120,6 +123,17 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
         return;
     }
 
+    int currScreenNum = QApplication::desktop()->screenNumber(this);
+    int activeWinScreenNum = XUtils::getWindowScreenNum(activeWinId);
+    if (activeWinScreenNum >= 0 && activeWinScreenNum != currScreenNum) {
+        if (XUtils::checkIfBadWindow(this->currActiveWinId) || this->currActiveWinId == activeWinId || XUtils::checkIfWinMinimun(this->currActiveWinId)) {
+            this->currActiveWinId = -1;
+            this->m_winTitleLabel->setText(tr("桌面"));
+            this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
+        }
+        return;
+    }
+
     if (activeWinId != this->currActiveWinId) {
         this->currActiveWinId = activeWinId;
         // todo
@@ -127,11 +141,9 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
 
     this->setButtonsVisible(XUtils::checkIfWinMaximum(this->currActiveWinId));
 
-    QString activeWinTitle = XUtils::getWindowName(activeWinId);
-    if (activeWinTitle != this->currActiveWinTitle) {
-        this->currActiveWinTitle = activeWinTitle;
-        this->m_winTitleLabel->setText(this->currActiveWinTitle);
-    }
+    QString activeWinTitle = XUtils::getWindowName(this->currActiveWinId);
+    this->currActiveWinTitle = activeWinTitle;
+    this->m_winTitleLabel->setText(this->currActiveWinTitle);
 
     if (!activeWinTitle.isEmpty()) {
         this->m_iconLabel->setPixmap(XUtils::getWindowIconName(this->currActiveWinId));
@@ -353,6 +365,10 @@ void ActiveWindowControlWidget::trigger(QWidget *ctx, int idx) {
 }
 
 void ActiveWindowControlWidget::windowChanged(WId id, NET::Properties properties, NET::Properties2 properties2) {
+    if (properties.testFlag(NET::WMGeometry)) {
+        this->activeWindowInfoChanged();
+    }
+
     // we still don't know why active window is 0 when pressing alt in some applications like chrome.
     if (KWindowSystem::activeWindow() != this->currActiveWinId && KWindowSystem::activeWindow() != 0) {
         return;

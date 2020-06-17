@@ -77,7 +77,6 @@ void MainPanelControl::insertItem(int index, DockItem *item)
 //            qDebug() << "Abandon the plugin" << item->objectName() << "due to the unnecessary plugin type";
             break;
         case DockItem::TrayPlugin:
-            qDebug() << "Add tray plugin item";
             addTrayAreaItem(index, item);
             break;
         case DockItem::Plugins:
@@ -256,9 +255,7 @@ void MainPanelControl::calcuDockIconSize(int w, int h, PluginsItem *trashPlugin,
                 } else if (pItem->pluginName() == "AiAssistant"){
                     pItem->setFixedSize(tray_item_size, h - 20);
                 } else {
-                    qDebug() << pItem->pluginName() << pItem->size();
                     pItem->setFixedSize(pItem->sizeHint().width(), h);
-                    qDebug() << pItem->pluginName() << "width:" << pItem->sizeHint().width() << "height:" << h;
                 }
             }
         }

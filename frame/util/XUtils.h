@@ -29,9 +29,12 @@ public:
     static int getFocusWindowId();
     static QString getWindowName(int winId);
     static bool checkIfWinMaximum(int winId);
+    static bool checkIfWinMinimun(int winId);
     static void unmaximizeWindow(int winId);
     static QPixmap getWindowIconName(int winId);
     static bool checkIfBadWindow(int winid);
+    static int getWindowScreenNum(int windid);
+    static QRect getWindowGeometry(int winId);
 //    static int cmd_getActiveWindow(context_t *context);
     static xdo_t *m_xdo;
 

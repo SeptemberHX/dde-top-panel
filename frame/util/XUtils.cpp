@@ -3,6 +3,9 @@
 //
 
 #include <QImage>
+#include <QDebug>
+#include <QApplication>
+#include <QScreen>
 #include "XUtils.h"
 #include "xdo.h"
 #include <X11/Xlib.h>
@@ -62,17 +65,10 @@ QString XUtils::getWindowName(int winId) {
 bool XUtils::checkIfBadWindow(int winId) {
     openXdo();
 
-    Atom atom = XInternAtom(m_xdo->xdpy, "_NET_WM_NAME", false);
-    Atom actualType;
-    unsigned long ntimes;
-    unsigned long bytes_after;
-    int actualFormat;
-    unsigned char *prop;
+    XWindowAttributes attr;
+    int ret = XGetWindowAttributes(m_xdo->xdpy, winId, &attr);
 
-    int status = XGetWindowProperty(m_xdo->xdpy, winId, atom, 0, (~0L), False, AnyPropertyType, &actualType, &actualFormat, &ntimes, &bytes_after, &prop);
-    XFree(prop);
-
-    return status == BadWindow;
+    return ret == 0;
 }
 
 void XUtils::openDisplay() {
@@ -114,6 +110,30 @@ bool XUtils::checkIfWinMaximum(int winId) {
     }
     XFree(value);
     return hMaxFlag && vMaxFlag;
+}
+
+bool XUtils::checkIfWinMinimun(int winId) {
+    openXdo();
+
+    unsigned char *value;
+    long n;
+
+    int ret = xdo_get_window_property(m_xdo, winId, "_NET_WM_STATE", &value, &n, NULL, NULL);
+    if (ret != XDO_SUCCESS) {
+        return false;
+    }
+
+    Atom *result = (Atom*) value;
+    Atom minAtom = XInternAtom(m_xdo->xdpy, "_NET_WM_STATE_HIDDEN", False);
+    bool maxFlag = false;
+    for (int i = 0; i < n; ++i) {
+        if (result[i] == minAtom) {
+            maxFlag = true;
+            break;
+        }
+    }
+    XFree(value);
+    return maxFlag;
 }
 
 void XUtils::unmaximizeWindow(int winId) {
@@ -183,6 +203,68 @@ QPixmap XUtils::getWindowIconName(int winId) {
 
     delete[] imgData;
     return QPixmap::fromImage(image);
+}
+
+int XUtils::getWindowScreenNum(int winId) {
+    openXdo();
+
+    QRect r;
+    XWindowAttributes attr;
+    int ret = XGetWindowAttributes(m_xdo->xdpy, winId, &attr);
+    if (ret != 0) {
+        int x, y;
+        Window unused_child, parent, root;
+        Window *children;
+        unsigned int nchildren;
+        XQueryTree(m_xdo->xdpy, winId, &root, &parent, &children, &nchildren);
+        if (children != NULL) {
+            XFree(children);
+        }
+        if (parent == attr.root) {
+            x = attr.x;
+            y = attr.y;
+        } else {
+            XTranslateCoordinates(m_xdo->xdpy, winId, attr.root, attr.x, attr.y, &x, &y, &unused_child);
+        }
+
+        r.setLeft(x);
+        r.setTop(y);
+        r.setWidth(attr.width);
+        r.setHeight(attr.height);
+
+        int maxPartScreenNum = 0;
+        int maxPartArea = 0;
+        int i = 0;
+        for (const QScreen* screen : QApplication::screens()) {
+            QRect intR = screen->geometry().intersected(r);
+            auto area = intR.height() * intR.width();
+            if (area > maxPartArea) {
+                maxPartScreenNum = i;
+                maxPartArea = area;
+            }
+            ++i;
+        }
+        return maxPartScreenNum;
+    }
+
+    return -1;
+}
+
+QRect XUtils::getWindowGeometry(int winId) {
+    openXdo();
+
+    QRect r;
+    XWindowAttributes attr;
+    int ret = XGetWindowAttributes(m_xdo->xdpy, winId, &attr);
+    if (ret != 0) {
+        r.setLeft(attr.x);
+        r.setTop(attr.y);
+        r.setWidth(attr.width);
+        r.setHeight(attr.height);
+        qDebug() << attr.x << attr.y << attr.width << attr.height;
+    }
+
+    return r;
 }
 
 //int XUtils::cmd_getActiveWindow(context_t *context) {

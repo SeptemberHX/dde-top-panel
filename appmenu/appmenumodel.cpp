@@ -272,7 +272,6 @@ void AppMenuModel::onActiveWindowChanged(WId id)
     int currScreenNum = QApplication::desktop()->screenNumber(qobject_cast<QWidget*>(this->parent()));
     int activeWinScreenNum = XUtils::getWindowScreenNum(id);
 
-    qDebug() << currScreenNum << activeWinScreenNum;
     if (activeWinScreenNum >= 0 && activeWinScreenNum != currScreenNum) {
         if (XUtils::checkIfBadWindow(m_currentWindowId)) {
             setMenuAvailable(false);

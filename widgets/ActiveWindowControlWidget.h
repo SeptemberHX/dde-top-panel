@@ -43,6 +43,7 @@ private:
     void setButtonsVisible(bool visible);
     QMenu *createMenu(int idx) const;
     void trigger(QWidget *ctx, int idx);
+    int currScreenNum();
 
 private slots:
     void maxButtonClicked();

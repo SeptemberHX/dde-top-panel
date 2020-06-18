@@ -121,8 +121,6 @@ AppMenuModel::AppMenuModel(QObject *parent)
             this, [this](WId id, NET::Properties properties, NET::Properties2 properties2) {
         if (KWindowSystem::activeWindow() != id) return;
 
-        if (!properties.testFlag(NET::WMGeometry) && !properties.testFlag(NET::WMState)) return;
-
         if (properties.testFlag(NET::WMGeometry)) {
             int currScreenNum = QApplication::desktop()->screenNumber(qobject_cast<QWidget *>(this->parent()));
             int activeWinScreenNum = XUtils::getWindowScreenNum(id);

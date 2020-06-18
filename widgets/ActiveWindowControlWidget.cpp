@@ -123,10 +123,14 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
         return;
     }
 
-    int currScreenNum = QApplication::desktop()->screenNumber(this);
+    int currScreenNum = this->currScreenNum();
     int activeWinScreenNum = XUtils::getWindowScreenNum(activeWinId);
     if (activeWinScreenNum >= 0 && activeWinScreenNum != currScreenNum) {
         if (XUtils::checkIfBadWindow(this->currActiveWinId) || this->currActiveWinId == activeWinId || XUtils::checkIfWinMinimun(this->currActiveWinId)) {
+//            qDebug() << "Screen" << this->currScreenNum()
+//                     << XUtils::checkIfBadWindow(this->currActiveWinId)
+//                     << (this->currActiveWinId == activeWinId)
+//                     << XUtils::checkIfWinMinimun(this->currActiveWinId);
             this->currActiveWinId = -1;
             this->m_winTitleLabel->setText(tr("桌面"));
             this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
@@ -146,7 +150,7 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     this->m_winTitleLabel->setText(this->currActiveWinTitle);
 
     if (!activeWinTitle.isEmpty()) {
-        this->m_iconLabel->setPixmap(XUtils::getWindowIconName(this->currActiveWinId));
+        this->m_iconLabel->setPixmap(XUtils::getWindowIconNameX11(this->currActiveWinId));
     }
 
     // KWindowSystem will not update menu for desktop when focusing on the desktop
@@ -443,4 +447,8 @@ void ActiveWindowControlWidget::leaveTopPanel() {
         this->m_menuWidget->hide();
         this->m_winTitleLabel->show();
     }
+}
+
+int ActiveWindowControlWidget::currScreenNum() {
+    return QApplication::desktop()->screenNumber(this);
 }

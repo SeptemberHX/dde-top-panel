@@ -27,11 +27,22 @@ class XUtils {
 
 public:
     static int getFocusWindowId();
+
+    static QString getWindowNameX11(int winId);
     static QString getWindowName(int winId);
+
+
     static bool checkIfWinMaximum(int winId);
+    static bool checkIfWinMinimunX11(int winId);
+
     static bool checkIfWinMinimun(int winId);
+
     static void unmaximizeWindow(int winId);
+
+    static QPixmap getWindowIconNameX11(int winId);
     static QPixmap getWindowIconName(int winId);
+
+
     static bool checkIfBadWindow(int winid);
     static int getWindowScreenNum(int windid);
     static QRect getWindowGeometry(int winId);

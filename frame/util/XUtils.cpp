@@ -13,6 +13,8 @@
 #include <iostream>
 #include <X11/Xutil.h>
 #include <X11/Xatom.h>
+#include <KWindowInfo>
+#include <KWindowSystem>
 #include "util/CustomSettings.h"
 
 xdo_t *XUtils::m_xdo = nullptr;
@@ -41,7 +43,7 @@ int XUtils::getFocusWindowId() {
 //    return cmd_getActiveWindow(&context);
 }
 
-QString XUtils::getWindowName(int winId) {
+QString XUtils::getWindowNameX11(int winId) {
     int nameLen = -1;
     int nameType;
     unsigned char *windowName;
@@ -62,13 +64,17 @@ QString XUtils::getWindowName(int winId) {
     return QString(name);
 }
 
+QString XUtils::getWindowName(int winId) {
+    KWindowInfo info(winId, NET::WMVisibleName);
+    if (info.valid()) {
+        return info.visibleName();
+    }
+    return QString();
+}
+
 bool XUtils::checkIfBadWindow(int winId) {
-    openXdo();
-
-    XWindowAttributes attr;
-    int ret = XGetWindowAttributes(m_xdo->xdpy, winId, &attr);
-
-    return ret == 0;
+    KWindowInfo info(winId, NET::WMGeometry);
+    return !info.valid();
 }
 
 void XUtils::openDisplay() {
@@ -112,7 +118,7 @@ bool XUtils::checkIfWinMaximum(int winId) {
     return hMaxFlag && vMaxFlag;
 }
 
-bool XUtils::checkIfWinMinimun(int winId) {
+bool XUtils::checkIfWinMinimunX11(int winId) {
     openXdo();
 
     unsigned char *value;
@@ -156,7 +162,7 @@ void XUtils::unmaximizeWindow(int winId) {
     XSendEvent(m_xdo->xdpy, DefaultRootWindow(m_xdo->xdpy), True, SubstructureNotifyMask, &xev);
 }
 
-QPixmap XUtils::getWindowIconName(int winId) {
+QPixmap XUtils::getWindowIconNameX11(int winId) {
     openXdo();
 
     Atom prop = XInternAtom(m_xdo->xdpy, "_NET_WM_ICON", False);
@@ -204,6 +210,16 @@ QPixmap XUtils::getWindowIconName(int winId) {
     delete[] imgData;
     return QPixmap::fromImage(image);
 }
+
+// Abandoned because it always returns an icon even there is no icon for current window: it provides default icon.
+QPixmap XUtils::getWindowIconName(int winId) {
+    QPixmap iconPixmap = KWindowSystem::self()->icon(winId);
+    if (iconPixmap.isNull()) {
+        return QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath());
+    }
+    return iconPixmap;
+}
+
 
 int XUtils::getWindowScreenNum(int winId) {
     openXdo();
@@ -265,6 +281,14 @@ QRect XUtils::getWindowGeometry(int winId) {
     }
 
     return r;
+}
+
+bool XUtils::checkIfWinMinimun(int winId) {
+    KWindowInfo info(winId, NET::WMState);
+    if (info.valid()) {
+        return info.isMinimized();
+    }
+    return false;
 }
 
 //int XUtils::cmd_getActiveWindow(context_t *context) {

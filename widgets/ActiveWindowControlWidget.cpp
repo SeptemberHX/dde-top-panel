@@ -268,7 +268,7 @@ void ActiveWindowControlWidget::updateMenu() {
         }
     }
 
-    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && XUtils::checkIfWinMaximum(this->currActiveWinId)) {
+    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && XUtils::checkIfWinMaximum(this->currActiveWinId) && !this->isMenuShown) {
         if (!this->buttonLabelList.isEmpty()) {
             this->m_menuWidget->hide();
             this->m_winTitleLabel->show();

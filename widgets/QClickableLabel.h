@@ -16,6 +16,10 @@ public:
     explicit QClickableLabel(QWidget *parent);
 
     void setDefaultFontColor(const QColor &defaultFontColor);
+    void setSelectedColor();
+    void setNormalColor();
+
+    void resetClicked();
 
 signals:
     void clicked();
@@ -29,6 +33,7 @@ protected:
 
 private:
     QColor defaultFontColor = CustomSettings::instance()->getActiveFontColor();
+    bool isClicked;
 };
 
 

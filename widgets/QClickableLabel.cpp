@@ -8,32 +8,23 @@
 
 QClickableLabel::QClickableLabel(QWidget *parent)
     : QLabel(parent)
+    , isClicked(false)
 {
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::WindowText, this->defaultFontColor);
-    palette.setColor(QPalette::Background, Qt::transparent);
-    this->setPalette(palette);
+    this->setNormalColor();
     this->setMouseTracking(true);
     this->setAutoFillBackground(true);
 }
 
 void QClickableLabel::enterEvent(QEvent *event) {
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::Background, QColor("#0081FF"));
-    palette.setColor(QPalette::WindowText, Qt::white);
-    this->setPalette(palette);
-    this->repaint();
-
+    this->setSelectedColor();
     QWidget::enterEvent(event);
 }
 
 void QClickableLabel::leaveEvent(QEvent *event) {
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::Background, Qt::transparent);
-    palette.setColor(QPalette::WindowText, this->defaultFontColor);
-    this->setPalette(palette);
-    this->repaint();
-
+    if (!isClicked) {
+        this->setNormalColor();
+        isClicked = false;
+    }
     QWidget::leaveEvent(event);
 }
 
@@ -42,6 +33,7 @@ void QClickableLabel::mousePressEvent(QMouseEvent *ev) {
         return;
     }
 
+    isClicked = true;
     Q_EMIT clicked();
     QLabel::mousePressEvent(ev);
 }
@@ -56,4 +48,24 @@ void QClickableLabel::setDefaultFontColor(const QColor &defaultFontColor) {
     palette.setColor(QPalette::WindowText, this->defaultFontColor);
     this->setPalette(palette);
     this->repaint();
+}
+
+void QClickableLabel::setSelectedColor() {
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Background, QColor("#0081FF"));
+    palette.setColor(QPalette::WindowText, Qt::white);
+    this->setPalette(palette);
+    this->repaint();
+}
+
+void QClickableLabel::setNormalColor() {
+    QPalette palette = this->palette();
+    palette.setColor(QPalette::Background, Qt::transparent);
+    palette.setColor(QPalette::WindowText, this->defaultFontColor);
+    this->setPalette(palette);
+    this->repaint();
+}
+
+void QClickableLabel::resetClicked() {
+    this->isClicked = false;
 }

@@ -35,7 +35,7 @@ int XUtils::getFocusWindowId() {
     if (ret == XDO_SUCCESS) {
         return window;
     } else {
-        return -1;
+        return KWindowSystem::activeWindow();
     }
 //    context_t context;
 //    context.xdo = m_xdo;

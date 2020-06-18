@@ -11,6 +11,7 @@
 #include <QtX11Extras/QX11Info>
 #include <QApplication>
 #include <QScreen>
+#include <QEvent>
 #include <QDesktopWidget>
 
 ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
@@ -19,6 +20,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     , m_wmInter(new DBusWM("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
     , mouseClicked(false)
     , isMenuShown(false)
+    , m_currentIndex(-1)
 {
     QPalette palette1 = this->palette();
     palette1.setColor(QPalette::Background, Qt::transparent);
@@ -233,7 +235,9 @@ void ActiveWindowControlWidget::maximizeWindow() {
 }
 
 void ActiveWindowControlWidget::mouseDoubleClickEvent(QMouseEvent *event) {
-    this->maximizeWindow();
+    if (this->childAt(event->pos()) != this->m_menuWidget) {
+        this->maximizeWindow();
+    }
     QWidget::mouseDoubleClickEvent(event);
 }
 
@@ -285,9 +289,8 @@ void ActiveWindowControlWidget::updateMenu() {
 }
 
 void ActiveWindowControlWidget::menuLabelClicked() {
-    QClickableLabel *label = dynamic_cast<QClickableLabel*>(sender());
-    int index = this->buttonLabelList.indexOf(label);
-    this->trigger(label, index);
+    auto *label = dynamic_cast<QClickableLabel*>(sender());
+    this->trigger(label, this->buttonLabelList.indexOf(label));
 }
 
 QMenu *ActiveWindowControlWidget::createMenu(int idx) const {
@@ -304,67 +307,36 @@ QMenu *ActiveWindowControlWidget::createMenu(int idx) const {
     return menu;
 }
 
-void ActiveWindowControlWidget::trigger(QWidget *ctx, int idx) {
+void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
+    if (m_currentIndex == idx) return;
+
+    int oldIndex = m_currentIndex;
+    m_currentIndex = idx;
     QMenu *actionMenu = createMenu(idx);
+
     if (actionMenu) {
-
-        //this is a workaround where Qt will fail to realise a mouse has been released
-        // this happens if a window which does not accept focus spawns a new window that takes focus and X grab
-        // whilst the mouse is depressed
-        // https://bugreports.qt.io/browse/QTBUG-59044
-        // this causes the next click to go missing
-
-        //by releasing manually we avoid that situation
-//        auto ungrabMouseHack = [ctx]() {
-//            if (ctx && ctx->window() && ctx->window()->mouseGrabberItem()) {
-//                // FIXME event forge thing enters press and hold move mode :/
-//                ctx->window()->mouseGrabberItem()->ungrabMouse();
-//            }
-//        };
-//
-//        QTimer::singleShot(0, ctx, ungrabMouseHack);
-        //end workaround
-
-//        const auto &geo = ctx->window()->screen()->availableVirtualGeometry();
-//
-//        QPoint pos = ctx->window()->mapToGlobal(ctx->mapToScene(QPointF()).toPoint());
-//        if (location() == Plasma::Types::TopEdge) {
-//            pos.setY(pos.y() + ctx->height());
-//        }
-
         actionMenu->adjustSize();
-
-//        pos = QPoint(qBound(geo.x(), pos.x(), geo.x() + geo.width() - actionMenu->width()),
-//                     qBound(geo.y(), pos.y(), geo.y() + geo.height() - actionMenu->height()));
-
-//        if (view() == FullView) {
-//            actionMenu->installEventFilter(this);
-//        }
-
         actionMenu->winId();//create window handle
-        actionMenu->windowHandle()->setTransientParent(this->windowHandle());
+        actionMenu->windowHandle()->setTransientParent(ctx->windowHandle());
         actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()) + QPoint(0, 6));
         actionMenu->installEventFilter(this);
         this->isMenuShown = true;
 
-//        if (view() == FullView) {
-//            // hide the old menu only after showing the new one to avoid brief flickering
-//            // in other windows as they briefly re-gain focus
-//            QMenu *oldMenu = m_currentMenu;
-//            m_currentMenu = actionMenu;
-//            if (oldMenu && oldMenu != actionMenu) {
-//                //! dont trigger initialization of index because there is a new menu created
-//                disconnect(oldMenu, &QMenu::aboutToHide, this, &AppMenuApplet::onMenuAboutToHide);
-//
-//                oldMenu->hide();
-//            }
-//        }
+        QMenu *oldMenu = m_currentMenu;
+        m_currentMenu = actionMenu;
+        if (oldMenu && oldMenu != actionMenu) {
+            //don't initialize the currentIndex when another menu is already shown
+            disconnect(oldMenu, &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide);
+            oldMenu->hide();
+        }
 
-//        setCurrentIndex(idx);
+        ctx->setSelectedColor();
+        if (oldIndex >=0 && oldIndex < this->buttonLabelList.size()) {
+            this->buttonLabelList[oldIndex]->setNormalColor();
+            this->buttonLabelList[oldIndex]->resetClicked();
+        }
 
-        // FIXME TODO connect only once
-//        connect(actionMenu, &QMenu::aboutToHide, this, &AppMenuApplet::onMenuAboutToHide, Qt::UniqueConnection);
-        return;
+        connect(actionMenu, &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide, Qt::UniqueConnection);
     }
 }
 
@@ -434,10 +406,33 @@ void ActiveWindowControlWidget::applyCustomSettings(const CustomSettings& settin
 }
 
 bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
-    if (event->type() == QEvent::Hide) {
-        this->isMenuShown = false;
-        this->leaveTopPanel();
+    auto *menu = qobject_cast<QMenu *>(watched);
+    if (!menu) {
+        return false;
     }
+
+    if (event->type() == QEvent::MouseMove) {
+        auto *e = dynamic_cast<QMouseEvent *>(event);
+
+        if (!this->m_menuLayout || !this->m_menuWidget) {
+            return false;
+        }
+
+        const QPointF &windowLocalPos = m_menuWidget->mapFromGlobal(e->globalPos());
+
+        auto *item = dynamic_cast<QClickableLabel*>(m_menuWidget->childAt(windowLocalPos.x(), windowLocalPos.y()));
+        if (!item) {
+            return false;
+        }
+
+        const int buttonIndex = this->buttonLabelList.indexOf(item);
+        if (buttonIndex < 0) {
+            return false;
+        }
+
+        requestActivateIndex(buttonIndex);
+    }
+
     return false;
 }
 
@@ -451,4 +446,16 @@ void ActiveWindowControlWidget::leaveTopPanel() {
 
 int ActiveWindowControlWidget::currScreenNum() {
     return QApplication::desktop()->screenNumber(this);
+}
+
+void ActiveWindowControlWidget::requestActivateIndex(int buttonIndex) {
+    this->trigger(this->buttonLabelList[buttonIndex], buttonIndex);
+}
+
+void ActiveWindowControlWidget::onMenuAboutToHide() {
+    this->buttonLabelList[this->m_currentIndex]->resetClicked();
+    this->buttonLabelList[this->m_currentIndex]->setNormalColor();
+    this->m_currentIndex = -1;
+    this->isMenuShown = false;
+    this->leaveTopPanel();
 }

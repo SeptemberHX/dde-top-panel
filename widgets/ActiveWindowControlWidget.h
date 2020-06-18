@@ -42,8 +42,10 @@ protected:
 private:
     void setButtonsVisible(bool visible);
     QMenu *createMenu(int idx) const;
-    void trigger(QWidget *ctx, int idx);
+    void trigger(QClickableLabel *ctx, int idx);
     int currScreenNum();
+    void requestActivateIndex(int buttonIndex);
+    void onMenuAboutToHide();
 
 private slots:
     void maxButtonClicked();
@@ -76,6 +78,8 @@ private:
     DBusDock *m_appInter;
     DBusWM  *m_wmInter;
     bool mouseClicked;
+    int m_currentIndex;
+    QMenu *m_currentMenu;
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) override;

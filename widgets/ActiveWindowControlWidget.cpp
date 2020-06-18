@@ -456,6 +456,7 @@ void ActiveWindowControlWidget::onMenuAboutToHide() {
     this->buttonLabelList[this->m_currentIndex]->resetClicked();
     this->buttonLabelList[this->m_currentIndex]->setNormalColor();
     this->m_currentIndex = -1;
+    this->m_currentMenu = nullptr;
     this->isMenuShown = false;
     this->leaveTopPanel();
 }

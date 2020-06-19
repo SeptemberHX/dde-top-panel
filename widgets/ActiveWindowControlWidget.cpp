@@ -17,10 +17,9 @@
 ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     : QWidget(parent)
     , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
-    , m_wmInter(new DBusWM("com.deepin.wm", "/com/deepin/wm", QDBusConnection::sessionBus(), this))
     , mouseClicked(false)
-    , isMenuShown(false)
     , m_currentIndex(-1)
+    , m_currentMenu(nullptr)
 {
     QPalette palette1 = this->palette();
     palette1.setColor(QPalette::Background, Qt::transparent);
@@ -169,10 +168,7 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
             delete m_label;
         }
         this->buttonLabelList.clear();
-        this->m_menuWidget->show();
-
-        // show title
-        this->m_winTitleLabel->show();
+        this->setMenuVisible(false);
     }
 
     // some applications like KWrite will expose its global menu with an invalid dbus path
@@ -193,8 +189,7 @@ void ActiveWindowControlWidget::setButtonsVisible(bool visible) {
 void ActiveWindowControlWidget::enterEvent(QEvent *event) {
     if (CustomSettings::instance()->isShowGlobalMenuOnHover() && !this->buttonLabelList.isEmpty()
         && XUtils::checkIfWinMaximum(this->currActiveWinId)) {
-        this->m_menuWidget->show();
-        this->m_winTitleLabel->hide();
+        this->setMenuVisible(true);
     }
 
     QWidget::enterEvent(event);
@@ -272,19 +267,12 @@ void ActiveWindowControlWidget::updateMenu() {
         }
     }
 
-    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && XUtils::checkIfWinMaximum(this->currActiveWinId) && !this->isMenuShown) {
+    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && XUtils::checkIfWinMaximum(this->currActiveWinId) && !this->isMenuShown()) {
         if (!this->buttonLabelList.isEmpty()) {
-            this->m_menuWidget->hide();
-            this->m_winTitleLabel->show();
+            this->setMenuVisible(false);
         }
     } else {
-        if (this->buttonLabelList.isEmpty()) {
-            this->m_menuWidget->hide();
-            this->m_winTitleLabel->show();
-        } else {
-            this->m_menuWidget->show();
-            this->m_winTitleLabel->hide();
-        }
+        this->setMenuVisible(!this->buttonLabelList.isEmpty());
     }
 }
 
@@ -320,7 +308,6 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
         actionMenu->windowHandle()->setTransientParent(ctx->windowHandle());
         actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()) + QPoint(0, 6));
         actionMenu->installEventFilter(this);
-        this->isMenuShown = true;
 
         QMenu *oldMenu = m_currentMenu;
         m_currentMenu = actionMenu;
@@ -437,10 +424,9 @@ bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
 }
 
 void ActiveWindowControlWidget::leaveTopPanel() {
-    if (!isMenuShown && CustomSettings::instance()->isShowGlobalMenuOnHover() && !this->buttonLabelList.isEmpty()
+    if (!this->isMenuShown() && CustomSettings::instance()->isShowGlobalMenuOnHover() && !this->buttonLabelList.isEmpty()
         && XUtils::checkIfWinMaximum(this->currActiveWinId)) {
-        this->m_menuWidget->hide();
-        this->m_winTitleLabel->show();
+        this->setMenuVisible(false);
     }
 }
 
@@ -457,6 +443,14 @@ void ActiveWindowControlWidget::onMenuAboutToHide() {
     this->buttonLabelList[this->m_currentIndex]->setNormalColor();
     this->m_currentIndex = -1;
     this->m_currentMenu = nullptr;
-    this->isMenuShown = false;
     this->leaveTopPanel();
+}
+
+bool ActiveWindowControlWidget::isMenuShown() {
+    return this->m_currentMenu != nullptr;
+}
+
+void ActiveWindowControlWidget::setMenuVisible(bool visible) {
+    this->m_menuWidget->setVisible(visible);
+    this->m_winTitleLabel->setVisible(!visible);
 }

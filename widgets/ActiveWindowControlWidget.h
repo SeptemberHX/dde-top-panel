@@ -45,7 +45,8 @@ private:
     void trigger(QClickableLabel *ctx, int idx);
     int currScreenNum();
     void requestActivateIndex(int buttonIndex);
-    void onMenuAboutToHide();
+    bool isMenuShown();
+    void setMenuVisible(bool visible);
 
 private slots:
     void maxButtonClicked();
@@ -54,6 +55,7 @@ private slots:
     void updateMenu();
     void menuLabelClicked();
     void windowChanged(WId, NET::Properties, NET::Properties2);
+    void onMenuAboutToHide();
 
 private:
     QHBoxLayout *m_layout;
@@ -76,7 +78,6 @@ private:
     QList<QClickableLabel*> buttonLabelList;
 
     DBusDock *m_appInter;
-    DBusWM  *m_wmInter;
     bool mouseClicked;
     int m_currentIndex;
     QMenu *m_currentMenu;
@@ -88,8 +89,6 @@ protected:
 
     void mousePressEvent(QMouseEvent *event) override;
 
-private:
-    bool isMenuShown;
 public:
     bool eventFilter(QObject *watched, QEvent *event) override;
 

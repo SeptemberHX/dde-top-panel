@@ -15,6 +15,10 @@
 #include "QClickableLabel.h"
 #include <com_deepin_wm.h>
 #include "../frame/util/CustomSettings.h"
+#include <com_deepin_dde_launcher.h>
+
+
+using LauncherInter = com::deepin::dde::Launcher;
 
 using DBusDock = com::deepin::dde::daemon::Dock;
 using DBusWM = com::deepin::wm;
@@ -81,6 +85,8 @@ private:
     bool mouseClicked;
     int m_currentIndex;
     QMenu *m_currentMenu;
+
+    LauncherInter *m_launcherInter;
 
 protected:
     void mouseReleaseEvent(QMouseEvent *event) override;

@@ -20,7 +20,10 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     , mouseClicked(false)
     , m_currentIndex(-1)
     , m_currentMenu(nullptr)
+    , m_launcherInter(new LauncherInter("com.deepin.dde.Launcher", "/com/deepin/dde/Launcher", QDBusConnection::sessionBus(), this))
 {
+    m_launcherInter->setSync(true, false);
+
     QPalette palette1 = this->palette();
     palette1.setColor(QPalette::Background, Qt::transparent);
     this->setPalette(palette1);
@@ -345,6 +348,12 @@ void ActiveWindowControlWidget::mousePressEvent(QMouseEvent *event) {
         QWidget *pressedWidget = childAt(event->pos());
         if (pressedWidget == nullptr || pressedWidget == m_winTitleLabel) {
             this->mouseClicked = !this->mouseClicked;
+        } else if (qobject_cast<QLabel*>(pressedWidget) == this->m_iconLabel) {
+            if (this->m_launcherInter->visible()) {
+                this->m_launcherInter->Hide();
+            } else {
+                this->m_launcherInter->Show();
+            }
         }
     }
     QWidget::mousePressEvent(event);

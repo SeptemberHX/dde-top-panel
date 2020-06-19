@@ -87,11 +87,7 @@ Due to the logical of tray plugins, only one tray widget can hold the wine trays
  
 The main code of wine trays is in `plugins/tray/xembedtraywidget`. Generally, it wraps the raw wine trays with a new widget and embeds it to the tray, then it operates on the new widget. The problem is every tray widget will create a new container widget for each wine trays, and the tray widgets launched before can't the window id of the new container widget.
 
-For now, I use QSharedMemory to share the window id of the container widget. However, the size of shared memory is 1MB, and it will be used up if you kill and open the panels and docks for many many time.
-
 This part needs help.
-
-If you want to fix it in my way, just use the `libtray.so` (DO NOT FORGET to back up the system one) 
 
 ------
 

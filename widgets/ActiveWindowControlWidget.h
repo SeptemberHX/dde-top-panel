@@ -29,19 +29,20 @@ class ActiveWindowControlWidget : public QWidget {
 
 public:
     explicit ActiveWindowControlWidget(QWidget *parent = 0);
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 public slots:
     void activeWindowInfoChanged();
     void maximizeWindow();
-
     void applyCustomSettings(const CustomSettings& settings);
 
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
-
-protected:
     void enterEvent(QEvent *event) override;
     void leaveEvent(QEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
     void setButtonsVisible(bool visible);
@@ -51,6 +52,7 @@ private:
     void requestActivateIndex(int buttonIndex);
     bool isMenuShown();
     void setMenuVisible(bool visible);
+    void leaveTopPanel();
 
 private slots:
     void maxButtonClicked();
@@ -65,6 +67,7 @@ private:
     QHBoxLayout *m_layout;
     QLabel *m_winTitleLabel;
 
+    QStack<int> activeIdStack;
     int currActiveWinId;
     QString currActiveWinTitle;
 
@@ -78,28 +81,15 @@ private:
     QWidget *m_menuWidget;
     QLayout *m_menuLayout;
     AppMenuModel *m_appMenuModel;
-
     QList<QClickableLabel*> buttonLabelList;
 
-    DBusDock *m_appInter;
     bool mouseClicked;
     int m_currentIndex;
     QMenu *m_currentMenu;
 
+    DBusDock *m_appInter;
     LauncherInter *m_launcherInter;
 
-protected:
-    void mouseReleaseEvent(QMouseEvent *event) override;
-
-    void mouseMoveEvent(QMouseEvent *event) override;
-
-    void mousePressEvent(QMouseEvent *event) override;
-
-public:
-    bool eventFilter(QObject *watched, QEvent *event) override;
-
-private:
-    void leaveTopPanel();
     QPropertyAnimation *m_buttonShowAnimation;
     QPropertyAnimation *m_buttonHideAnimation;
     QTimer *m_fixTimer;

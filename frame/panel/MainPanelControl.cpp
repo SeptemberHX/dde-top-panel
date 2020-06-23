@@ -171,10 +171,10 @@ void MainPanelControl::resizeDockIcon()
 
     int iconSize = 0;
 
-    // 余数
-    int yu = (totalLength % iconCount);
-    // icon宽度 = (总宽度-余数)/icon个数
-    iconSize = (totalLength - yu) / iconCount;
+//    // 余数
+//    int yu = (totalLength % iconCount);
+//    // icon宽度 = (总宽度-余数)/icon个数
+//    iconSize = (totalLength - yu) / iconCount;
 
     if (iconSize < 20 || iconSize > 40) {
 

@@ -4,9 +4,8 @@
 
 #include <DApplication>
 #include <DGuiApplicationHelper>
-#include <controller/dockitemmanager.h>
+#include <unistd.h>
 #include "window/MainWindow.h"
-#include "../appmenu/menuimporter.h"
 
 DWIDGET_USE_NAMESPACE
 #ifdef DCORE_NAMESPACE

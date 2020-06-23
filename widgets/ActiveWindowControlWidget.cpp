@@ -130,21 +130,41 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     int currScreenNum = this->currScreenNum();
     int activeWinScreenNum = XUtils::getWindowScreenNum(activeWinId);
     if (activeWinScreenNum >= 0 && activeWinScreenNum != currScreenNum) {
+        bool ifFoundPrevActiveWinId = false;
         if (XUtils::checkIfBadWindow(this->currActiveWinId) || this->currActiveWinId == activeWinId || XUtils::checkIfWinMinimun(this->currActiveWinId)) {
-//            qDebug() << "Screen" << this->currScreenNum()
-//                     << XUtils::checkIfBadWindow(this->currActiveWinId)
-//                     << (this->currActiveWinId == activeWinId)
-//                     << XUtils::checkIfWinMinimun(this->currActiveWinId);
-            this->currActiveWinId = -1;
-            this->m_winTitleLabel->setText(tr("桌面"));
-            this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
+            int newCurActiveWinId = -1;
+            while (!this->activeIdStack.isEmpty()) {
+                int prevActiveId = this->activeIdStack.pop();
+                if (XUtils::checkIfBadWindow(prevActiveId) || this->currActiveWinId == prevActiveId || XUtils::checkIfWinMinimun(prevActiveId)) {
+                    continue;
+                }
+
+                int sNum = XUtils::getWindowScreenNum(prevActiveId);
+                if (sNum != currScreenNum) {
+                    continue;
+                }
+
+                newCurActiveWinId = prevActiveId;
+                break;
+            }
+
+            if (newCurActiveWinId < 0) {
+                this->currActiveWinId = -1;
+                this->m_winTitleLabel->setText(tr("桌面"));
+                this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
+            } else {
+                activeWinId = newCurActiveWinId;
+                ifFoundPrevActiveWinId = true;
+            }
         }
-        return;
+        if (!ifFoundPrevActiveWinId) {
+            return;
+        }
     }
 
     if (activeWinId != this->currActiveWinId) {
         this->currActiveWinId = activeWinId;
-        // todo
+        this->activeIdStack.push(this->currActiveWinId);
     }
 
     this->setButtonsVisible(XUtils::checkIfWinMaximum(this->currActiveWinId));
@@ -355,6 +375,7 @@ void ActiveWindowControlWidget::mousePressEvent(QMouseEvent *event) {
                 this->m_launcherInter->Show();
             }
         }
+        KWindowSystem::activateWindow(this->currActiveWinId);
     }
     QWidget::mousePressEvent(event);
 }

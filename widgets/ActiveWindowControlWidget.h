@@ -46,7 +46,7 @@ protected:
 
 private:
     void setButtonsVisible(bool visible);
-    QMenu *createMenu(int idx) const;
+    QAction *createAction(int idx) const;
     void trigger(QClickableLabel *ctx, int idx);
     int currScreenNum();
     void requestActivateIndex(int buttonIndex);

@@ -304,18 +304,12 @@ void ActiveWindowControlWidget::menuLabelClicked() {
     this->trigger(label, this->buttonLabelList.indexOf(label));
 }
 
-QMenu *ActiveWindowControlWidget::createMenu(int idx) const {
-    QMenu *menu = nullptr;
-    QAction *action = nullptr;
-
+// for modern gtk applications, some menu has no sub menus, and only action is presented.
+// thus, we obtain the action instead of the menu so we can perform the action when no submenu
+QAction *ActiveWindowControlWidget::createAction(int idx) const {
     const QModelIndex index = m_appMenuModel->index(idx, 0);
     const QVariant data = m_appMenuModel->data(index, AppMenuModel::ActionRole);
-    action = (QAction *)data.value<void *>();
-    if (action) {
-        menu = action->menu();
-    }
-
-    return menu;
+    return (QAction *)data.value<void *>();
 }
 
 void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
@@ -323,8 +317,13 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
 
     int oldIndex = m_currentIndex;
     m_currentIndex = idx;
-    QMenu *actionMenu = createMenu(idx);
+    QAction *action = createAction(idx);
 
+    if (action == nullptr) {
+        return;
+    }
+
+    QMenu *actionMenu = action->menu();
     if (actionMenu) {
         actionMenu->adjustSize();
         actionMenu->winId();//create window handle
@@ -347,6 +346,8 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
         }
 
         connect(actionMenu, &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide, Qt::UniqueConnection);
+    } else {
+        action->trigger();
     }
 }
 

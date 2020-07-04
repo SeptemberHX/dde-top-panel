@@ -78,6 +78,7 @@ private:
     QToolButton *maxButton;
 
     QLabel *m_iconLabel;
+    QLabel *m_appNameLabel;
     QWidget *m_menuWidget;
     QLayout *m_menuLayout;
     AppMenuModel *m_appMenuModel;

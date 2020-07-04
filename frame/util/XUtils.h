@@ -42,6 +42,7 @@ public:
     static QPixmap getWindowIconNameX11(int winId);
     static QPixmap getWindowIconName(int winId);
 
+    static QString getWindowAppName(int winId);
 
     static bool checkIfBadWindow(int winid);
     static int getWindowScreenNum(int windid);

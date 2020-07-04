@@ -17,6 +17,9 @@ CustomSettings::CustomSettings() {
     this->setDefaultActiveUnmaximizedIconPath();
     this->setDefaultShowGlobalMenuOnHover();
 
+    this->showAppNameInsteadIcon = true;
+    this->showControlButtons = true;
+
     this->readSettings();
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
 }
@@ -183,6 +186,8 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/minIcon", this->getActiveMinimizedIconPath());
     settings.setValue("windowControl/defaultIcon", this->getActiveDefaultAppIconPath());
     settings.setValue("windowControl/showMenuOnHover", this->isShowGlobalMenuOnHover());
+    settings.setValue("windowControl/showControlButtons", this->isShowControlButtons());
+    settings.setValue("windowControl/showAppNameInsteadIcon", this->isShowAppNameInsteadIcon());
 }
 
 void CustomSettings::readSettings() {
@@ -195,4 +200,24 @@ void CustomSettings::readSettings() {
     this->activeMinimizedIconPath = settings.value("windowControl/minIcon", this->activeMinimizedIconPath).toString();
     this->activeDefaultAppIconPath = settings.value("windowControl/defaultIcon", this->activeDefaultAppIconPath).toString();
     this->showGlobalMenuOnHover = settings.value("windowControl/showMenuOnHover", this->showGlobalMenuOnHover).toBool();
+    this->showControlButtons = settings.value("windowControl/showControlButtons", this->showControlButtons).toBool();
+    this->showAppNameInsteadIcon = settings.value("windowControl/showAppNameInsteadIcon", this->showAppNameInsteadIcon).toBool();
+}
+
+bool CustomSettings::isShowControlButtons() const {
+    return showControlButtons;
+}
+
+void CustomSettings::setShowControlButtons(bool showControlButtons) {
+    CustomSettings::showControlButtons = showControlButtons;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isShowAppNameInsteadIcon() const {
+    return showAppNameInsteadIcon;
+}
+
+void CustomSettings::setShowAppNameInsteadIcon(bool showAppNameInsteadIcon) {
+    CustomSettings::showAppNameInsteadIcon = showAppNameInsteadIcon;
+    emit settingsChanged();
 }

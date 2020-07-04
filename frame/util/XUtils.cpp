@@ -291,6 +291,21 @@ bool XUtils::checkIfWinMinimun(int winId) {
     return false;
 }
 
+QString XUtils::getWindowAppName(int winId) {
+    KWindowInfo info(winId, NET::WMName);
+    if (info.valid()) {
+        qDebug() << info.name() << info.desktopFileName() << info.windowClassName() << info.visibleIconName() << info.iconName() << info.visibleName();
+        QString name = info.name();
+        if (name.contains(QRegExp("[–—-]"))) {
+            QString tmpName = name.split(QRegExp("[–—-]")).last();
+            return tmpName.trimmed();
+        } else {
+            return name;
+        }
+    }
+    return "";
+}
+
 //int XUtils::cmd_getActiveWindow(context_t *context) {
 //    Window window = 0;
 //

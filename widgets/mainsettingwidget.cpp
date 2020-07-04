@@ -41,6 +41,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     movie = new QMovie(":/icons/doge.gif");
     ui->pMovieLabel->setMovie(movie);
 
+    ui->showAppNameCheckBox->setChecked(CustomSettings::instance()->isShowAppNameInsteadIcon());
+    ui->showButtonsCheckBox->setChecked(CustomSettings::instance()->isShowControlButtons());
+
     connect(ui->opacitySpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &MainSettingWidget::opacityValueChanged);
     connect(ui->panelColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::panelColorButtonClicked);
     connect(ui->fontColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::fontColorButtonClicked);
@@ -54,6 +57,12 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     connect(ui->defaultIconResetToolButton, &QToolButton::clicked, this, &MainSettingWidget::defaultResetButtonClicked);
     connect(ui->menuOnHoverCheckBox, &QCheckBox::stateChanged, this, [this]() {
         CustomSettings::instance()->setShowGlobalMenuOnHover(ui->menuOnHoverCheckBox->isChecked());
+    });
+    connect(ui->showAppNameCheckBox, &QCheckBox::stateChanged, this, [this]() {
+        CustomSettings::instance()->setShowAppNameInsteadIcon(ui->showAppNameCheckBox->isChecked());
+    });
+    connect(ui->showButtonsCheckBox, &QCheckBox::stateChanged, this, [this]() {
+        CustomSettings::instance()->setShowControlButtons(ui->showButtonsCheckBox->isChecked());
     });
 }
 

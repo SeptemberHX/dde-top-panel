@@ -64,12 +64,15 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->m_buttonLayout->addWidget(this->minButton);
     this->m_layout->addWidget(this->m_buttonWidget);
 
+    this->m_appNameLabel = new QLabel(this);
+    this->m_appNameLabel->setFixedHeight(22);
+    this->m_layout->addWidget(this->m_appNameLabel);
+
     this->m_menuWidget = new QWidget(this);
     this->m_layout->addWidget(this->m_menuWidget);
     this->m_menuLayout = new QHBoxLayout(this->m_menuWidget);
     this->m_menuLayout->setContentsMargins(0, 0, 0, 0);
     this->m_menuLayout->setSpacing(2);
-
     this->m_appMenuModel = new AppMenuModel(this);
     connect(this->m_appMenuModel, &AppMenuModel::modelNeedsUpdate, this, &ActiveWindowControlWidget::updateMenu);
 
@@ -152,6 +155,7 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
                 this->currActiveWinId = -1;
                 this->m_winTitleLabel->setText(tr("桌面"));
                 this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
+                this->m_appNameLabel->setText(tr("桌面"));
             } else {
                 activeWinId = newCurActiveWinId;
                 ifFoundPrevActiveWinId = true;
@@ -175,6 +179,7 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
 
     if (!activeWinTitle.isEmpty()) {
         this->m_iconLabel->setPixmap(XUtils::getWindowIconNameX11(this->currActiveWinId));
+        this->m_appNameLabel->setText(XUtils::getWindowAppName(this->currActiveWinId));
     }
 
     // KWindowSystem will not update menu for desktop when focusing on the desktop
@@ -200,12 +205,14 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
 }
 
 void ActiveWindowControlWidget::setButtonsVisible(bool visible) {
-    if (visible) {
-        this->m_buttonShowAnimation->setStartValue(this->m_buttonWidget->width());
-        this->m_buttonShowAnimation->start();
-    } else {
-        this->m_buttonHideAnimation->setStartValue(this->m_buttonWidget->width());
-        this->m_buttonHideAnimation->start();
+    if (CustomSettings::instance()->isShowControlButtons()) {
+        if (visible) {
+            this->m_buttonShowAnimation->setStartValue(this->m_buttonWidget->width());
+            this->m_buttonShowAnimation->start();
+        } else {
+            this->m_buttonHideAnimation->setStartValue(this->m_buttonWidget->width());
+            this->m_buttonHideAnimation->start();
+        }
     }
 }
 
@@ -416,11 +423,23 @@ void ActiveWindowControlWidget::applyCustomSettings(const CustomSettings& settin
     }
 
     // buttons
+    this->m_buttonWidget->setVisible(settings.isShowControlButtons());
     this->closeButton->setIcon(QIcon(settings.getActiveCloseIconPath()));
     this->maxButton->setIcon(QIcon(settings.getActiveUnmaximizedIconPath()));
     this->minButton->setIcon(QIcon(settings.getActiveMinimizedIconPath()));
 
-    // todo: default app icon
+    // show icons or app name
+    palette = this->m_appNameLabel->palette();
+    palette.setColor(QPalette::WindowText, settings.getActiveFontColor());
+    this->m_appNameLabel->setPalette(palette);
+    this->m_appNameLabel->setFont(QFont(settings.getActiveFont().family(), settings.getActiveFont().pointSize(), QFont::DemiBold));
+    if (settings.isShowAppNameInsteadIcon()) {
+        this->m_iconLabel->hide();
+        this->m_appNameLabel->show();
+    } else {
+        this->m_iconLabel->show();
+        this->m_appNameLabel->hide();
+    }
 }
 
 bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
@@ -482,6 +501,15 @@ bool ActiveWindowControlWidget::isMenuShown() {
 }
 
 void ActiveWindowControlWidget::setMenuVisible(bool visible) {
+    this->m_winTitleLabel->setVisible(!visible && CustomSettings::instance()->isShowControlButtons());
     this->m_menuWidget->setVisible(visible);
-    this->m_winTitleLabel->setVisible(!visible);
+
+    if (!this->m_winTitleLabel->isVisible()) {
+        this->m_menuWidget->setVisible(true);
+    }
+
+    if (CustomSettings::instance()->isShowAppNameInsteadIcon()
+        && (this->m_appNameLabel->text() == this->m_winTitleLabel->text() || !CustomSettings::instance()->isShowControlButtons() )) {
+        this->m_winTitleLabel->setVisible(false);
+    }
 }

@@ -52,6 +52,14 @@ public:
 
     void setActiveDefaultAppIconPath(const QString &activeDefaultAppIconPath);
 
+    bool isShowControlButtons() const;
+
+    void setShowControlButtons(bool showControlButtons);
+
+    bool isShowAppNameInsteadIcon() const;
+
+    void setShowAppNameInsteadIcon(bool showAppNameInsteadIcon);
+
     void saveSettings();
     void readSettings();
 
@@ -87,6 +95,9 @@ private:
     QColor panelBgColor;
     bool panelEnablePluginsOnAllScreen;
     bool showGlobalMenuOnHover;
+
+    bool showControlButtons;
+    bool showAppNameInsteadIcon;
 
     // active window control
     QColor activeFontColor;

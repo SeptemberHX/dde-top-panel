@@ -19,6 +19,7 @@ CustomSettings::CustomSettings() {
 
     this->showAppNameInsteadIcon = true;
     this->showControlButtons = true;
+    this->showLogoWithAppName = true;
 
     this->readSettings();
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
@@ -188,6 +189,7 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/showMenuOnHover", this->isShowGlobalMenuOnHover());
     settings.setValue("windowControl/showControlButtons", this->isShowControlButtons());
     settings.setValue("windowControl/showAppNameInsteadIcon", this->isShowAppNameInsteadIcon());
+    settings.setValue("windowControl/showLogoWithAppName", this->isShowLogoWithAppName());
 }
 
 void CustomSettings::readSettings() {
@@ -202,6 +204,7 @@ void CustomSettings::readSettings() {
     this->showGlobalMenuOnHover = settings.value("windowControl/showMenuOnHover", this->showGlobalMenuOnHover).toBool();
     this->showControlButtons = settings.value("windowControl/showControlButtons", this->showControlButtons).toBool();
     this->showAppNameInsteadIcon = settings.value("windowControl/showAppNameInsteadIcon", this->showAppNameInsteadIcon).toBool();
+    this->showLogoWithAppName = settings.value("windowControl/showLogoWithAppName", this->showLogoWithAppName).toBool();
 }
 
 bool CustomSettings::isShowControlButtons() const {
@@ -219,5 +222,14 @@ bool CustomSettings::isShowAppNameInsteadIcon() const {
 
 void CustomSettings::setShowAppNameInsteadIcon(bool showAppNameInsteadIcon) {
     CustomSettings::showAppNameInsteadIcon = showAppNameInsteadIcon;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isShowLogoWithAppName() const {
+    return showLogoWithAppName;
+}
+
+void CustomSettings::setShowLogoWithAppName(bool showLogoWithAppName) {
+    CustomSettings::showLogoWithAppName = showLogoWithAppName;
     emit settingsChanged();
 }

@@ -154,7 +154,9 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
             if (newCurActiveWinId < 0) {
                 this->currActiveWinId = -1;
                 this->m_winTitleLabel->setText(tr("桌面"));
-                this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
+                if (!CustomSettings::instance()->isShowAppNameInsteadIcon()) {
+                    this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
+                }
                 this->m_appNameLabel->setText(tr("桌面"));
             } else {
                 activeWinId = newCurActiveWinId;
@@ -178,7 +180,9 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     this->m_winTitleLabel->setText(this->currActiveWinTitle);
 
     if (!activeWinTitle.isEmpty()) {
-        this->m_iconLabel->setPixmap(XUtils::getWindowIconNameX11(this->currActiveWinId));
+        if (!CustomSettings::instance()->isShowAppNameInsteadIcon()) {
+            this->m_iconLabel->setPixmap(XUtils::getWindowIconNameX11(this->currActiveWinId));
+        }
         this->m_appNameLabel->setText(XUtils::getWindowAppName(this->currActiveWinId));
     }
 
@@ -248,7 +252,7 @@ void ActiveWindowControlWidget::maxButtonClicked() {
 }
 
 void ActiveWindowControlWidget::minButtonClicked() {
-    this->m_appInter->MinimizeWindow(this->currActiveWinId);
+    KWindowSystem::self()->minimizeWindow(this->currActiveWinId);
 }
 
 void ActiveWindowControlWidget::closeButtonClicked() {
@@ -434,7 +438,12 @@ void ActiveWindowControlWidget::applyCustomSettings(const CustomSettings& settin
     this->m_appNameLabel->setPalette(palette);
     this->m_appNameLabel->setFont(QFont(settings.getActiveFont().family(), settings.getActiveFont().pointSize(), QFont::DemiBold));
     if (settings.isShowAppNameInsteadIcon()) {
-        this->m_iconLabel->hide();
+        if (settings.isShowLogoWithAppName()) {
+            this->m_iconLabel->show();
+            this->m_iconLabel->setPixmap(QPixmap(settings.getActiveDefaultAppIconPath()));
+        } else {
+            this->m_iconLabel->hide();
+        }
         this->m_appNameLabel->show();
     } else {
         this->m_iconLabel->show();

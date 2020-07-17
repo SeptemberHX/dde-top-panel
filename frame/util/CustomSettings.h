@@ -98,6 +98,13 @@ private:
 
     bool showControlButtons;
     bool showAppNameInsteadIcon;
+    bool showLogoWithAppName;
+public:
+    bool isShowLogoWithAppName() const;
+
+    void setShowLogoWithAppName(bool showLogoWithAppName);
+
+private:
 
     // active window control
     QColor activeFontColor;

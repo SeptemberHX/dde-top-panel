@@ -30,7 +30,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 
     this->m_layout = new QHBoxLayout(this);
     this->m_layout->setSpacing(12);
-    this->m_layout->setContentsMargins(10, 5, 0, 5);
+    this->m_layout->setContentsMargins(10, 1, 0, 1);
     this->setLayout(this->m_layout);
 
     this->m_iconLabel = new QLabel(this);
@@ -339,7 +339,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
         actionMenu->adjustSize();
         actionMenu->winId();//create window handle
         actionMenu->windowHandle()->setTransientParent(ctx->windowHandle());
-        actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()) + QPoint(0, 6));
+        actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()) + QPoint(0, 2));
         actionMenu->installEventFilter(this);
 
         QMenu *oldMenu = m_currentMenu;

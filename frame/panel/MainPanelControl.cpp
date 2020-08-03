@@ -5,7 +5,7 @@
 #include "MainPanelControl.h"
 #include <QApplication>
 
-#define PLUGIN_MAX_SIZE  40
+#define PLUGIN_MAX_SIZE  24
 
 MainPanelControl::MainPanelControl(QWidget *parent)
     : QWidget(parent)
@@ -20,7 +20,7 @@ MainPanelControl::MainPanelControl(QWidget *parent)
 {
     this->init();
 
-    this->setFixedHeight(32);
+    this->setFixedHeight(24);
     this->setMouseTracking(true);
     this->setAcceptDrops(true);
 
@@ -43,7 +43,7 @@ void MainPanelControl::init() {
     m_trayAreaWidget->setAccessibleName("trayarea");
     m_trayAreaLayout->setMargin(0);
     m_trayAreaLayout->setSpacing(0);
-    m_trayAreaLayout->setContentsMargins(0, 6, 0, 6);
+    m_trayAreaLayout->setContentsMargins(0, 2, 0, 2);
 
     // 插件
     m_pluginAreaWidget->setLayout(m_pluginLayout);

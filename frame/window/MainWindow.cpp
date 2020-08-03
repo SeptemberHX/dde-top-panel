@@ -30,7 +30,7 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
 
     this->setLayout(this->m_layout);
     this->m_layout->addWidget(m_mainPanel);
-    this->setFixedHeight(32);
+    this->setFixedHeight(24);
     this->m_layout->setContentsMargins(0, 0, 0, 0);
     this->m_layout->setSpacing(0);
     this->m_layout->setMargin(0);
@@ -289,26 +289,48 @@ void TopPanelLauncher::monitorsChanged() {
 void TopPanelLauncher::rearrange() {
     this->primaryChanged();
 
+    bool ifCopyScreenMode = false;
     for (auto p_screen : qApp->screens()) {
-        if (mwMap.contains(p_screen)) {
-            // adjust size
-            mwMap[p_screen]->hide();
-            mwMap[p_screen]->moveToScreen(p_screen);
-            mwMap[p_screen]->show();
-            mwMap[p_screen]->setRaidus(0);
-            continue;
+        if (p_screen != qApp->primaryScreen() && p_screen->geometry() == qApp->primaryScreen()->geometry()) {
+            ifCopyScreenMode = true;
+            break;
         }
+    }
 
-        qDebug() << "===========> create top panel on" << p_screen->name();
+    if (!ifCopyScreenMode) {
+        for (auto p_screen : qApp->screens()) {
+            if (mwMap.contains(p_screen)) {
+                // adjust size
+                mwMap[p_screen]->hide();
+                mwMap[p_screen]->moveToScreen(p_screen);
+                mwMap[p_screen]->show();
+                mwMap[p_screen]->setRaidus(0);
+                continue;
+            }
+
+            qDebug() << "===========> create top panel on" << p_screen->name();
+            MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
+            connect(mw, &MainWindow::settingActionClicked, this, [this]() {
+                int screenNum = QApplication::desktop()->screenNumber(dynamic_cast<MainWindow *>(sender()));
+                this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().center() -
+                                            this->m_settingWidget->rect().center());
+                this->m_settingWidget->show();
+            });
+            if (p_screen == qApp->primaryScreen()) {
+                mw->loadPlugins();
+            }
+            mwMap.insert(p_screen, mw);
+        }
+    } else {
+        QScreen *p_screen = qApp->primaryScreen();
         MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
         connect(mw, &MainWindow::settingActionClicked, this, [this]() {
-            int screenNum = QApplication::desktop()->screenNumber(dynamic_cast<MainWindow*>(sender()));
-            this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().center() - this->m_settingWidget->rect().center());
+            int screenNum = QApplication::desktop()->screenNumber(dynamic_cast<MainWindow *>(sender()));
+            this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().center() -
+                                        this->m_settingWidget->rect().center());
             this->m_settingWidget->show();
         });
-        if (p_screen == qApp->primaryScreen()) {
-            mw->loadPlugins();
-        }
+        mw->loadPlugins();
         mwMap.insert(p_screen, mw);
     }
 

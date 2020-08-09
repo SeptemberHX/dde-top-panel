@@ -29,12 +29,12 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->setPalette(palette1);
 
     this->m_layout = new QHBoxLayout(this);
-    this->m_layout->setSpacing(12);
-    this->m_layout->setContentsMargins(10, 1, 0, 1);
+    this->m_layout->setSpacing(16);
+    this->m_layout->setContentsMargins(20, 0, 0, 0);
     this->setLayout(this->m_layout);
 
     this->m_iconLabel = new QLabel(this);
-    this->m_iconLabel->setFixedSize(22, 22);
+    this->m_iconLabel->setFixedSize(18, 18);
     this->m_iconLabel->setScaledContents(true);
     this->m_layout->addWidget(this->m_iconLabel);
 
@@ -42,7 +42,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->m_buttonWidget = new QWidget(this);
     this->m_buttonLayout = new QHBoxLayout(this->m_buttonWidget);
     this->m_buttonLayout->setContentsMargins(0, 0, 0, 0);
-    this->m_buttonLayout->setSpacing(12);
+    this->m_buttonLayout->setSpacing(5);
     this->m_buttonLayout->setMargin(0);
 
     this->closeButton = new QToolButton(this->m_buttonWidget);
@@ -78,6 +78,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 
     this->m_winTitleLabel = new QLabel(this);
     this->m_winTitleLabel->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    this->m_winTitleLabel->setContentsMargins(0, 4, 0, 4);
     this->m_layout->addWidget(this->m_winTitleLabel);
 
     this->m_layout->addStretch();
@@ -290,7 +291,12 @@ void ActiveWindowControlWidget::updateMenu() {
 
         existedMenu.append(menuStr);
         auto *m_label = new QClickableLabel(this->m_menuWidget);
-        m_label->setText(QString("  %1  ").arg(menuStr.remove('&')));
+        menuStr = menuStr.remove('&');
+        int index = menuStr.lastIndexOf('(');
+        if (index > 0) {
+            menuStr = menuStr.mid(0, index);
+        }
+        m_label->setText(QString("   %1   ").arg(menuStr));
         m_label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         connect(m_label, &QClickableLabel::clicked, this, &ActiveWindowControlWidget::menuLabelClicked);
         this->m_menuLayout->addWidget(m_label);
@@ -339,7 +345,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
         actionMenu->adjustSize();
         actionMenu->winId();//create window handle
         actionMenu->windowHandle()->setTransientParent(ctx->windowHandle());
-        actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()) + QPoint(0, 2));
+        actionMenu->popup(this->m_menuWidget->mapToGlobal(ctx->geometry().bottomLeft()) + QPoint(0, 1));
         actionMenu->installEventFilter(this);
 
         QMenu *oldMenu = m_currentMenu;

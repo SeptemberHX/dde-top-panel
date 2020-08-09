@@ -90,6 +90,9 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->m_buttonHideAnimation = new QPropertyAnimation(this->m_buttonWidget, "maximumWidth");
     this->m_buttonHideAnimation->setEndValue(0);
     this->m_buttonHideAnimation->setDuration(150);
+    connect(this->m_buttonHideAnimation, &QPropertyAnimation::finished, this, [this]() {
+        this->m_buttonWidget->hide();
+    });
 
     this->setButtonsVisible(false);
     this->setMouseTracking(true);
@@ -212,6 +215,7 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
 void ActiveWindowControlWidget::setButtonsVisible(bool visible) {
     if (CustomSettings::instance()->isShowControlButtons()) {
         if (visible) {
+            this->m_buttonWidget->show();
             this->m_buttonShowAnimation->setStartValue(this->m_buttonWidget->width());
             this->m_buttonShowAnimation->start();
         } else {

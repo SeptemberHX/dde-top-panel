@@ -25,7 +25,6 @@
 #include "dockpluginscontroller.h"
 #include "pluginsiteminterface.h"
 #include "item/dockitem.h"
-#include "item/appitem.h"
 #include "item/placeholderitem.h"
 
 #include <com_deepin_dde_daemon_dock.h>
@@ -44,7 +43,6 @@ public:
 
     const QList<QPointer<DockItem> > itemList() const;
     const QList<PluginsItemInterface *> pluginList() const;
-    bool appIsOnDock(const QString &appDesktop) const;
     void startLoadPlugins() const;
 
 signals:
@@ -67,12 +65,8 @@ public slots:
     void itemAdded(const QString &appDesktop, int idx);
 
 private:
-    void appItemAdded(const QDBusObjectPath &path, const int index);
-    void appItemRemoved(const QString &appId);
-    void appItemRemoved(AppItem *appItem);
     void pluginItemInserted(PluginsItem *item);
     void pluginItemRemoved(PluginsItem *item);
-    void reloadAppItems();
     void manageItem(DockItem *item);
 
 private:

@@ -4,6 +4,7 @@
 
 #include "MainPanelControl.h"
 #include <QApplication>
+#include <QDrag>
 
 #define PLUGIN_MAX_SIZE  24
 
@@ -57,7 +58,7 @@ void MainPanelControl::init() {
     m_trayAreaWidget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
 //    this->m_xdo = xdo_new(nullptr);
-    connect(m_itemManager, &DockItemManager::windowInfoChanged, this->activeWindowControlWidget, &ActiveWindowControlWidget::activeWindowInfoChanged);
+    connect(KWindowSystem::self(), &KWindowSystem::activeWindowChanged, this->activeWindowControlWidget, &ActiveWindowControlWidget::activeWindowInfoChanged);
     connect(this, &MainPanelControl::emptyAreaDoubleClicked, this->activeWindowControlWidget, &ActiveWindowControlWidget::maximizeWindow);
     this->activeWindowControlWidget->activeWindowInfoChanged();
 }
@@ -452,7 +453,6 @@ void MainPanelControl::startDrag(DockItem *item) {
     drag->setMimeData(new QMimeData);
     drag->exec(Qt::MoveAction);
 
-    m_appDragWidget = nullptr;
     item->setDraging(false);
     item->update();
 }

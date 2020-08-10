@@ -80,7 +80,6 @@ private:
     TrayPluginItem *m_tray = nullptr;
     ActiveWindowControlWidget *activeWindowControlWidget;
     QPoint m_mousePressPos;
-    AppDragWidget *m_appDragWidget;
 };
 
 

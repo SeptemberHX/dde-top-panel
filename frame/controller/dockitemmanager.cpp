@@ -20,7 +20,6 @@
  */
 
 #include "dockitemmanager.h"
-#include "item/appitem.h"
 #include "item/pluginsitem.h"
 #include "item/traypluginitem.h"
 #include "util/docksettings.h"
@@ -36,30 +35,12 @@ DockItemManager::DockItemManager(QObject *parent, bool enableBlacklist)
     , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
     , m_pluginsInter(new DockPluginsController(enableBlacklist, this))
 {
-    // 应用区域
-    for (auto entry : m_appInter->entries()) {
-        AppItem *it = new AppItem(entry);
-        manageItem(it);
-
-        connect(it, &AppItem::requestActivateWindow, m_appInter, &DBusDock::ActivateWindow, Qt::QueuedConnection);
-        connect(it, &AppItem::requestPreviewWindow, m_appInter, &DBusDock::PreviewWindow);
-        connect(it, &AppItem::requestCancelPreview, m_appInter, &DBusDock::CancelPreviewWindow);
-        connect(it, &AppItem::windowInfoChanged, this, &DockItemManager::windowInfoChanged);
-
-        m_itemList.append(it);
-    }
-
     // 托盘区域和插件区域 由DockPluginsController获取
 
     // 更新插件顺序
     m_updatePluginsOrderTimer->setSingleShot(true);
     m_updatePluginsOrderTimer->setInterval(1000);
     connect(m_updatePluginsOrderTimer, &QTimer::timeout, this, &DockItemManager::updatePluginsItemOrderKey);
-
-    // 应用信号
-    connect(m_appInter, &DBusDock::EntryAdded, this, &DockItemManager::appItemAdded);
-    connect(m_appInter, &DBusDock::EntryRemoved, this, static_cast<void (DockItemManager::*)(const QString &)>(&DockItemManager::appItemRemoved), Qt::QueuedConnection);
-    connect(m_appInter, &DBusDock::ServiceRestarted, this, &DockItemManager::reloadAppItems);
 
     // 插件信号
     connect(m_pluginsInter, &DockPluginsController::pluginItemInserted, this, &DockItemManager::pluginItemInserted, Qt::QueuedConnection);
@@ -88,11 +69,6 @@ const QList<QPointer<DockItem>> DockItemManager::itemList() const
 const QList<PluginsItemInterface *> DockItemManager::pluginList() const
 {
     return m_pluginsInter->pluginsMap().keys();
-}
-
-bool DockItemManager::appIsOnDock(const QString &appDesktop) const
-{
-    return m_appInter->IsOnDock(appDesktop);
 }
 
 void DockItemManager::startLoadPlugins() const
@@ -169,65 +145,6 @@ void DockItemManager::itemAdded(const QString &appDesktop, int idx)
     m_appInter->RequestDock(appDesktop, idx);
 }
 
-void DockItemManager::appItemAdded(const QDBusObjectPath &path, const int index)
-{
-    // 第一个是启动器
-    int insertIndex = 1;
-
-    // -1 for append to app list end
-    if (index != -1) {
-        insertIndex += index;
-    } else {
-        for (auto item : m_itemList)
-            if (item->itemType() == DockItem::App)
-                ++insertIndex;
-    }
-
-    AppItem *item = new AppItem(path);
-    manageItem(item);
-
-    connect(item, &AppItem::requestActivateWindow, m_appInter, &DBusDock::ActivateWindow, Qt::QueuedConnection);
-    connect(item, &AppItem::requestPreviewWindow, m_appInter, &DBusDock::PreviewWindow);
-    connect(item, &AppItem::requestCancelPreview, m_appInter, &DBusDock::CancelPreviewWindow);
-    connect(item, &AppItem::windowInfoChanged, this, &DockItemManager::windowInfoChanged);
-
-    m_itemList.insert(insertIndex, item);
-
-    if (index != -1) {
-        emit itemInserted(insertIndex - 1, item);
-        return;
-    }
-
-    emit itemInserted(insertIndex, item);
-}
-
-void DockItemManager::appItemRemoved(const QString &appId)
-{
-    for (int i(0); i < m_itemList.size(); ++i) {
-        if (m_itemList[i]->itemType() != DockItem::App)
-            continue;
-
-        AppItem *app = static_cast<AppItem *>(m_itemList[i].data());
-        if (!app) {
-            continue;
-        }
-        if (!app->isValid() || app->appId() == appId) {
-            appItemRemoved(app);
-        }
-    }
-}
-
-void DockItemManager::appItemRemoved(AppItem *appItem)
-{
-    emit itemRemoved(appItem);
-    m_itemList.removeOne(appItem);
-
-    if (appItem->isDragging()) {
-        QDrag::cancel();
-    }
-    appItem->deleteLater();
-}
-
 void DockItemManager::pluginItemInserted(PluginsItem *item)
 {
     manageItem(item);
@@ -292,18 +209,6 @@ void DockItemManager::pluginItemRemoved(PluginsItem *item)
     emit itemRemoved(item);
 
     m_itemList.removeOne(item);
-}
-
-void DockItemManager::reloadAppItems()
-{
-    // remove old item
-    for (auto item : m_itemList)
-        if (item->itemType() == DockItem::App)
-            appItemRemoved(static_cast<AppItem *>(item.data()));
-
-    // append new item
-    for (auto path : m_appInter->entries())
-        appItemAdded(path, -1);
 }
 
 // 不同的模式下，插件顺序不一样

@@ -7,6 +7,8 @@
 #include <QApplication>
 #include <QScreen>
 #include <QAction>
+#include <DApplication>
+#include "CustomSettings.h"
 
 #define EffICIENT_DEFAULT_HEIGHT 24
 #define WINDOW_MAX_SIZE          100
@@ -120,7 +122,8 @@ void TopPanelSettings::calculateWindowConfig()
         m_mainWindowSize.setHeight(m_dockWindowSize);
 
         int dockWidth = 0;
-        if (!this->m_dockInter->hideMode()
+        if (!CustomSettings::instance()->isIgnoreDock()
+            && !this->m_dockInter->hideMode()
             && this->m_screen == qApp->primaryScreen()
             && (this->m_dockInter->position() == Left || this->m_dockInter->position() == Right)) {
             dockWidth = this->m_dockInter->frontendWindowRect().operator QRect().width() / qApp->primaryScreen()->devicePixelRatio();
@@ -153,6 +156,11 @@ void TopPanelSettings::resetFrontendGeometry()
     const uint h = r.height() * ratio;
 
     m_frontendRect = QRect(p.x(), p.y(), w, h);
+    if (CustomSettings::instance()->isIgnoreDock()) {
+        m_dockInter->setPosition(Top);
+        m_dockInter->setHideMode(KeepShowing);
+        m_dockInter->SetFrontendWindowRect(p.x(), p.y(), w, h);
+    }
 }
 
 const QRect TopPanelSettings::windowRect(const Position position, const bool hide) const
@@ -208,4 +216,8 @@ qreal TopPanelSettings::dockRatio() const
     QScreen const *screen = Utils::screenAtByScaled(m_frontendRect.center());
 
     return screen ? screen->devicePixelRatio() : qApp->devicePixelRatio();
+}
+
+void TopPanelSettings::applyCustomSettings(const CustomSettings& customSettings) {
+    this->calculateWindowConfig();
 }

@@ -270,6 +270,7 @@ void MainWindow::initSNIHost()
 void MainWindow::applyCustomSettings(const CustomSettings &customSettings) {
     this->setMaskAlpha(customSettings.getPanelOpacity());
     this->setMaskColor(customSettings.getPanelBgColor());
+    this->m_settings->applyCustomSettings(customSettings);
     this->m_mainPanel->applyCustomSettings(customSettings);
 }
 

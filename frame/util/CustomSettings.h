@@ -99,6 +99,13 @@ private:
     bool showControlButtons;
     bool showAppNameInsteadIcon;
     bool showLogoWithAppName;
+
+    bool ignoreDock;
+public:
+    bool isIgnoreDock() const;
+
+    void setIgnoreDock(bool ignoreDock);
+
 public:
     bool isShowLogoWithAppName() const;
 

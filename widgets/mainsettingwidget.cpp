@@ -44,6 +44,7 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->showAppNameCheckBox->setChecked(CustomSettings::instance()->isShowAppNameInsteadIcon());
     ui->showButtonsCheckBox->setChecked(CustomSettings::instance()->isShowControlButtons());
     ui->showLogoWithAppNameCheckBox->setChecked(CustomSettings::instance()->isShowLogoWithAppName());
+    ui->ignoreDockCheckBox->setChecked(CustomSettings::instance()->isIgnoreDock());
 
     connect(ui->opacitySpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &MainSettingWidget::opacityValueChanged);
     connect(ui->panelColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::panelColorButtonClicked);
@@ -67,6 +68,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     });
     connect(ui->showLogoWithAppNameCheckBox, &QCheckBox::stateChanged, this, [this]() {
         CustomSettings::instance()->setShowLogoWithAppName(ui->showLogoWithAppNameCheckBox->isChecked());
+    });
+    connect(ui->ignoreDockCheckBox, &QCheckBox::stateChanged, this, [this]() {
+        CustomSettings::instance()->setIgnoreDock(ui->ignoreDockCheckBox->isChecked());
     });
 }
 

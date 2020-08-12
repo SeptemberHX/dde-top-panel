@@ -20,6 +20,7 @@ CustomSettings::CustomSettings() {
     this->showAppNameInsteadIcon = true;
     this->showControlButtons = true;
     this->showLogoWithAppName = true;
+    this->ignoreDock = true;
 
     this->readSettings();
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
@@ -190,6 +191,7 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/showControlButtons", this->isShowControlButtons());
     settings.setValue("windowControl/showAppNameInsteadIcon", this->isShowAppNameInsteadIcon());
     settings.setValue("windowControl/showLogoWithAppName", this->isShowLogoWithAppName());
+    settings.setValue("windowControl/ignoreDock", this->isIgnoreDock());
 }
 
 void CustomSettings::readSettings() {
@@ -205,6 +207,7 @@ void CustomSettings::readSettings() {
     this->showControlButtons = settings.value("windowControl/showControlButtons", this->showControlButtons).toBool();
     this->showAppNameInsteadIcon = settings.value("windowControl/showAppNameInsteadIcon", this->showAppNameInsteadIcon).toBool();
     this->showLogoWithAppName = settings.value("windowControl/showLogoWithAppName", this->showLogoWithAppName).toBool();
+    this->ignoreDock = settings.value("windowControl/ignoreDock", this->isIgnoreDock()).toBool();
 }
 
 bool CustomSettings::isShowControlButtons() const {
@@ -231,5 +234,14 @@ bool CustomSettings::isShowLogoWithAppName() const {
 
 void CustomSettings::setShowLogoWithAppName(bool showLogoWithAppName) {
     CustomSettings::showLogoWithAppName = showLogoWithAppName;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isIgnoreDock() const {
+    return ignoreDock;
+}
+
+void CustomSettings::setIgnoreDock(bool ignoreDock) {
+    CustomSettings::ignoreDock = ignoreDock;
     emit settingsChanged();
 }

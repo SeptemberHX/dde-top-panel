@@ -21,7 +21,7 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     , m_dbusDaemonInterface(QDBusConnection::sessionBus().interface())
     , m_sniWatcher(new org::kde::StatusNotifierWatcher(SNI_WATCHER_SERVICE, SNI_WATCHER_PATH, QDBusConnection::sessionBus(), this))
 {
-//    setWindowFlag(Qt::WindowDoesNotAcceptFocus);
+    setWindowFlag(Qt::WindowDoesNotAcceptFocus);
     setAccessibleName("dock-top-panel-mainwindow");
     m_mainPanel->setAccessibleName("dock-top-panel-mainpanel");
     setAttribute(Qt::WA_TranslucentBackground);

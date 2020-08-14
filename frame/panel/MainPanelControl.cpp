@@ -6,8 +6,6 @@
 #include <QApplication>
 #include <QDrag>
 
-#define PLUGIN_MAX_SIZE  24
-
 MainPanelControl::MainPanelControl(QWidget *parent)
     : QWidget(parent)
     , m_mainPanelLayout(new QBoxLayout(QBoxLayout::LeftToRight, this))
@@ -18,25 +16,43 @@ MainPanelControl::MainPanelControl(QWidget *parent)
     , m_itemManager(DockItemManager::instance(this))
     , m_position(Position::Top)
     , activeWindowControlWidget(new ActiveWindowControlWidget(this))
+    , m_buttonWidget(new QOperationWidget(false, this))
 {
     this->init();
 
-    this->setFixedHeight(24);
+    this->setFixedHeight(CustomSettings::instance()->getPanelHeight());
     this->setMouseTracking(true);
     this->setAcceptDrops(true);
 
     QPalette palette = this->palette();
     palette.setColor(QPalette::Background, Qt::transparent);
     this->setPalette(palette);
+
+    this->m_buttonWidget->hide();
 }
 
 void MainPanelControl::init() {
     this->m_mainPanelLayout->addWidget(this->activeWindowControlWidget);
     this->m_mainPanelLayout->addWidget(this->m_trayAreaWidget);
     this->m_mainPanelLayout->addWidget(this->m_pluginAreaWidget);
+    this->m_mainPanelLayout->addWidget(this->m_buttonWidget);
+
+    connect(this->activeWindowControlWidget, &ActiveWindowControlWidget::showOperationButtons, this, [this] {
+        if (!CustomSettings::instance()->isButtonOnLeft()) {
+            this->m_buttonWidget->showWithAnimation();
+        }
+    });
+    connect(this->activeWindowControlWidget, &ActiveWindowControlWidget::hideOperationButtons, this, [this] {
+        if (!CustomSettings::instance()->isButtonOnLeft()) {
+            this->m_buttonWidget->hideWithAnimation();
+        }
+    });
+    connect(this->m_buttonWidget, &QOperationWidget::minButtonClicked, this->activeWindowControlWidget, &ActiveWindowControlWidget::minButtonClicked);
+    connect(this->m_buttonWidget, &QOperationWidget::maxButtonClicked, this->activeWindowControlWidget, &ActiveWindowControlWidget::maxButtonClicked);
+    connect(this->m_buttonWidget, &QOperationWidget::closeButtonClicked, this->activeWindowControlWidget, &ActiveWindowControlWidget::closeButtonClicked);
 
     m_mainPanelLayout->setMargin(0);
-    m_mainPanelLayout->setContentsMargins(0, 0, 0, 0);
+    m_mainPanelLayout->setContentsMargins(0, 0, 5, 0);
     m_mainPanelLayout->setSpacing(0);
 
     // 托盘
@@ -377,9 +393,9 @@ DockItem *MainPanelControl::dropTargetItem(DockItem *sourceItem, QPoint point) {
         rect.setTopLeft(dockItem->pos());
         if (dockItem->itemType() == DockItem::Plugins) {
             if ((m_position == Position::Top) || (m_position == Position::Bottom)) {
-                rect.setSize(QSize(PLUGIN_MAX_SIZE, height()));
+                rect.setSize(QSize(CustomSettings::instance()->getPanelHeight(), height()));
             } else {
-                rect.setSize(QSize(width(), PLUGIN_MAX_SIZE));
+                rect.setSize(QSize(width(), CustomSettings::instance()->getPanelHeight()));
             }
         } else {
             rect.setSize(dockItem->size());
@@ -477,4 +493,6 @@ void MainPanelControl::dragLeaveEvent(QDragLeaveEvent *event) {
 
 void MainPanelControl::applyCustomSettings(const CustomSettings &customSettings) {
     this->activeWindowControlWidget->applyCustomSettings(customSettings);
+    this->m_buttonWidget->applyCustomSettings(customSettings);
+    this->m_buttonWidget->setVisible(customSettings.isShowControlButtons() && !customSettings.isButtonOnLeft());
 }

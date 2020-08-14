@@ -10,9 +10,7 @@
 #include <DApplication>
 #include "CustomSettings.h"
 
-#define EffICIENT_DEFAULT_HEIGHT 24
 #define WINDOW_MAX_SIZE          100
-#define WINDOW_MIN_SIZE          24
 
 extern const QPoint rawXPosition(const QPoint &scaledPos);
 
@@ -20,7 +18,7 @@ extern const QPoint rawXPosition(const QPoint &scaledPos);
 TopPanelSettings::TopPanelSettings(DockItemManager *itemManager, QScreen *screen, QWidget *parent)
         : QObject(parent)
         , m_dockInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
-        , m_dockWindowSize(EffICIENT_DEFAULT_HEIGHT)
+        , m_dockWindowSize(CustomSettings::instance()->getPanelHeight())
         , m_position(Top)
         , m_displayMode(Dock::Efficient)
         , m_displayInter(new DBusDisplay(this))
@@ -115,8 +113,8 @@ void TopPanelSettings::menuActionClicked(QAction *action)
 void TopPanelSettings::calculateWindowConfig()
 {
     if (m_displayMode == Dock::Efficient) {
-        if (m_dockWindowSize > WINDOW_MAX_SIZE || m_dockWindowSize < WINDOW_MIN_SIZE) {
-            m_dockWindowSize = EffICIENT_DEFAULT_HEIGHT;
+        if (m_dockWindowSize > WINDOW_MAX_SIZE || m_dockWindowSize < CustomSettings::instance()->getPanelHeight()) {
+            m_dockWindowSize = CustomSettings::instance()->getPanelHeight();
         }
 
         m_mainWindowSize.setHeight(m_dockWindowSize);

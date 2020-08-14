@@ -83,6 +83,12 @@ public:
     void setDefaultActiveDefaultAppIconPath();
     void setDefaultShowGlobalMenuOnHover();
 
+    int getPanelHeight() const;
+
+    bool isButtonOnLeft() const;
+
+    void setButtonOnLeft(bool buttonOnLeft);
+
 signals:
     void settingsChanged();
 
@@ -90,6 +96,8 @@ private:
     CustomSettings();
 
 private:
+    int panelHeight;
+
     // panel
     quint8 panelOpacity;
     QColor panelBgColor;
@@ -101,6 +109,7 @@ private:
     bool showLogoWithAppName;
 
     bool ignoreDock;
+    bool buttonOnLeft;
 public:
     bool isIgnoreDock() const;
 

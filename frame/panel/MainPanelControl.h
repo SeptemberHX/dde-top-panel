@@ -12,6 +12,7 @@
 #include <controller/dockitemmanager.h>
 #include "../widgets/ActiveWindowControlWidget.h"
 #include "util/CustomSettings.h"
+#include "../widgets/QOperationWidget.h"
 
 using DockEntryInter = com::deepin::dde::daemon::dock::Entry;
 
@@ -80,6 +81,8 @@ private:
     TrayPluginItem *m_tray = nullptr;
     ActiveWindowControlWidget *activeWindowControlWidget;
     QPoint m_mousePressPos;
+
+    QOperationWidget *m_buttonWidget;
 };
 
 

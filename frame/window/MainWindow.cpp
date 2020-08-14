@@ -30,7 +30,7 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
 
     this->setLayout(this->m_layout);
     this->m_layout->addWidget(m_mainPanel);
-    this->setFixedHeight(24);
+    this->setFixedHeight(CustomSettings::instance()->getPanelHeight());
     this->m_layout->setContentsMargins(0, 0, 0, 0);
     this->m_layout->setSpacing(0);
     this->m_layout->setMargin(0);
@@ -62,8 +62,6 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     m_platformWindowHandle.setShadowOffset(QPoint(0, 5));
     m_platformWindowHandle.setShadowColor(QColor(0, 0, 0, 0.3 * 255));
     m_platformWindowHandle.setBorderWidth(1);
-
-    this->applyCustomSettings(*CustomSettings::instance());
 }
 
 void MainWindow::resizeMainPanelWindow()

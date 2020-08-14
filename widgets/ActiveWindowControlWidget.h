@@ -16,6 +16,7 @@
 #include <com_deepin_wm.h>
 #include "../frame/util/CustomSettings.h"
 #include <com_deepin_dde_launcher.h>
+#include "QOperationWidget.h"
 
 
 using LauncherInter = com::deepin::dde::Launcher;
@@ -31,11 +32,18 @@ public:
     explicit ActiveWindowControlWidget(QWidget *parent = 0);
     bool eventFilter(QObject *watched, QEvent *event) override;
 
+signals:
+    void hideOperationButtons();
+    void showOperationButtons();
+
 public slots:
     void activeWindowInfoChanged();
     void maximizeWindow();
     void applyCustomSettings(const CustomSettings& settings);
-
+    void maxButtonClicked();
+    void minButtonClicked();
+    void closeButtonClicked();
+    
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     void enterEvent(QEvent *event) override;
@@ -55,9 +63,6 @@ private:
     void leaveTopPanel();
 
 private slots:
-    void maxButtonClicked();
-    void minButtonClicked();
-    void closeButtonClicked();
     void updateMenu();
     void menuLabelClicked();
     void windowChanged(WId, NET::Properties, NET::Properties2);
@@ -71,11 +76,7 @@ private:
     int currActiveWinId;
     QString currActiveWinTitle;
 
-    QWidget *m_buttonWidget;
-    QHBoxLayout *m_buttonLayout;
-    QToolButton *closeButton;
-    QToolButton *minButton;
-    QToolButton *maxButton;
+    QOperationWidget *m_buttonWidget;
 
     QLabel *m_iconLabel;
     QLabel *m_appNameLabel;
@@ -91,8 +92,6 @@ private:
     DBusDock *m_appInter;
     LauncherInter *m_launcherInter;
 
-    QPropertyAnimation *m_buttonShowAnimation;
-    QPropertyAnimation *m_buttonHideAnimation;
     QTimer *m_fixTimer;
 };
 

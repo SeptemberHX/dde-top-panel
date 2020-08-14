@@ -39,29 +39,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->m_layout->addWidget(this->m_iconLabel);
 
     int buttonSize = 22;
-    this->m_buttonWidget = new QWidget(this);
-    this->m_buttonLayout = new QHBoxLayout(this->m_buttonWidget);
-    this->m_buttonLayout->setContentsMargins(0, 0, 0, 0);
-    this->m_buttonLayout->setSpacing(5);
-    this->m_buttonLayout->setMargin(0);
-
-    this->closeButton = new QToolButton(this->m_buttonWidget);
-    this->closeButton->setFixedSize(buttonSize, buttonSize);
-    this->closeButton->setIcon(QIcon(":/icons/close.svg"));
-    this->closeButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
-    this->m_buttonLayout->addWidget(this->closeButton);
-
-    this->maxButton = new QToolButton(this->m_buttonWidget);
-    this->maxButton->setFixedSize(buttonSize, buttonSize);
-    this->maxButton->setIcon(QIcon(":/icons/maximum.svg"));
-    this->maxButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
-    this->m_buttonLayout->addWidget(this->maxButton);
-
-    this->minButton = new QToolButton(this->m_buttonWidget);
-    this->minButton->setFixedSize(buttonSize, buttonSize);
-    this->minButton->setIcon(QIcon(":/icons/minimum.svg"));
-    this->minButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
-    this->m_buttonLayout->addWidget(this->minButton);
+    this->m_buttonWidget = new QOperationWidget(true, this);
     this->m_layout->addWidget(this->m_buttonWidget);
 
     this->m_appNameLabel = new QLabel(this);
@@ -83,23 +61,23 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 
     this->m_layout->addStretch();
 
-    this->m_buttonShowAnimation = new QPropertyAnimation(this->m_buttonWidget, "maximumWidth");
-    this->m_buttonShowAnimation->setEndValue(this->m_buttonWidget->width());
-    this->m_buttonShowAnimation->setDuration(150);
-
-    this->m_buttonHideAnimation = new QPropertyAnimation(this->m_buttonWidget, "maximumWidth");
-    this->m_buttonHideAnimation->setEndValue(0);
-    this->m_buttonHideAnimation->setDuration(150);
-    connect(this->m_buttonHideAnimation, &QPropertyAnimation::finished, this, [this]() {
-        this->m_buttonWidget->hide();
-    });
-
     this->setButtonsVisible(false);
     this->setMouseTracking(true);
 
-    connect(this->maxButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::maxButtonClicked);
-    connect(this->minButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::minButtonClicked);
-    connect(this->closeButton, &QToolButton::clicked, this, &ActiveWindowControlWidget::closeButtonClicked);
+    connect(this->m_buttonWidget, &QOperationWidget::maxButtonClicked, this, &ActiveWindowControlWidget::maxButtonClicked);
+    connect(this->m_buttonWidget, &QOperationWidget::minButtonClicked, this, &ActiveWindowControlWidget::minButtonClicked);
+    connect(this->m_buttonWidget, &QOperationWidget::closeButtonClicked, this, &ActiveWindowControlWidget::closeButtonClicked);
+
+    connect(this, &ActiveWindowControlWidget::showOperationButtons, this, [this] {
+        if (CustomSettings::instance()->isButtonOnLeft()) {
+            this->m_buttonWidget->showWithAnimation();
+        }
+    });
+    connect(this, &ActiveWindowControlWidget::hideOperationButtons, this, [this] {
+        if (CustomSettings::instance()->isButtonOnLeft()) {
+            this->m_buttonWidget->hideWithAnimation();
+        }
+    });
 
     // detect whether active window maximized signal
     connect(KWindowSystem::self(), qOverload<WId, NET::Properties, NET::Properties2>(&KWindowSystem::windowChanged), this, &ActiveWindowControlWidget::windowChanged);
@@ -115,6 +93,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     connect(this->m_appInter, &DBusDock::EntryAdded, this->m_fixTimer, qOverload<>(&QTimer::start));
 
     applyCustomSettings(*CustomSettings::instance());
+    this->m_buttonWidget->hide();
 }
 
 void ActiveWindowControlWidget::activeWindowInfoChanged() {
@@ -157,9 +136,12 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
 
             if (newCurActiveWinId < 0) {
                 this->currActiveWinId = -1;
-                this->m_winTitleLabel->setText(tr("桌面"));
                 if (!CustomSettings::instance()->isShowAppNameInsteadIcon()) {
                     this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
+                    this->m_winTitleLabel->show();
+                    this->m_winTitleLabel->setText(tr("桌面"));
+                } else {
+                    this->m_winTitleLabel->hide();
                 }
                 this->m_appNameLabel->setText(tr("桌面"));
             } else {
@@ -215,12 +197,9 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
 void ActiveWindowControlWidget::setButtonsVisible(bool visible) {
     if (CustomSettings::instance()->isShowControlButtons()) {
         if (visible) {
-            this->m_buttonWidget->show();
-            this->m_buttonShowAnimation->setStartValue(this->m_buttonWidget->width());
-            this->m_buttonShowAnimation->start();
+            emit showOperationButtons();
         } else {
-            this->m_buttonHideAnimation->setStartValue(this->m_buttonWidget->width());
-            this->m_buttonHideAnimation->start();
+            emit hideOperationButtons();
         }
     }
 }
@@ -437,10 +416,8 @@ void ActiveWindowControlWidget::applyCustomSettings(const CustomSettings& settin
     }
 
     // buttons
-    this->m_buttonWidget->setVisible(settings.isShowControlButtons());
-    this->closeButton->setIcon(QIcon(settings.getActiveCloseIconPath()));
-    this->maxButton->setIcon(QIcon(settings.getActiveUnmaximizedIconPath()));
-    this->minButton->setIcon(QIcon(settings.getActiveMinimizedIconPath()));
+    this->m_buttonWidget->setVisible(CustomSettings::instance()->isButtonOnLeft() && CustomSettings::instance()->isShowControlButtons());
+    this->m_buttonWidget->applyCustomSettings(settings);
 
     // show icons or app name
     palette = this->m_appNameLabel->palette();

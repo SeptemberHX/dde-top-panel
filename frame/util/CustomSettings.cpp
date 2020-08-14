@@ -21,8 +21,10 @@ CustomSettings::CustomSettings() {
     this->showControlButtons = true;
     this->showLogoWithAppName = true;
     this->ignoreDock = true;
+    this->buttonOnLeft = false;
 
     this->readSettings();
+    this->panelHeight = 24;
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
 }
 
@@ -192,6 +194,7 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/showAppNameInsteadIcon", this->isShowAppNameInsteadIcon());
     settings.setValue("windowControl/showLogoWithAppName", this->isShowLogoWithAppName());
     settings.setValue("windowControl/ignoreDock", this->isIgnoreDock());
+    settings.setValue("windowControl/buttonOnRight", !this->isButtonOnLeft());
 }
 
 void CustomSettings::readSettings() {
@@ -208,6 +211,7 @@ void CustomSettings::readSettings() {
     this->showAppNameInsteadIcon = settings.value("windowControl/showAppNameInsteadIcon", this->showAppNameInsteadIcon).toBool();
     this->showLogoWithAppName = settings.value("windowControl/showLogoWithAppName", this->showLogoWithAppName).toBool();
     this->ignoreDock = settings.value("windowControl/ignoreDock", this->isIgnoreDock()).toBool();
+    this->buttonOnLeft = settings.value("windowControl/buttonOnRight", !this->isButtonOnLeft()).toBool();
 }
 
 bool CustomSettings::isShowControlButtons() const {
@@ -243,5 +247,18 @@ bool CustomSettings::isIgnoreDock() const {
 
 void CustomSettings::setIgnoreDock(bool ignoreDock) {
     CustomSettings::ignoreDock = ignoreDock;
+    emit settingsChanged();
+}
+
+int CustomSettings::getPanelHeight() const {
+    return panelHeight;
+}
+
+bool CustomSettings::isButtonOnLeft() const {
+    return buttonOnLeft;
+}
+
+void CustomSettings::setButtonOnLeft(bool buttonOnLeft) {
+    CustomSettings::buttonOnLeft = buttonOnLeft;
     emit settingsChanged();
 }

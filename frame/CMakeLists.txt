@@ -23,7 +23,7 @@ pkg_check_modules(QGSettings REQUIRED gsettings-qt)
 pkg_check_modules(DtkGUI REQUIRED dtkgui)
 
 # driver-manager
-add_executable(${BIN_NAME} ${SRCS} ${INTERFACES} item/item.qrc frame.qrc)
+add_executable(${BIN_NAME} ${SRCS} ${INTERFACES} item/item.qrc frame.qrc ../widgets/QOperationWidget.cpp ../widgets/QOperationWidget.h)
 target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${XCB_EWMH_INCLUDE_DIRS}
         ${DFrameworkDBus_INCLUDE_DIRS}

@@ -21,10 +21,10 @@ CustomSettings::CustomSettings() {
     this->showControlButtons = true;
     this->showLogoWithAppName = true;
     this->ignoreDock = true;
-    this->buttonOnLeft = false;
+    this->buttonOnLeft = true;
+    this->panelHeight = 24;
 
     this->readSettings();
-    this->panelHeight = 24;
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
 }
 
@@ -211,7 +211,7 @@ void CustomSettings::readSettings() {
     this->showAppNameInsteadIcon = settings.value("windowControl/showAppNameInsteadIcon", this->showAppNameInsteadIcon).toBool();
     this->showLogoWithAppName = settings.value("windowControl/showLogoWithAppName", this->showLogoWithAppName).toBool();
     this->ignoreDock = settings.value("windowControl/ignoreDock", this->isIgnoreDock()).toBool();
-    this->buttonOnLeft = settings.value("windowControl/buttonOnRight", !this->isButtonOnLeft()).toBool();
+    this->buttonOnLeft = !settings.value("windowControl/buttonOnRight", !this->isButtonOnLeft()).toBool();
 }
 
 bool CustomSettings::isShowControlButtons() const {

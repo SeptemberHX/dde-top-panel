@@ -18,19 +18,19 @@ QOperationWidget::QOperationWidget(bool leftSide, QWidget *parent)
 
     this->closeButton = new QToolButton(this);
     this->closeButton->setFixedSize(buttonSize, buttonSize);
-    this->closeButton->setIcon(QIcon(":/icons/close.svg"));
+    this->closeButton->setIcon(QIcon(CustomSettings::instance()->getActiveCloseIconPath()));
     this->closeButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     connect(this->closeButton, &QToolButton::clicked, this, &QOperationWidget::closeButtonClicked);
 
     this->maxButton = new QToolButton(this);
     this->maxButton->setFixedSize(buttonSize, buttonSize);
-    this->maxButton->setIcon(QIcon(":/icons/maximum.svg"));
+    this->maxButton->setIcon(QIcon(CustomSettings::instance()->getActiveUnmaximizedIconPath()));
     this->maxButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     connect(this->maxButton, &QToolButton::clicked, this, &QOperationWidget::maxButtonClicked);
 
     this->minButton = new QToolButton(this);
     this->minButton->setFixedSize(buttonSize, buttonSize);
-    this->minButton->setIcon(QIcon(":/icons/minimum.svg"));
+    this->minButton->setIcon(QIcon(CustomSettings::instance()->getActiveMinimizedIconPath()));
     this->minButton->setIconSize(QSize(buttonSize - 8, buttonSize - 8));
     connect(this->minButton, &QToolButton::clicked, this, &QOperationWidget::minButtonClicked);
 

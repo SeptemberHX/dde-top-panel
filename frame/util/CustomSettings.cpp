@@ -20,7 +20,7 @@ CustomSettings::CustomSettings() {
     this->showAppNameInsteadIcon = true;
     this->showControlButtons = true;
     this->showLogoWithAppName = true;
-    this->ignoreDock = true;
+    this->ignoreDock = false;
     this->buttonOnLeft = true;
     this->panelHeight = 24;
 

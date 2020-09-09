@@ -76,6 +76,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     connect(ui->buttonOnRightCheckBox, &QCheckBox::stateChanged, this, [this] {
         CustomSettings::instance()->setButtonOnLeft(!ui->buttonOnRightCheckBox->isChecked());
     });
+
+    connect(ui->globalMenuCheckBox, &QCheckBox::stateChanged, this, &MainSettingWidget::triggerGlobalMenu);
+    connect(ui->autostartCheckBox, &QCheckBox::stateChanged, this, &MainSettingWidget::triggerAutostart);
 }
 
 MainSettingWidget::~MainSettingWidget()
@@ -165,4 +168,12 @@ void MainSettingWidget::hideEvent(QHideEvent *event) {
 void MainSettingWidget::closeEvent(QCloseEvent *event) {
     movie->stop();
     QWidget::closeEvent(event);
+}
+
+void MainSettingWidget::triggerGlobalMenu(bool enabled) {
+
+}
+
+void MainSettingWidget::triggerAutostart(bool enabled) {
+
 }

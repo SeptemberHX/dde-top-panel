@@ -24,6 +24,9 @@ CustomSettings::CustomSettings() {
     this->buttonOnLeft = true;
     this->panelHeight = 24;
 
+    this->enableGlobalMenu = false;
+    this->enableAutoStart = false;
+
     this->readSettings();
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
 }
@@ -195,6 +198,9 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/showLogoWithAppName", this->isShowLogoWithAppName());
     settings.setValue("windowControl/ignoreDock", this->isIgnoreDock());
     settings.setValue("windowControl/buttonOnRight", !this->isButtonOnLeft());
+
+    settings.setValue("system/globalMenu", this->isEnableGlobalMenu());
+    settings.setValue("system/autostart", this->isEnableAutoStart());
 }
 
 void CustomSettings::readSettings() {
@@ -212,6 +218,8 @@ void CustomSettings::readSettings() {
     this->showLogoWithAppName = settings.value("windowControl/showLogoWithAppName", this->showLogoWithAppName).toBool();
     this->ignoreDock = settings.value("windowControl/ignoreDock", this->isIgnoreDock()).toBool();
     this->buttonOnLeft = !settings.value("windowControl/buttonOnRight", !this->isButtonOnLeft()).toBool();
+    this->enableGlobalMenu = settings.value("system/globalMenu", this->isEnableGlobalMenu()).toBool();
+    this->enableAutoStart = settings.value("system/autostart", this->isEnableAutoStart()).toBool();
 }
 
 bool CustomSettings::isShowControlButtons() const {
@@ -260,5 +268,23 @@ bool CustomSettings::isButtonOnLeft() const {
 
 void CustomSettings::setButtonOnLeft(bool buttonOnLeft) {
     CustomSettings::buttonOnLeft = buttonOnLeft;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isEnableGlobalMenu() const {
+    return enableGlobalMenu;
+}
+
+void CustomSettings::setEnableGlobalMenu(bool enableGlobalMenu) {
+    CustomSettings::enableGlobalMenu = enableGlobalMenu;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isEnableAutoStart() const {
+    return enableAutoStart;
+}
+
+void CustomSettings::setEnableAutoStart(bool enableAutoStart) {
+    CustomSettings::enableAutoStart = enableAutoStart;
     emit settingsChanged();
 }

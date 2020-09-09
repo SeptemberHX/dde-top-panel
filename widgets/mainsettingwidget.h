@@ -43,6 +43,9 @@ private:
 
     void defaultButtonClicked();
     void defaultResetButtonClicked();
+
+    void triggerGlobalMenu(bool enabled);
+    void triggerAutostart(bool enabled);
 };
 
 #endif // MAINSETTINGWIDGET_H

@@ -110,6 +110,18 @@ private:
 
     bool ignoreDock;
     bool buttonOnLeft;
+
+    bool enableGlobalMenu;
+    bool enableAutoStart;
+public:
+    bool isEnableGlobalMenu() const;
+
+    void setEnableGlobalMenu(bool enableGlobalMenu);
+
+    bool isEnableAutoStart() const;
+
+    void setEnableAutoStart(bool enableAutoStart);
+
 public:
     bool isIgnoreDock() const;
 

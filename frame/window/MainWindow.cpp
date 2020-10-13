@@ -62,6 +62,9 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     m_platformWindowHandle.setShadowOffset(QPoint(0, 5));
     m_platformWindowHandle.setShadowColor(QColor(0, 0, 0, 0.3 * 255));
     m_platformWindowHandle.setBorderWidth(1);
+        
+    qreal value = CustomSettings::instance()->getPanelOpacity();
+    CustomSettings::instance()->setPanelOpacity(value);
 }
 
 void MainWindow::resizeMainPanelWindow()

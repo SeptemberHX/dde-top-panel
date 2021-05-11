@@ -2,6 +2,7 @@
 // Created by septemberhx on 2020/5/26.
 //
 
+#include <iostream>
 #include <QImage>
 #include <QDebug>
 #include <QApplication>

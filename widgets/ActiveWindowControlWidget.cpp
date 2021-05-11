@@ -13,6 +13,7 @@
 #include <QScreen>
 #include <QEvent>
 #include <QDesktopWidget>
+#include <iostream>
 
 ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     : QWidget(parent)
@@ -352,7 +353,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
 }
 
 void ActiveWindowControlWidget::windowChanged(WId id, NET::Properties properties, NET::Properties2 properties2) {
-    if (properties.testFlag(NET::WMGeometry)) {
+    if (properties.testFlag(NET::WMGeometry) || properties.testFlag(NET::WMName)) {
         this->activeWindowInfoChanged();
     }
 

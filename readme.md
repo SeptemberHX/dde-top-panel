@@ -12,6 +12,11 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 * separate plugin config gsetting path `/com/deepin/dde/toppanel`
 * different plugin directories: `/usr/lib/dde-top-panel/plugins` and `~/.local/lib/dde-top-panel/plugins`
 
+| Plugin | Description |
+| ------ | ------      |
+| [dde-istate-menus](https://github.com/SeptemberHX/dde-istate-menus) | Plugin for showing CPU/RAM/MEM/Time |
+| [dde-smart-dir](https://github.com/SeptemberHX/dde-smart-dir) | Plugin for listing files ordered by last modification time in watched folders |
+| [dde-mpris2](https://github.com/SeptemberHX/dde-mpris2-plugin) | Plugin for controlling music player and show lyric |
 
 ## Features
 

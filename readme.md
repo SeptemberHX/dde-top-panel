@@ -92,7 +92,7 @@ Due to the logical of tray plugins, only one tray widget can hold the wine trays
  
 The main code of wine trays is in `plugins/tray/xembedtraywidget`. Generally, it wraps the raw wine trays with a new widget and embeds it to the tray, then it operates on the new widget. The problem is every tray widget will create a new container widget for each wine trays, and the tray widgets launched before can't the window id of the new container widget.
 
-This part needs help.
+Just move `libtray.so` from `/usr/lib/dde-dock/plugins/libtray.so` to `~/.local/lib/dde-top-panel/plugins/`. Then there will be no tray icons on dock.
 
 ------
 

@@ -30,18 +30,11 @@
 DWIDGET_USE_NAMESPACE
 
 DockPopupWindow::DockPopupWindow(QWidget *parent)
-    : DArrowRectangle(ArrowBottom, parent),
-      m_model(false),
-
-      m_acceptDelayTimer(new QTimer(this)),
-
-      m_regionInter(new DRegionMonitor(this))
+        : DArrowRectangle(ArrowBottom, parent),
+          m_model(false),
+          m_regionInter(new DRegionMonitor(this))
 {
-    m_acceptDelayTimer->setSingleShot(true);
-    m_acceptDelayTimer->setInterval(100);
-    
-    setAccessibleName("popup");
-
+    setMargin(0);
     m_wmHelper = DWindowManagerHelper::instance();
 
     compositeChanged();
@@ -49,7 +42,6 @@ DockPopupWindow::DockPopupWindow(QWidget *parent)
     setWindowFlags(Qt::X11BypassWindowManagerHint | Qt::WindowStaysOnTopHint | Qt::WindowDoesNotAcceptFocus);
     setAttribute(Qt::WA_InputMethodEnabled, false);
 
-    connect(m_acceptDelayTimer, &QTimer::timeout, this, &DockPopupWindow::accept);
     connect(m_wmHelper, &DWindowManagerHelper::hasCompositeChanged, this, &DockPopupWindow::compositeChanged);
     connect(m_regionInter, &DRegionMonitor::buttonPress, this, &DockPopupWindow::onGlobMouseRelease);
 }
@@ -73,7 +65,8 @@ void DockPopupWindow::setContent(QWidget *content)
     QAccessibleEvent event(this, QAccessible::NameChanged);
     QAccessible::updateAccessibility(&event);
 
-    setAccessibleName(content->objectName() + "-popup");
+    if (!content->objectName().trimmed().isEmpty())
+        setAccessibleName(content->objectName() + "-popup");
 
     DArrowRectangle::setContent(content);
 }

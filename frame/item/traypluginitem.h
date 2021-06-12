@@ -26,12 +26,12 @@
 
 class TrayPluginItem : public PluginsItem
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    TrayPluginItem(PluginsItemInterface* const pluginInter, const QString &itemKey, QWidget *parent = 0);
+    TrayPluginItem(PluginsItemInterface* const pluginInter, const QString &itemKey, const QString &pluginApi, QWidget *parent = nullptr);
 
-    inline ItemType itemType() const Q_DECL_OVERRIDE {return ItemType::TrayPlugin;}
+    inline ItemType itemType() const override {return ItemType::TrayPlugin;}
 
     void setSuggestIconSize(QSize size);
     void setRightSplitVisible(const bool visible);
@@ -41,7 +41,7 @@ Q_SIGNALS:
     void trayVisableCountChanged(const int &count) const;
 
 private:
-    bool eventFilter(QObject *watched, QEvent *e) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *watched, QEvent *e) override;
 
 private:
     int m_trayVisableItemCount = 0;

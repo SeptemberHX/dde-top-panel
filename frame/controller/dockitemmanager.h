@@ -24,25 +24,29 @@
 
 #include "dockpluginscontroller.h"
 #include "pluginsiteminterface.h"
-#include "item/dockitem.h"
-#include "item/placeholderitem.h"
+#include "dockitem.h"
+#include "placeholderitem.h"
 
 #include <com_deepin_dde_daemon_dock.h>
 
 #include <QObject>
 
 using DBusDock = com::deepin::dde::daemon::Dock;
-
+/**
+ * @brief The DockItemManager class
+ * 管理类，管理所有的应用数据，插件数据
+ */
 class DockItemManager : public QObject
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     static DockItemManager *instance(QObject *parent = nullptr);
-    explicit DockItemManager(QObject *parent = nullptr, bool enableBlacklist = false);
+    explicit DockItemManager(QObject *parent = nullptr);
 
     const QList<QPointer<DockItem> > itemList() const;
     const QList<PluginsItemInterface *> pluginList() const;
+    bool appIsOnDock(const QString &appDesktop) const;
     void startLoadPlugins() const;
 
 signals:
@@ -53,30 +57,36 @@ signals:
     void requestWindowAutoHide(const bool autoHide) const;
     void requestRefershWindowVisible() const;
 
-    // active window changed and title info changed information.
-    // Since deepin doesn't offer a proper API for it, I have to insert many points to archive this.
-    void windowInfoChanged() const;
+    void requestUpdateDockItem() const;
 
 public slots:
-    void refershItemsIcon();
-    void sortPluginItems();
-    void updatePluginsItemOrderKey();
+    void refreshItemsIcon();
     void itemMoved(DockItem *const sourceItem, DockItem *const targetItem);
     void itemAdded(const QString &appDesktop, int idx);
+
+private Q_SLOTS:
+    void onPluginLoadFinished();
 
 private:
     void pluginItemInserted(PluginsItem *item);
     void pluginItemRemoved(PluginsItem *item);
+    void updatePluginsItemOrderKey();
     void manageItem(DockItem *item);
 
 private:
-    QTimer *m_updatePluginsOrderTimer;
     DBusDock *m_appInter;
     DockPluginsController *m_pluginsInter;
 
     static DockItemManager *INSTANCE;
 
     QList<QPointer<DockItem>> m_itemList;
+    QList<QString> m_appIDist;
+
+    bool m_loadFinished; // 记录所有插件是否加载完成
+
+    static const QGSettings *m_appSettings;
+    static const QGSettings *m_activeSettings;
+    static const QGSettings *m_dockedSettings;
 
     bool enableBlacklist;
 };

@@ -20,37 +20,42 @@
  */
 
 #include "dockitemmanager.h"
-#include "item/pluginsitem.h"
-#include "item/traypluginitem.h"
+#include "pluginsitem.h"
+#include "traypluginitem.h"
+#include "utils.h"
 
 #include <QDebug>
 #include <QGSettings>
 
+#include <DApplication>
+
 DockItemManager *DockItemManager::INSTANCE = nullptr;
 
-DockItemManager::DockItemManager(QObject *parent, bool enableBlacklist)
-    : QObject(parent)
-    , m_updatePluginsOrderTimer(new QTimer(this))
-    , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
-    , m_pluginsInter(new DockPluginsController(enableBlacklist, this))
+DockItemManager::DockItemManager(QObject *parent)
+        : QObject(parent)
+        , m_appInter(new DBusDock("com.deepin.dde.daemon.Dock", "/com/deepin/dde/daemon/Dock", QDBusConnection::sessionBus(), this))
+        , m_pluginsInter(new DockPluginsController(this))
+        , m_loadFinished(false)
 {
     // 托盘区域和插件区域 由DockPluginsController获取
-
-    // 更新插件顺序
-    m_updatePluginsOrderTimer->setSingleShot(true);
-    m_updatePluginsOrderTimer->setInterval(1000);
-    connect(m_updatePluginsOrderTimer, &QTimer::timeout, this, &DockItemManager::updatePluginsItemOrderKey);
 
     // 插件信号
     connect(m_pluginsInter, &DockPluginsController::pluginItemInserted, this, &DockItemManager::pluginItemInserted, Qt::QueuedConnection);
     connect(m_pluginsInter, &DockPluginsController::pluginItemRemoved, this, &DockItemManager::pluginItemRemoved, Qt::QueuedConnection);
     connect(m_pluginsInter, &DockPluginsController::pluginItemUpdated, this, &DockItemManager::itemUpdated, Qt::QueuedConnection);
     connect(m_pluginsInter, &DockPluginsController::trayVisableCountChanged, this, &DockItemManager::trayVisableCountChanged, Qt::QueuedConnection);
+    connect(m_pluginsInter, &DockPluginsController::pluginLoaderFinished, this, &DockItemManager::onPluginLoadFinished, Qt::QueuedConnection);
+
+    DApplication *app = qobject_cast<DApplication *>(qApp);
+    if (app) {
+        connect(app, &DApplication::iconThemeChanged, this, &DockItemManager::refreshItemsIcon);
+    }
+
+    connect(qApp, &QApplication::aboutToQuit, this, &QObject::deleteLater);
 
     // 刷新图标
-    QMetaObject::invokeMethod(this, "refershItemsIcon", Qt::QueuedConnection);
+    QMetaObject::invokeMethod(this, "refreshItemsIcon", Qt::QueuedConnection);
 }
-
 
 DockItemManager *DockItemManager::instance(QObject *parent)
 {
@@ -70,25 +75,31 @@ const QList<PluginsItemInterface *> DockItemManager::pluginList() const
     return m_pluginsInter->pluginsMap().keys();
 }
 
-void DockItemManager::startLoadPlugins() const
+bool DockItemManager::appIsOnDock(const QString &appDesktop) const
 {
-    QGSettings gsetting("com.deepin.dde.dock", "/com/deepin/dde/dock/");
-
-    QTimer::singleShot(gsetting.get("delay-plugins-time").toUInt(), m_pluginsInter, &DockPluginsController::startLoader);
+    return m_appInter->IsOnDock(appDesktop);
 }
 
-void DockItemManager::refershItemsIcon()
+void DockItemManager::startLoadPlugins() const
+{
+    int delay = Utils::SettingValue("com.deepin.dde.dock", "/com/deepin/dde/dock/", "delay-plugins-time", 0).toInt();
+    QTimer::singleShot(delay, m_pluginsInter, &DockPluginsController::startLoader);
+}
+
+void DockItemManager::refreshItemsIcon()
 {
     for (auto item : m_itemList) {
-        item->refershIcon();
+        item->refreshIcon();
         item->update();
     }
 }
 
+/**
+ * @brief 将插件的参数(Order, Visible, etc)写入gsettings
+ * 自动化测试需要通过dbus(GetPluginSettings)获取这些参数
+ */
 void DockItemManager::updatePluginsItemOrderKey()
 {
-    Q_ASSERT(sender() == m_updatePluginsOrderTimer);
-
     int index = 0;
     for (auto item : m_itemList) {
         if (item.isNull() || item->itemType() != DockItem::Plugins)
@@ -130,9 +141,10 @@ void DockItemManager::itemMoved(DockItem *const sourceItem, DockItem *const targ
 
     // update plugins sort key if order changed
     if (moveType == DockItem::Plugins || replaceType == DockItem::Plugins
-            || moveType == DockItem::TrayPlugin || replaceType == DockItem::TrayPlugin
-            || moveType == DockItem::FixedPlugin || replaceType == DockItem::FixedPlugin)
-        m_updatePluginsOrderTimer->start();
+        || moveType == DockItem::TrayPlugin || replaceType == DockItem::TrayPlugin
+        || moveType == DockItem::FixedPlugin || replaceType == DockItem::FixedPlugin) {
+        updatePluginsItemOrderKey();
+    }
 
     // for app move, index 0 is launcher item, need to pass it.
     if (moveType == DockItem::App && replaceType == DockItem::App)
@@ -195,7 +207,6 @@ void DockItemManager::pluginItemInserted(PluginsItem *item)
     if(pluginType == DockItem::FixedPlugin)
     {
         insertIndex ++;
-        item->setAccessibleName("plugins");
     }
 
     emit itemInserted(insertIndex - firstPluginPosition, item);
@@ -208,41 +219,9 @@ void DockItemManager::pluginItemRemoved(PluginsItem *item)
     emit itemRemoved(item);
 
     m_itemList.removeOne(item);
-}
 
-// 不同的模式下，插件顺序不一样
-void DockItemManager::sortPluginItems()
-{
-    int firstPluginIndex = -1;
-    for (int i(0); i != m_itemList.size(); ++i) {
-        if (m_itemList[i]->itemType() == DockItem::Plugins) {
-            firstPluginIndex = i;
-            break;
-        }
-    }
-
-    if (firstPluginIndex == -1)
-        return;
-
-    std::sort(m_itemList.begin() + firstPluginIndex, m_itemList.end(), [](DockItem * a, DockItem * b) -> bool {
-        PluginsItem *pa = static_cast<PluginsItem *>(a);
-        PluginsItem *pb = static_cast<PluginsItem *>(b);
-
-        const int aKey = pa->itemSortKey();
-        const int bKey = pb->itemSortKey();
-
-        if (bKey == -1)
-            return true;
-        if (aKey == -1)
-            return false;
-
-        return aKey < bKey;
-    });
-
-    // reset order
-    for (int i(firstPluginIndex); i != m_itemList.size(); ++i) {
-        emit itemRemoved(m_itemList[i]);
-        emit itemInserted(-1, m_itemList[i]);
+    if (m_loadFinished) {
+        updatePluginsItemOrderKey();
     }
 }
 
@@ -250,4 +229,10 @@ void DockItemManager::manageItem(DockItem *item)
 {
     connect(item, &DockItem::requestRefreshWindowVisible, this, &DockItemManager::requestRefershWindowVisible, Qt::UniqueConnection);
     connect(item, &DockItem::requestWindowAutoHide, this, &DockItemManager::requestWindowAutoHide, Qt::UniqueConnection);
+}
+
+void DockItemManager::onPluginLoadFinished()
+{
+    updatePluginsItemOrderKey();
+    m_loadFinished = true;
 }

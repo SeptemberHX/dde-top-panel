@@ -23,7 +23,7 @@
 #define DOCKITEM_H
 
 #include "constants.h"
-#include "util/dockpopupwindow.h"
+#include "dockpopupwindow.h"
 
 #include <QFrame>
 #include <QPointer>
@@ -36,7 +36,7 @@ using namespace Dock;
 
 class DockItem : public QWidget
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     enum ItemType {
@@ -50,7 +50,7 @@ public:
 
 public:
     explicit DockItem(QWidget *parent = nullptr);
-    ~DockItem();
+    ~DockItem() override;
 
     static void setDockPosition(const Position side);
     static void setDockDisplayMode(const DisplayMode mode);
@@ -61,11 +61,12 @@ public:
     virtual QString accessibleName();
 
 public slots:
-    virtual void refershIcon() {}
+    virtual void refreshIcon() {}
 
     void showPopupApplet(QWidget *const applet);
     void hidePopup();
     virtual void setDraging(bool bDrag);
+    virtual void checkEntry() {}
 
     bool isDragging();
 signals:
@@ -75,11 +76,11 @@ signals:
     void requestRefreshWindowVisible() const;
 
 protected:
-    bool event(QEvent *event);
-    void paintEvent(QPaintEvent *e);
-    void mousePressEvent(QMouseEvent *e);
-    void enterEvent(QEvent *e);
-    void leaveEvent(QEvent *e);
+    bool event(QEvent *event) override;
+    void paintEvent(QPaintEvent *e) override;
+    void mousePressEvent(QMouseEvent *e) override;
+    void enterEvent(QEvent *e) override;
+    void leaveEvent(QEvent *e) override;
 
     const QRect perfectIconRect() const;
     const QPoint popupMarkPoint() ;
@@ -112,6 +113,7 @@ protected:
     QMenu m_contextMenu;
 
     QPointer<QWidget> m_lastPopupWidget;
+
     QTimer *m_popupTipsDelayTimer;
     QTimer *m_popupAdjustDelayTimer;
 

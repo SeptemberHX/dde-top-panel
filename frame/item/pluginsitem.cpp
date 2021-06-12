@@ -22,9 +22,7 @@
 #include "constants.h"
 #include "pluginsitem.h"
 #include "pluginsiteminterface.h"
-
-#include "util/imagefactory.h"
-
+#include "utils.h"
 #include <QPainter>
 #include <QBoxLayout>
 #include <QMouseEvent>
@@ -36,19 +34,20 @@
 
 QPoint PluginsItem::MousePressPoint = QPoint();
 
-PluginsItem::PluginsItem(PluginsItemInterface *const pluginInter, const QString &itemKey, QWidget *parent)
-    : DockItem(parent)
-    , m_pluginInter(pluginInter)
-    , m_centralWidget(m_pluginInter->itemWidget(itemKey))
-    , m_itemKey(itemKey)
-    , m_dragging(false)
-    , m_gsettings(nullptr)
+PluginsItem::PluginsItem(PluginsItemInterface *const pluginInter, const QString &itemKey, const QString &plginApi, QWidget *parent)
+        : DockItem(parent)
+        , m_pluginInter(pluginInter)
+        , m_centralWidget(m_pluginInter->itemWidget(itemKey))
+        , m_pluginApi(plginApi)
+        , m_itemKey(itemKey)
+        , m_dragging(false)
+        , m_gsettings(Utils::ModuleSettingsPtr(pluginInter->pluginName(), QByteArray(), this))
 {
     qDebug() << "load plugins item: " << pluginInter->pluginName() << itemKey << m_centralWidget;
 
     m_centralWidget->setParent(this);
     m_centralWidget->setVisible(true);
-    m_centralWidget->setAccessibleName("centralwidget");
+    m_centralWidget->setObjectName(pluginInter->pluginName() + "-centralwidget");
     m_centralWidget->installEventFilter(this);
 
     QBoxLayout *hLayout = new QHBoxLayout;
@@ -57,22 +56,11 @@ PluginsItem::PluginsItem(PluginsItemInterface *const pluginInter, const QString 
     hLayout->setMargin(0);
 
     setLayout(hLayout);
-    setAccessibleName(pluginInter->pluginName() + "-" + m_itemKey);
+    setAccessibleName(pluginInter->pluginName());
     setAttribute(Qt::WA_TranslucentBackground);
 
-    const QByteArray &schema{
-        QString("com.deepin.dde.dock.module.%1").arg(pluginInter->pluginName()).toUtf8()
-    };
-
-    if (QGSettings::isSchemaInstalled(schema)) {
-        m_gsettings = new QGSettings(schema);
-        m_gsettings->setParent(this);
-        connect(m_gsettings, &QGSettings::changed, this,
-                &PluginsItem::onGSettingsChanged);
-    }
-    else {
-        m_gsettings = nullptr;
-    }
+    if (m_gsettings)
+        connect(m_gsettings, &QGSettings::changed, this, &PluginsItem::onGSettingsChanged);
 }
 
 PluginsItem::~PluginsItem()
@@ -101,6 +89,16 @@ QString PluginsItem::pluginName() const
     return m_pluginInter->pluginName();
 }
 
+PluginsItemInterface::PluginSizePolicy PluginsItem::pluginSizePolicy() const
+{
+    // 插件版本大于 1.2.2 才能使用 PluginsItemInterface::pluginSizePolicy 函数
+    if (Utils::comparePluginApi(m_pluginApi, "1.2.2") > 0) {
+        return m_pluginInter->pluginSizePolicy();
+    } else {
+        return PluginsItemInterface::System;
+    }
+}
+
 DockItem::ItemType PluginsItem::itemType() const
 {
     if (m_pluginInter->type() == PluginsItemInterface::Normal) {
@@ -115,17 +113,18 @@ QSize PluginsItem::sizeHint() const
     return m_centralWidget->sizeHint();
 }
 
-void PluginsItem::refershIcon()
+void PluginsItem::refreshIcon()
 {
     m_pluginInter->refreshIcon(m_itemKey);
 }
 
-void PluginsItem::onGSettingsChanged(const QString& key) {
-    if (key != "enable" || !m_gsettings) {
+void PluginsItem::onGSettingsChanged(const QString &key)
+{
+    if (key != "enable") {
         return;
     }
 
-    if (m_gsettings->keys().contains("enable")) {
+    if (m_gsettings && m_gsettings->keys().contains("enable")) {
         setVisible(m_gsettings->get("enable").toBool());
     }
 }
@@ -133,13 +132,6 @@ void PluginsItem::onGSettingsChanged(const QString& key) {
 QWidget *PluginsItem::centralWidget() const
 {
     return m_centralWidget;
-}
-
-void PluginsItem::setDraging(bool bDrag)
-{
-    DockItem::setDraging(bDrag);
-
-    m_centralWidget->setVisible(!bDrag);
 }
 
 void PluginsItem::mousePressEvent(QMouseEvent *e)
@@ -157,8 +149,18 @@ void PluginsItem::mousePressEvent(QMouseEvent *e)
     if (e->button() == Qt::LeftButton)
         MousePressPoint = e->pos();
 
-    // context menu will handle in DockItem
-    DockItem::mousePressEvent(e);
+    //handle context menu
+    m_popupTipsDelayTimer->stop();
+    hideNonModel();
+
+    if (e->button() == Qt::RightButton) {
+        if (perfectIconRect().contains(e->pos())) {
+            return (m_gsettings && (!m_gsettings->keys().contains("menuEnable") || m_gsettings->get("menuEnable").toBool())) ? showContextMenu() : void();
+        }
+    }
+
+    // same as e->ignore above
+    QWidget::mousePressEvent(e);
 }
 
 void PluginsItem::mouseMoveEvent(QMouseEvent *e)
@@ -218,8 +220,8 @@ void PluginsItem::leaveEvent(QEvent *event)
     // here we should check the mouse position to ensure the mouse is really leaved
     // because this leaveEvent will also be called if setX11PassMouseEvent(false) is invoked
     // in XWindowTrayWidget::sendHoverEvent()
-        m_hover = false;
-        update();
+    m_hover = false;
+    update();
 
     DockItem::leaveEvent(event);
 }
@@ -237,7 +239,7 @@ bool PluginsItem::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched == m_centralWidget) {
         if (event->type() == QEvent::MouseButtonPress ||
-                event->type() == QEvent::MouseButtonRelease) {
+            event->type() == QEvent::MouseButtonRelease) {
             if (checkGSettingsControl()) {
                 return true;
             }
@@ -275,41 +277,10 @@ QWidget *PluginsItem::popupTips()
     return m_pluginInter->itemTipsWidget(m_itemKey);
 }
 
-void PluginsItem::resizeEvent(QResizeEvent *event)
-{
-    setMaximumSize(m_centralWidget->maximumSize());
-    return DockItem::resizeEvent(event);
-}
-
 void PluginsItem::startDrag()
 {
     // 拖拽已放到MainPanelControl处理
     return;
-
-    const QPixmap pixmap = grab();
-
-    m_dragging = true;
-    m_centralWidget->setVisible(false);
-    update();
-
-    QMimeData *mime = new QMimeData;
-    mime->setData(DOCK_PLUGIN_MIME, m_itemKey.toStdString().c_str());
-
-    QDrag *drag = new QDrag(this);
-    drag->setPixmap(pixmap);
-    drag->setHotSpot(pixmap.rect().center() / pixmap.devicePixelRatioF());
-    drag->setMimeData(mime);
-
-    emit dragStarted();
-    const Qt::DropAction result = drag->exec(Qt::MoveAction);
-    Q_UNUSED(result);
-    emit itemDropped(drag->target(), QCursor::pos());
-
-    m_dragging = false;
-    m_hover = false;
-    m_centralWidget->setVisible(true);
-    setVisible(true);
-    update();
 }
 
 void PluginsItem::mouseClicked()
@@ -325,14 +296,24 @@ void PluginsItem::mouseClicked()
     }
 
     // request popup applet
-    QWidget *w = m_pluginInter->itemPopupApplet(m_itemKey);
-    if (w)
+    if (QWidget *w = m_pluginInter->itemPopupApplet(m_itemKey))
         showPopupApplet(w);
 }
 
 bool PluginsItem::checkGSettingsControl() const
 {
-    return m_gsettings ? m_gsettings->keys().contains("control") &&
-                             m_gsettings->get("control").toBool()
-                       : false;
+    return m_gsettings ? m_gsettings->keys().contains("control") && m_gsettings->get("control").toBool() : false;
+}
+
+void PluginsItem::resizeEvent(QResizeEvent *event)
+{
+    setMaximumSize(m_centralWidget->maximumSize());
+    return DockItem::resizeEvent(event);
+}
+
+void PluginsItem::setDraging(bool bDrag)
+{
+    DockItem::setDraging(bDrag);
+
+    m_centralWidget->setVisible(!bDrag);
 }

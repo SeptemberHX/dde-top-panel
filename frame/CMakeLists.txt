@@ -33,6 +33,13 @@ target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${DtkGUI_INCLUDE_DIRS}
         ${KF5WindowSystem_INCLUDE_DIRS}
         ../interfaces
+        controller
+        dbus
+        item
+        item/components
+        util
+        window
+        xcb
         )
 
 target_link_libraries(${BIN_NAME} PRIVATE

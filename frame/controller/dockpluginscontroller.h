@@ -22,9 +22,9 @@
 #ifndef DOCKPLUGINSCONTROLLER_H
 #define DOCKPLUGINSCONTROLLER_H
 
-#include "item/pluginsitem.h"
+#include "pluginsitem.h"
 #include "pluginproxyinterface.h"
-#include "util/abstractpluginscontroller.h"
+#include "abstractpluginscontroller.h"
 
 #include <com_deepin_dde_daemon_dock.h>
 
@@ -36,21 +36,21 @@
 class PluginsItemInterface;
 class DockPluginsController : public AbstractPluginsController
 {
-    Q_OBJECT
+Q_OBJECT
 
     friend class DockItemController;
     friend class DockItemManager;
 
 public:
-    explicit DockPluginsController(bool enableBlacklist = false, QObject *parent = 0);
+    explicit DockPluginsController(QObject *parent = nullptr);
 
     // implements PluginProxyInterface
-    void itemAdded(PluginsItemInterface * const itemInter, const QString &itemKey) Q_DECL_OVERRIDE;
-    void itemUpdate(PluginsItemInterface * const itemInter, const QString &itemKey) Q_DECL_OVERRIDE;
-    void itemRemoved(PluginsItemInterface * const itemInter, const QString &itemKey) Q_DECL_OVERRIDE;
-    void requestWindowAutoHide(PluginsItemInterface * const itemInter, const QString &itemKey, const bool autoHide) Q_DECL_OVERRIDE;
-    void requestRefreshWindowVisible(PluginsItemInterface * const itemInter, const QString &itemKey) Q_DECL_OVERRIDE;
-    void requestSetAppletVisible(PluginsItemInterface * const itemInter, const QString &itemKey, const bool visible) Q_DECL_OVERRIDE;
+    void itemAdded(PluginsItemInterface * const itemInter, const QString &itemKey) override;
+    void itemUpdate(PluginsItemInterface * const itemInter, const QString &itemKey) override;
+    void itemRemoved(PluginsItemInterface * const itemInter, const QString &itemKey) override;
+    void requestWindowAutoHide(PluginsItemInterface * const itemInter, const QString &itemKey, const bool autoHide) override;
+    void requestRefreshWindowVisible(PluginsItemInterface * const itemInter, const QString &itemKey) override;
+    void requestSetAppletVisible(PluginsItemInterface * const itemInter, const QString &itemKey, const bool visible) override;
 
     void startLoader();
 

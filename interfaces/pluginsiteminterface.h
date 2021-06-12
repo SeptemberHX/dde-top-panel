@@ -40,6 +40,14 @@ public:
         Fixed
     };
 
+    /**
+    * @brief Plugin size policy
+    */
+    enum PluginSizePolicy {
+        System = 1 << 0, // Follow the system
+        Custom = 1 << 1  // The custom
+    };
+
     ///
     /// \brief ~PluginsItemInterface
     /// DON'T try to delete m_proxyInter.
@@ -229,12 +237,18 @@ public:
     ///
     virtual PluginType type() { return Normal; }
 
+    ///
+    /// \brief plugin size policy
+    /// default plugin size policy
+    ///
+    virtual PluginSizePolicy pluginSizePolicy() const { return System; }
+
 protected:
     ///
     /// \brief m_proxyInter
     /// NEVER delete this object.
     ///
-    PluginProxyInterface *m_proxyInter;
+    PluginProxyInterface *m_proxyInter = nullptr;
 };
 
 QT_BEGIN_NAMESPACE

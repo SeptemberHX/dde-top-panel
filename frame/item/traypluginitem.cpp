@@ -20,12 +20,12 @@
  */
 
 #include "traypluginitem.h"
+#include "utils.h"
 
 #include <QEvent>
-#include <QGSettings>
 
-TrayPluginItem::TrayPluginItem(PluginsItemInterface * const pluginInter, const QString &itemKey, QWidget *parent)
-    : PluginsItem(pluginInter, itemKey, parent)
+TrayPluginItem::TrayPluginItem(PluginsItemInterface * const pluginInter, const QString &itemKey, const QString &pluginApi, QWidget *parent)
+        : PluginsItem(pluginInter, itemKey, pluginApi, parent)
 {
     centralWidget()->installEventFilter(this);
 }
@@ -54,11 +54,9 @@ bool TrayPluginItem::eventFilter(QObject *watched, QEvent *e)
     // 当接收到这个属性变化的事件后，重新计算和设置dock的大小
 
     if (watched == centralWidget()) {
-        if (e->type() == QEvent::MouseButtonPress ||
-                e->type() == QEvent::MouseButtonRelease) {
-            QGSettings settings("com.deepin.dde.dock.module.systemtray");
-            if (settings.keys().contains("control")
-                    && settings.get("control").toBool()) {
+        if (e->type() == QEvent::MouseButtonPress || e->type() == QEvent::MouseButtonRelease) {
+            const QGSettings *settings = Utils::ModuleSettingsPtr("systemtray", QByteArray(), this);
+            if (settings && settings->keys().contains("control") && settings->get("control").toBool()) {
                 return true;
             }
         }

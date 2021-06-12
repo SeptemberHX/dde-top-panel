@@ -25,21 +25,23 @@
 #include <QMouseEvent>
 #include <QJsonObject>
 #include <QCursor>
+#include <QApplication>
 
 #define PLUGIN_MARGIN  10
+#define ITEM_MAXSIZE    100
 
 Position DockItem::DockPosition = Position::Top;
 DisplayMode DockItem::DockDisplayMode = DisplayMode::Efficient;
 QPointer<DockPopupWindow> DockItem::PopupWindow(nullptr);
 
 DockItem::DockItem(QWidget *parent)
-    : QWidget(parent)
-    , m_hover(false)
-    , m_popupShown(false)
-    , m_tapAndHold(false)
-    , m_draging(false)
-    , m_popupTipsDelayTimer(new QTimer(this))
-    , m_popupAdjustDelayTimer(new QTimer(this))
+        : QWidget(parent)
+        , m_hover(false)
+        , m_popupShown(false)
+        , m_tapAndHold(false)
+        , m_draging(false)
+        , m_popupTipsDelayTimer(new QTimer(this))
+        , m_popupAdjustDelayTimer(new QTimer(this))
 
 {
     if (PopupWindow.isNull()) {
@@ -50,7 +52,9 @@ DockItem::DockItem(QWidget *parent)
         arrowRectangle->setShadowXOffset(0);
         arrowRectangle->setArrowWidth(18);
         arrowRectangle->setArrowHeight(10);
+        arrowRectangle->setObjectName("apppopup");
         PopupWindow = arrowRectangle;
+        connect(qApp, &QApplication::aboutToQuit, PopupWindow, &DockPopupWindow::deleteLater);
     }
 
     m_popupTipsDelayTimer->setInterval(500);
@@ -58,6 +62,8 @@ DockItem::DockItem(QWidget *parent)
 
     m_popupAdjustDelayTimer->setInterval(10);
     m_popupAdjustDelayTimer->setSingleShot(true);
+//FIXME: 可能是qt的bug，概率性导致崩溃，待修复
+//    setGraphicsEffect(m_hoverEffect);
 
     connect(m_popupTipsDelayTimer, &QTimer::timeout, this, &DockItem::showHoverTips);
     connect(m_popupAdjustDelayTimer, &QTimer::timeout, this, &DockItem::updatePopupPosition, Qt::QueuedConnection);
@@ -71,6 +77,8 @@ DockItem::DockItem(QWidget *parent)
 QSize DockItem::sizeHint() const
 {
     int size = qMin(maximumWidth(), maximumHeight());
+    if (size > ITEM_MAXSIZE)
+        size = ITEM_MAXSIZE;
 
     return QSize(size, size);
 }
@@ -115,11 +123,11 @@ bool DockItem::event(QEvent *event)
 {
     if (m_popupShown) {
         switch (event->type()) {
-        case QEvent::Paint:
-            if (!m_popupAdjustDelayTimer->isActive())
-                m_popupAdjustDelayTimer->start();
-            break;
-        default:;
+            case QEvent::Paint:
+                if (!m_popupAdjustDelayTimer->isActive())
+                    m_popupAdjustDelayTimer->start();
+                break;
+            default:;
         }
     }
 
@@ -171,7 +179,13 @@ void DockItem::enterEvent(QEvent *e)
     }
 
     m_hover = true;
-    m_popupTipsDelayTimer->start();
+    //FIXME: 可能是qt的bug，概率性导致崩溃，待修复
+//    m_hoverEffect->setHighlighting(true);
+
+    // 触屏不显示hover效果
+    if (!qApp->property(IS_TOUCH_STATE).toBool()) {
+        m_popupTipsDelayTimer->start();
+    }
 
     update();
 
@@ -183,6 +197,8 @@ void DockItem::leaveEvent(QEvent *e)
     QWidget::leaveEvent(e);
 
     m_hover = false;
+    //FIXME: 可能是qt的bug，概率性导致崩溃，待修复
+//    m_hoverEffect->setHighlighting(false);
     m_popupTipsDelayTimer->stop();
 
     // auto hide if popup is not model window
@@ -260,11 +276,6 @@ void DockItem::showHoverTips()
     if (PopupWindow->model())
         return;
 
-    // if not in geometry area
-    const QRect r(topleftPoint(), size());
-    if (!r.contains(QCursor::pos()))
-        return;
-
     QWidget *const content = popupTips();
     if (!content)
         return;
@@ -284,7 +295,7 @@ void DockItem::showPopupWindow(QWidget *const content, const bool model)
     m_lastPopupWidget = content;
 
     if (model)
-        emit requestWindowAutoHide(false);
+            emit requestWindowAutoHide(false);
 
     DockPopupWindow *popup = PopupWindow.data();
     QWidget *lastContent = popup->getContent();
@@ -292,10 +303,10 @@ void DockItem::showPopupWindow(QWidget *const content, const bool model)
         lastContent->setVisible(false);
 
     switch (DockPosition) {
-    case Top:   popup->setArrowDirection(DockPopupWindow::ArrowTop);     break;
-    case Bottom: popup->setArrowDirection(DockPopupWindow::ArrowBottom);  break;
-    case Left:  popup->setArrowDirection(DockPopupWindow::ArrowLeft);    break;
-    case Right: popup->setArrowDirection(DockPopupWindow::ArrowRight);   break;
+        case Top:   popup->setArrowDirection(DockPopupWindow::ArrowTop);     break;
+        case Bottom: popup->setArrowDirection(DockPopupWindow::ArrowBottom);  break;
+        case Left:  popup->setArrowDirection(DockPopupWindow::ArrowLeft);    break;
+        case Right: popup->setArrowDirection(DockPopupWindow::ArrowRight);   break;
     }
     popup->resize(content->sizeHint());
     popup->setContent(content);
@@ -359,61 +370,47 @@ bool DockItem::checkAndResetTapHoldGestureState()
 const QPoint DockItem::popupMarkPoint()
 {
     QPoint p(topleftPoint());
-    int margin = PLUGIN_MARGIN;
-    if (itemType() == Plugins){
-        PluginsItem *pluginItem = dynamic_cast<PluginsItem*>(this);
-        if (nullptr != pluginItem){
-            if (pluginItem->pluginName() == "datetime")
-                margin = 0;
-        }
-    }
     const QRect r = rect();
     switch (DockPosition) {
-    case Top: {
-        if (itemType() == Plugins) {
-            p += QPoint(r.width() / 2, r.height() + margin);
-        } else {
+        case Top:
             p += QPoint(r.width() / 2, r.height());
-        }
-        break;
-    }
-    case Bottom: {
-        if (itemType() == Plugins) {
-            p += QPoint(r.width() / 2, 0 - margin);
-        } else {
+            break;
+        case Bottom:
             p += QPoint(r.width() / 2, 0);
-        }
-        break;
-    }
-    case Left: {
-        if (itemType() == Plugins) {
-            p += QPoint(r.width() + margin, r.height() / 2);
-        } else {
+            break;
+        case Left:
             p += QPoint(r.width(), r.height() / 2);
-        }
-        break;
-    }
-    case Right: {
-        if (itemType() == Plugins) {
-            p += QPoint(0 - margin, r.height() / 2);
-        } else {
+            break;
+        case Right:
             p += QPoint(0, r.height() / 2);
-        }
-        break;
-        }
+            break;
     }
     return p;
 }
 
 const QPoint DockItem::topleftPoint() const
 {
-    QPoint p;
-    const QWidget *w = this;
-    do {
+    QPoint p = this->pos();
+    /* 由于点击范围的问题，在图标的外面加了一层布局，这个布局的边距需要考虑 */
+    switch (DockPosition) {
+        case Top:
+            p.setY(p.y() * 2);
+            break;
+        case Bottom:
+            p.setY(0);
+            break;
+        case Left:
+            p.setX(p.x() * 2);
+            break;
+        case Right:
+            p.setX(0);
+            break;
+    }
+    const QWidget *w = qobject_cast<QWidget *>(this->parent());
+    while (w) {
         p += w->pos();
         w = qobject_cast<QWidget *>(w->parent());
-    } while (w);
-
+    }
     return p;
 }
 
@@ -444,4 +441,3 @@ bool DockItem::isDragging()
 {
     return m_draging;
 }
-

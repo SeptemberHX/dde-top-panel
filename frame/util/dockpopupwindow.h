@@ -31,7 +31,7 @@ DGUI_USE_NAMESPACE
 
 class DockPopupWindow : public Dtk::Widget::DArrowRectangle
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit DockPopupWindow(QWidget *parent = 0);
@@ -67,8 +67,6 @@ private slots:
 private:
     bool m_model;
     QPoint m_lastPoint;
-
-    QTimer *m_acceptDelayTimer;
 
     DRegionMonitor *m_regionInter;
     DWindowManagerHelper *m_wmHelper;

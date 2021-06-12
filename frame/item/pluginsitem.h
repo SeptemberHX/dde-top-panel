@@ -28,19 +28,18 @@
 class QGSettings;
 class PluginsItem : public DockItem
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit PluginsItem(PluginsItemInterface *const pluginInter, const QString &itemKey, QWidget *parent = nullptr);
+    explicit PluginsItem(PluginsItemInterface *const pluginInter, const QString &itemKey, const QString &plginApi, QWidget *parent = nullptr);
     ~PluginsItem() override;
 
     int itemSortKey() const;
     void setItemSortKey(const int order) const;
     void detachPluginWidget();
 
-    void setInContainer(const bool container);
-
     QString pluginName() const;
+    PluginsItemInterface::PluginSizePolicy pluginSizePolicy() const;
 
     using DockItem::showContextMenu;
     using DockItem::hidePopup;
@@ -53,16 +52,18 @@ public:
     virtual void setDraging(bool bDrag) override;
 
 public slots:
-    void refershIcon() override;
+    void refreshIcon() override;
+
+private slots:
     void onGSettingsChanged(const QString &key);
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;
     void mouseMoveEvent(QMouseEvent *e) override;
     void mouseReleaseEvent(QMouseEvent *e) override;
-    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
-    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
-    bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
+    bool eventFilter(QObject *watched, QEvent *event) override;
     void showEvent(QShowEvent *event) override;
 
     void invokedMenuItem(const QString &itemId, const bool checked) override;
@@ -80,11 +81,12 @@ private:
     PluginsItemInterface *const m_pluginInter;
     QWidget *m_centralWidget;
 
+    const QString m_pluginApi;
     const QString m_itemKey;
     bool m_dragging;
 
     static QPoint MousePressPoint;
-    QGSettings *m_gsettings;
+    const QGSettings *m_gsettings;
 };
 
 #endif // PLUGINSITEM_H

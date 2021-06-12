@@ -23,33 +23,39 @@
 #define ABSTRACTPLUGINSCONTROLLER_H
 
 #include "pluginproxyinterface.h"
-#include "util/pluginloader.h"
+#include "pluginloader.h"
+
+#include <com_deepin_dde_daemon_dock.h>
 
 #include <QPluginLoader>
 #include <QList>
 #include <QMap>
 #include <QDBusConnectionInterface>
-#include <QGSettings>
+
+using DockDaemonInter = com::deepin::dde::daemon::Dock;
 
 class PluginsItemInterface;
 class AbstractPluginsController : public QObject, PluginProxyInterface
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
     explicit AbstractPluginsController(QObject *parent = 0);
+    ~ AbstractPluginsController() override;
 
     // implements PluginProxyInterface
-    void saveValue(PluginsItemInterface *const itemInter, const QString &key, const QVariant &value) Q_DECL_OVERRIDE;
-    const QVariant getValue(PluginsItemInterface *const itemInter, const QString &key, const QVariant& fallback = QVariant()) Q_DECL_OVERRIDE;
+    void saveValue(PluginsItemInterface *const itemInter, const QString &key, const QVariant &value) override;
+    const QVariant getValue(PluginsItemInterface *const itemInter, const QString &key, const QVariant& fallback = QVariant()) override;
     void removeValue(PluginsItemInterface * const itemInter, const QStringList &keyList) override;
+
+signals:
+    void pluginLoaderFinished();
 
 protected:
     QMap<PluginsItemInterface *, QMap<QString, QObject *>> &pluginsMap();
     QObject *pluginItemAt(PluginsItemInterface * const itemInter, const QString &itemKey) const;
     PluginsItemInterface *pluginInterAt(const QString &itemKey);
     PluginsItemInterface *pluginInterAt(QObject *destItem);
-    bool enableBlacklist;
 
 protected Q_SLOTS:
     void startLoader(PluginLoader *loader);
@@ -62,13 +68,16 @@ private slots:
     void refreshPluginSettings();
 
 private:
-    bool eventFilter(QObject *o, QEvent *e) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *o, QEvent *e) override;
 
 private:
     QDBusConnectionInterface *m_dbusDaemonInterface;
-    QGSettings *m_gsettings;
+    DockDaemonInter *m_dockDaemonInter;
 
     QMap<PluginsItemInterface *, QMap<QString, QObject *>> m_pluginsMap;
+
+    // filepath, interface, loaded
+    QMap<QPair<QString, PluginsItemInterface *>, bool> m_pluginLoadMap;
 
     QJsonObject m_pluginSettingsObject;
 };

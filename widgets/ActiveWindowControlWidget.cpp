@@ -196,8 +196,11 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
         this->m_menuWidget->hide();
         for (auto m_label : this->buttonLabelList) {
             this->m_menuLayout->removeWidget(m_label);
+        }
+        for (auto m_label : this->buttonLabelListBak) {
             delete m_label;
         }
+        this->buttonLabelListBak.clear();
         this->buttonLabelList.clear();
         this->setMenuVisible(false);
     }

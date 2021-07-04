@@ -43,7 +43,7 @@ public slots:
     void maxButtonClicked();
     void minButtonClicked();
     void closeButtonClicked();
-    
+
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     void enterEvent(QEvent *event) override;
@@ -67,6 +67,7 @@ private slots:
     void menuLabelClicked();
     void windowChanged(WId, NET::Properties, NET::Properties2);
     void onMenuAboutToHide();
+    void organizeMenu();
 
 private:
     QHBoxLayout *m_layout;
@@ -84,6 +85,7 @@ private:
     QLayout *m_menuLayout;
     AppMenuModel *m_appMenuModel;
     QList<QClickableLabel*> buttonLabelList;
+    QList<QClickableLabel*> buttonLabelListBak;
 
     bool mouseClicked;
     int m_currentIndex;
@@ -93,6 +95,12 @@ private:
     LauncherInter *m_launcherInter;
 
     QTimer *m_fixTimer;
+
+    QMenu *m_moreMenu;
+    QClickableLabel *m_moreLabel;
+    bool organizeFlag;
+
+    int prevAvailableWidth;
 };
 
 

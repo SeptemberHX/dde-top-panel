@@ -3,6 +3,7 @@
 //
 
 #include <QDebug>
+#include <QWidget>
 #include <QWindow>
 #include "ActiveWindowControlWidget.h"
 #include "util/XUtils.h"
@@ -21,6 +22,8 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     , mouseClicked(false)
     , m_currentIndex(-1)
     , m_currentMenu(nullptr)
+    , m_moreMenu(new QMenu())
+    , organizeFlag(false)
     , m_launcherInter(new LauncherInter("com.deepin.dde.Launcher", "/com/deepin/dde/Launcher", QDBusConnection::sessionBus(), this))
 {
     m_launcherInter->setSync(true, false);
@@ -48,6 +51,14 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     this->m_layout->addWidget(this->m_appNameLabel);
 
     this->m_menuWidget = new QWidget(this);
+    this->installEventFilter(this);
+
+    this->m_moreLabel = new QClickableLabel(this->m_menuWidget);
+    this->m_moreLabel->setText(tr("   ▸   "));
+    this->m_moreLabel->setAlignment(Qt::AlignCenter);
+    connect(this->m_moreLabel, &QClickableLabel::clicked, this, &ActiveWindowControlWidget::menuLabelClicked);
+    this->m_moreLabel->hide();
+
     this->m_layout->addWidget(this->m_menuWidget);
     this->m_menuLayout = new QHBoxLayout(this->m_menuWidget);
     this->m_menuLayout->setContentsMargins(0, 0, 0, 0);
@@ -256,24 +267,21 @@ void ActiveWindowControlWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void ActiveWindowControlWidget::updateMenu() {
-    this->m_menuWidget->hide();
-    for (auto m_label : this->buttonLabelList) {
-        this->m_menuLayout->removeWidget(m_label);
-        delete m_label;
-    }
-    this->buttonLabelList.clear();
+    this->buttonLabelListBak.clear();
 
     QList<QString> existedMenu;  // tricks for twice menu of libreoffice
     for (int r = 0; r < m_appMenuModel->rowCount(); ++r) {
         QString menuStr = m_appMenuModel->data(m_appMenuModel->index(r, 0), AppMenuModel::MenuRole).toString();
 
+        // tricks to remove useless old menus
         if (existedMenu.contains(menuStr)) {
             int index = existedMenu.indexOf(menuStr);
-            auto *m_label = this->buttonLabelList.at(index);
+            auto *m_label = this->buttonLabelListBak.at(index);
             m_label->hide();
         }
-
         existedMenu.append(menuStr);
+
+        // create new clickable label for the new menu item
         auto *m_label = new QClickableLabel(this->m_menuWidget);
         menuStr = menuStr.remove('&');
         int index = menuStr.lastIndexOf('(');
@@ -283,21 +291,13 @@ void ActiveWindowControlWidget::updateMenu() {
         m_label->setText(QString("   %1   ").arg(menuStr));
         m_label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         connect(m_label, &QClickableLabel::clicked, this, &ActiveWindowControlWidget::menuLabelClicked);
-        this->m_menuLayout->addWidget(m_label);
-        this->buttonLabelList.append(m_label);
-
+        this->buttonLabelListBak.append(m_label);
         if (menuStr.isEmpty()) {
             m_label->hide();
         }
     }
 
-    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && XUtils::checkIfWinMaximum(this->currActiveWinId) && !this->isMenuShown()) {
-        if (!this->buttonLabelList.isEmpty()) {
-            this->setMenuVisible(false);
-        }
-    } else {
-        this->setMenuVisible(!this->buttonLabelList.isEmpty());
-    }
+    this->organizeMenu();
 }
 
 void ActiveWindowControlWidget::menuLabelClicked() {
@@ -314,17 +314,27 @@ QAction *ActiveWindowControlWidget::createAction(int idx) const {
 }
 
 void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
-    if (m_currentIndex == idx) return;
+    if (ctx == nullptr) return;
 
+    if (m_currentIndex == idx) return;
     int oldIndex = m_currentIndex;
     m_currentIndex = idx;
-    QAction *action = createAction(idx);
 
-    if (action == nullptr) {
-        return;
+    QMenu *actionMenu = nullptr;
+    QAction *action = nullptr;
+    if (ctx == this->m_moreLabel) {
+        actionMenu = this->m_moreMenu;
+    } else {
+        QAction *action = createAction(idx);
+        this->m_moreMenu->hide();
+
+        if (action == nullptr) {
+            return;
+        }
+
+        actionMenu = action->menu();
     }
 
-    QMenu *actionMenu = action->menu();
     if (actionMenu) {
         actionMenu->adjustSize();
         actionMenu->winId();//create window handle
@@ -347,7 +357,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
         }
 
         connect(actionMenu, &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide, Qt::UniqueConnection);
-    } else {
+    } else if (action != nullptr) {
         action->trigger();
     }
 }
@@ -441,30 +451,34 @@ void ActiveWindowControlWidget::applyCustomSettings(const CustomSettings& settin
 
 bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
     auto *menu = qobject_cast<QMenu *>(watched);
-    if (!menu) {
-        return false;
+    if (menu) {
+        if (event->type() == QEvent::MouseMove) {
+            auto *e = dynamic_cast<QMouseEvent *>(event);
+
+            if (!this->m_menuLayout || !this->m_menuWidget) {
+                return false;
+            }
+
+            const QPointF &windowLocalPos = m_menuWidget->mapFromGlobal(e->globalPos());
+
+            auto *item = dynamic_cast<QClickableLabel *>(m_menuWidget->childAt(windowLocalPos.x(), windowLocalPos.y()));
+            if (!item) {
+                return false;
+            }
+
+            const int buttonIndex = this->buttonLabelList.indexOf(item);
+            if (buttonIndex < 0) {
+                return false;
+            }
+
+            requestActivateIndex(buttonIndex);
+        }
     }
 
-    if (event->type() == QEvent::MouseMove) {
-        auto *e = dynamic_cast<QMouseEvent *>(event);
-
-        if (!this->m_menuLayout || !this->m_menuWidget) {
-            return false;
+    if (event->type() == QEvent::Resize) {
+        if (!this->organizeFlag) {
+            this->organizeMenu();
         }
-
-        const QPointF &windowLocalPos = m_menuWidget->mapFromGlobal(e->globalPos());
-
-        auto *item = dynamic_cast<QClickableLabel*>(m_menuWidget->childAt(windowLocalPos.x(), windowLocalPos.y()));
-        if (!item) {
-            return false;
-        }
-
-        const int buttonIndex = this->buttonLabelList.indexOf(item);
-        if (buttonIndex < 0) {
-            return false;
-        }
-
-        requestActivateIndex(buttonIndex);
     }
 
     return false;
@@ -486,10 +500,12 @@ void ActiveWindowControlWidget::requestActivateIndex(int buttonIndex) {
 }
 
 void ActiveWindowControlWidget::onMenuAboutToHide() {
-    this->buttonLabelList[this->m_currentIndex]->resetClicked();
-    this->buttonLabelList[this->m_currentIndex]->setNormalColor();
-    this->m_currentIndex = -1;
-    this->m_currentMenu = nullptr;
+    if (this->m_currentIndex < this->buttonLabelList.size()) {
+        this->buttonLabelList[this->m_currentIndex]->resetClicked();
+        this->buttonLabelList[this->m_currentIndex]->setNormalColor();
+        this->m_currentIndex = -1;
+        this->m_currentMenu = nullptr;
+    }
     this->leaveTopPanel();
 }
 
@@ -508,5 +524,91 @@ void ActiveWindowControlWidget::setMenuVisible(bool visible) {
     if (CustomSettings::instance()->isShowAppNameInsteadIcon()
         && (this->m_appNameLabel->text() == this->m_winTitleLabel->text() || !CustomSettings::instance()->isShowControlButtons() )) {
         this->m_winTitleLabel->setVisible(false);
+    }
+}
+
+void ActiveWindowControlWidget::organizeMenu() {
+    this->m_menuWidget->hide();
+
+    // calculate left space for menus
+    int usedWidth = this->m_layout->contentsMargins().left() + this->m_layout->contentsMargins().right();
+    usedWidth += this->m_iconLabel->width();
+
+    if (this->m_buttonWidget->isVisible()) {
+        usedWidth += this->m_layout->spacing() + this->m_buttonWidget->width();
+    }
+
+    if (this->m_appNameLabel->isVisible()) {
+        usedWidth += this->m_layout->spacing() + this->m_appNameLabel->width();
+    }
+
+    if (this->m_winTitleLabel->isVisible()) {
+        usedWidth += this->m_layout->spacing() + this->m_winTitleLabel->width();
+    }
+    int availableWidth = this->width() - usedWidth - this->m_layout->spacing();
+
+    // reset menu layout
+    foreach (auto *label, this->buttonLabelList) {
+        label->hide();
+        this->m_menuLayout->removeWidget(label);
+    }
+
+    this->buttonLabelList.clear();
+    this->m_moreMenu->clear();
+
+    // check where we need to cut the menu
+    int totalWidth = this->m_menuLayout->contentsMargins().left() + this->m_menuLayout->contentsMargins().right();
+    int breakIndex = -1;
+    for (int i = 0; i < this->buttonLabelListBak.size(); ++i) {
+        int prevWidth = totalWidth;
+        totalWidth += this->buttonLabelListBak[i]->standardWidth();
+        if (i != this->buttonLabelListBak.size() - 1) {
+            totalWidth += this->m_menuLayout->spacing();
+        }
+
+        if (totalWidth > availableWidth) {
+            breakIndex = i;
+            totalWidth = prevWidth;
+            break;
+        }
+    }
+
+    if (breakIndex > 0) {
+        breakIndex -= 1;
+    }
+
+    if (breakIndex < 0) {
+        breakIndex = this->buttonLabelListBak.size();
+    }
+
+    // show menus and hide others
+    for (int i = 0; i < breakIndex; ++i) {
+        this->buttonLabelListBak[i]->show();
+        this->m_menuLayout->addWidget(this->buttonLabelListBak[i]);
+        this->buttonLabelList.append(this->buttonLabelListBak[i]);
+    }
+
+    for (int i = breakIndex; i < this->buttonLabelListBak.size(); ++i) {
+        this->buttonLabelListBak[i]->hide();
+        auto *action = this->createAction(i);
+        this->m_moreMenu->addAction(action);
+    }
+
+    // "More" menu item
+    if (breakIndex != this->buttonLabelListBak.size()) {
+        this->buttonLabelList.append(this->m_moreLabel);
+        this->m_menuLayout->addWidget(this->m_moreLabel);
+        this->m_moreLabel->show();
+    } else {
+        this->m_moreLabel->hide();
+    }
+
+    // menu visible
+    if (CustomSettings::instance()->isShowGlobalMenuOnHover() && XUtils::checkIfWinMaximum(this->currActiveWinId) && !this->isMenuShown()) {
+        if (!this->buttonLabelListBak.isEmpty()) {
+            this->setMenuVisible(false);
+        }
+    } else {
+        this->setMenuVisible(!this->buttonLabelListBak.isEmpty());
     }
 }

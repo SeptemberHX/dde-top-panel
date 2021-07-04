@@ -47,12 +47,16 @@ QOperationWidget::QOperationWidget(bool leftSide, QWidget *parent)
     this->m_buttonShowAnimation = new QPropertyAnimation(this, "maximumWidth");
     this->m_buttonShowAnimation->setEndValue(this->width());
     this->m_buttonShowAnimation->setDuration(150);
+    connect(this->m_buttonShowAnimation, &QAbstractAnimation::finished, this, [this] {
+        Q_EMIT animationFinished();
+    });
 
     this->m_buttonHideAnimation = new QPropertyAnimation(this, "maximumWidth");
     this->m_buttonHideAnimation->setEndValue(0);
     this->m_buttonHideAnimation->setDuration(150);
     connect(this->m_buttonHideAnimation, &QPropertyAnimation::finished, this, [this]() {
         this->hide();
+        Q_EMIT animationFinished();
     });
 }
 

@@ -90,6 +90,7 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
             this->m_buttonWidget->hideWithAnimation();
         }
     });
+    connect(this->m_buttonWidget, &QOperationWidget::animationFinished, this, &ActiveWindowControlWidget::organizeMenu);
 
     // detect whether active window maximized signal
     connect(KWindowSystem::self(), qOverload<WId, NET::Properties, NET::Properties2>(&KWindowSystem::windowChanged), this, &ActiveWindowControlWidget::windowChanged);

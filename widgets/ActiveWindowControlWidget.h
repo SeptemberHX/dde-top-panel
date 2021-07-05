@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QToolButton>
+#include <QMutex>
 #include <com_deepin_dde_daemon_dock.h>
 #include <QMenuBar>
 #include "../appmenu/appmenumodel.h"
@@ -61,6 +62,7 @@ private:
     bool isMenuShown();
     void setMenuVisible(bool visible);
     void leaveTopPanel();
+    int menuAvailableWidth();
 
 private slots:
     void updateMenu();
@@ -70,6 +72,8 @@ private slots:
     void organizeMenu();
 
 private:
+    QMutex organizeMenuMutex;
+
     QHBoxLayout *m_layout;
     QLabel *m_winTitleLabel;
 

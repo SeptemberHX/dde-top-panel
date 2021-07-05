@@ -14,6 +14,7 @@ QClickableLabel::QClickableLabel(QWidget *parent)
     this->setNormalColor();
     this->setMouseTracking(true);
     this->setAutoFillBackground(true);
+    this->metrics = new QFontMetrics(this->font());
 }
 
 void QClickableLabel::enterEvent(QEvent *event) {
@@ -72,8 +73,7 @@ void QClickableLabel::resetClicked() {
 }
 
 int QClickableLabel::standardWidth() {
-    QFontMetrics metrics(this->font());
-    int fontWidth = metrics.boundingRect(this->text()).width();
+    int fontWidth = metrics->boundingRect(this->text()).width();
 //    std::cout << this->text().toStdString() << ": " << fontWidth << std::endl;
     return fontWidth + this->contentsMargins().left() + this->contentsMargins().right();
 }

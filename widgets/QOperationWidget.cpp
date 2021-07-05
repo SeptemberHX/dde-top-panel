@@ -61,11 +61,15 @@ QOperationWidget::QOperationWidget(bool leftSide, QWidget *parent)
 }
 
 void QOperationWidget::hideWithAnimation() {
+    if (!this->isVisible()) return;
+
     this->m_buttonHideAnimation->setStartValue(this->width());
     this->m_buttonHideAnimation->start();
 }
 
 void QOperationWidget::showWithAnimation() {
+    if (this->isVisible()) return;
+
     this->show();
     this->m_buttonShowAnimation->setStartValue(this->width());
     this->m_buttonShowAnimation->start();

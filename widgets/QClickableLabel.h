@@ -35,6 +35,8 @@ protected:
 private:
     QColor defaultFontColor = CustomSettings::instance()->getActiveFontColor();
     bool isClicked;
+
+    QFontMetrics *metrics;
 };
 
 

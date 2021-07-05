@@ -90,7 +90,10 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
             this->m_buttonWidget->hideWithAnimation();
         }
     });
-    connect(this->m_buttonWidget, &QOperationWidget::animationFinished, this, &ActiveWindowControlWidget::organizeMenu);
+    connect(this->m_buttonWidget, &QOperationWidget::animationFinished, this, [this] {
+        qDebug() << "organizeMenu() triggered by animationFinished";
+        this->organizeMenu();
+    });
 
     // detect whether active window maximized signal
     connect(KWindowSystem::self(), qOverload<WId, NET::Properties, NET::Properties2>(&KWindowSystem::windowChanged), this, &ActiveWindowControlWidget::windowChanged);
@@ -271,6 +274,7 @@ void ActiveWindowControlWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void ActiveWindowControlWidget::updateMenu() {
+    qDebug() << "ActiveWindowControlWidget#updateMenu() starts";
     this->buttonLabelListBak.clear();
 
     QList<QString> existedMenu;  // tricks for twice menu of libreoffice
@@ -301,7 +305,9 @@ void ActiveWindowControlWidget::updateMenu() {
         }
     }
 
+    qDebug() << "organizeMenu() triggered by menuUpdate event";
     this->organizeMenu();
+    qDebug() << "ActiveWindowControlWidget#updateMenu() ends";
 }
 
 void ActiveWindowControlWidget::menuLabelClicked() {
@@ -312,12 +318,21 @@ void ActiveWindowControlWidget::menuLabelClicked() {
 // for modern gtk applications, some menu has no sub menus, and only action is presented.
 // thus, we obtain the action instead of the menu so we can perform the action when no submenu
 QAction *ActiveWindowControlWidget::createAction(int idx) const {
+    qDebug() << "ActiveWindowControlWidget#createAction() starts";
     const QModelIndex index = m_appMenuModel->index(idx, 0);
     const QVariant data = m_appMenuModel->data(index, AppMenuModel::ActionRole);
-    return (QAction *)data.value<void *>();
+    qDebug() << "ActiveWindowControlWidget#createAction() ends";
+
+    if (data.isValid()) {
+        return (QAction *) data.value<void *>();
+    } else {
+        return nullptr;
+    }
 }
 
 void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
+    qDebug() << "ActiveWindowControlWidget#trigger() entered";
+
     if (ctx == nullptr) return;
 
     if (m_currentIndex == idx) return;
@@ -330,8 +345,6 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
         actionMenu = this->m_moreMenu;
     } else {
         QAction *action = createAction(idx);
-        this->m_moreMenu->hide();
-
         if (action == nullptr) {
             return;
         }
@@ -339,6 +352,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
         actionMenu = action->menu();
     }
 
+    qDebug() << "ActiveWindowControlWidget#trigger() is running..";
     if (actionMenu) {
         actionMenu->adjustSize();
         actionMenu->winId();//create window handle
@@ -364,6 +378,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
     } else if (action != nullptr) {
         action->trigger();
     }
+    qDebug() << "ActiveWindowControlWidget#trigger() ended";
 }
 
 void ActiveWindowControlWidget::windowChanged(WId id, NET::Properties properties, NET::Properties2 properties2) {
@@ -457,9 +472,11 @@ bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
     auto *menu = qobject_cast<QMenu *>(watched);
     if (menu) {
         if (event->type() == QEvent::MouseMove) {
+            qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] starts";
             auto *e = dynamic_cast<QMouseEvent *>(event);
 
             if (!this->m_menuLayout || !this->m_menuWidget) {
+                qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends due to null objects";
                 return false;
             }
 
@@ -467,21 +484,31 @@ bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
 
             auto *item = dynamic_cast<QClickableLabel *>(m_menuWidget->childAt(windowLocalPos.x(), windowLocalPos.y()));
             if (!item) {
+                qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends due to null item";
                 return false;
             }
 
             const int buttonIndex = this->buttonLabelList.indexOf(item);
             if (buttonIndex < 0) {
+                qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends due to negative index";
                 return false;
             }
 
+            qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove]: clicked is " << buttonIndex << " -> " << item->text();
             requestActivateIndex(buttonIndex);
+            qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends";
         }
     }
 
     if (event->type() == QEvent::Resize) {
+        auto *resizeEvent = dynamic_cast<QResizeEvent*>(event);
         if (!this->organizeFlag) {
-            this->organizeMenu();
+            int availableWidth = this->menuAvailableWidth();
+            if (availableWidth != this->prevAvailableWidth && resizeEvent->oldSize().width() != resizeEvent->size().width()) {
+                qDebug() << "organizeMenu() triggered by resize event: " << resizeEvent->oldSize().width() << " -> " << resizeEvent->size().width();
+                this->organizeMenu();
+                this->prevAvailableWidth = availableWidth;
+            }
         }
     }
 
@@ -500,7 +527,11 @@ int ActiveWindowControlWidget::currScreenNum() {
 }
 
 void ActiveWindowControlWidget::requestActivateIndex(int buttonIndex) {
-    this->trigger(this->buttonLabelList[buttonIndex], buttonIndex);
+    qDebug() << "ActiveWindowControlWidget#requestActivateIndex() starts, buttonIndex = " << buttonIndex << ", list size = " << this->buttonLabelList.size();
+    if (buttonIndex < this->buttonLabelList.size()) {
+        this->trigger(this->buttonLabelList[buttonIndex], buttonIndex);
+    }
+    qDebug() << "ActiveWindowControlWidget#requestActivateIndex() ends";
 }
 
 void ActiveWindowControlWidget::onMenuAboutToHide() {
@@ -532,24 +563,14 @@ void ActiveWindowControlWidget::setMenuVisible(bool visible) {
 }
 
 void ActiveWindowControlWidget::organizeMenu() {
+    QMutexLocker locker(&this->organizeMenuMutex);
+
+    qDebug() << "ActiveWindowControlWidget#organizeMenu() called";
+    this->organizeFlag = true;
     this->m_menuWidget->hide();
 
     // calculate left space for menus
-    int usedWidth = this->m_layout->contentsMargins().left() + this->m_layout->contentsMargins().right();
-    usedWidth += this->m_iconLabel->width();
-
-    if (this->m_buttonWidget->isVisible()) {
-        usedWidth += this->m_layout->spacing() + this->m_buttonWidget->width();
-    }
-
-    if (this->m_appNameLabel->isVisible()) {
-        usedWidth += this->m_layout->spacing() + this->m_appNameLabel->width();
-    }
-
-    if (this->m_winTitleLabel->isVisible()) {
-        usedWidth += this->m_layout->spacing() + this->m_winTitleLabel->width();
-    }
-    int availableWidth = this->width() - usedWidth - this->m_layout->spacing();
+    int availableWidth = this->menuAvailableWidth();
 
     // reset menu layout
     foreach (auto *label, this->buttonLabelList) {
@@ -581,7 +602,7 @@ void ActiveWindowControlWidget::organizeMenu() {
         breakIndex -= 1;
     }
 
-    if (breakIndex < 0) {
+    if (breakIndex < 0 || breakIndex >= this->buttonLabelListBak.size()) {
         breakIndex = this->buttonLabelListBak.size();
     }
 
@@ -615,4 +636,26 @@ void ActiveWindowControlWidget::organizeMenu() {
     } else {
         this->setMenuVisible(!this->buttonLabelListBak.isEmpty());
     }
+    this->organizeFlag = false;
+    qDebug() << "ActiveWindowControlWidget#organizeMenu() ended";
+}
+
+int ActiveWindowControlWidget::menuAvailableWidth() {
+    // calculate left space for menus
+    int usedWidth = this->m_layout->contentsMargins().left() + this->m_layout->contentsMargins().right();
+    usedWidth += this->m_iconLabel->width();
+
+    if (this->m_buttonWidget->isVisible()) {
+        usedWidth += this->m_layout->spacing() + this->m_buttonWidget->width();
+    }
+
+    if (this->m_appNameLabel->isVisible()) {
+        usedWidth += this->m_layout->spacing() + this->m_appNameLabel->width();
+    }
+
+    if (this->m_winTitleLabel->isVisible()) {
+        usedWidth += this->m_layout->spacing() + this->m_winTitleLabel->width();
+    }
+    int availableWidth = this->width() - usedWidth - this->m_layout->spacing();
+    return availableWidth;
 }

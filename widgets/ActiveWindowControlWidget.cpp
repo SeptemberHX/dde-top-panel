@@ -274,12 +274,12 @@ void ActiveWindowControlWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void ActiveWindowControlWidget::updateMenu() {
-    qDebug() << "ActiveWindowControlWidget#updateMenu() starts";
-//    foreach (auto *label, this->buttonLabelListBak) {
-//        label->deleteLater();
-//    }
+    qDebug() << "ActiveWindowControlWidget#updateMenu() starts, current winID reported by menuModel is " << this->m_appMenuModel->winId()
+             << ", current winID reported by panel is " << this->currActiveWinId;
+    foreach (auto *label, this->buttonLabelListBak) {
+        label->deleteLater();
+    }
     this->buttonLabelListBak.clear();
-//    this->organizeMenu();
 
     QList<QString> existedMenu;  // tricks for twice menu of libreoffice
     for (int r = 0; r < m_appMenuModel->rowCount(); ++r) {
@@ -486,11 +486,9 @@ bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
     auto *menu = qobject_cast<QMenu *>(watched);
     if (menu) {
         if (event->type() == QEvent::MouseMove) {
-            qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] starts";
             auto *e = dynamic_cast<QMouseEvent *>(event);
 
             if (!this->m_menuLayout || !this->m_menuWidget) {
-                qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends due to null objects";
                 return false;
             }
 
@@ -498,19 +496,15 @@ bool ActiveWindowControlWidget::eventFilter(QObject *watched, QEvent *event) {
 
             auto *item = dynamic_cast<QClickableLabel *>(m_menuWidget->childAt(windowLocalPos.x(), windowLocalPos.y()));
             if (!item) {
-                qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends due to null item";
                 return false;
             }
 
             const int buttonIndex = this->buttonLabelList.indexOf(item);
             if (buttonIndex < 0) {
-                qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends due to negative index";
                 return false;
             }
 
-            qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove]: clicked is " << buttonIndex << " -> " << item->text();
             requestActivateIndex(buttonIndex);
-            qDebug() << "ActiveWindowControlWidget#eventFilter[MouseMove] ends";
         }
     }
 

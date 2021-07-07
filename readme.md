@@ -65,7 +65,7 @@ Know issues:
 BorderlessMaximizedWindows=true
 ```
 4. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`
-5. If you want to enable the global menu, please install ![dde-globalmenu-service](https://github.com/SeptemberHX/dde-globalmenu-service.git)
+5. If you want to enable the global menu, please install [dde-globalmenu-service](https://github.com/SeptemberHX/dde-globalmenu-service.git)
 
 ### For Arch
 

@@ -275,7 +275,11 @@ void ActiveWindowControlWidget::mouseDoubleClickEvent(QMouseEvent *event) {
 
 void ActiveWindowControlWidget::updateMenu() {
     qDebug() << "ActiveWindowControlWidget#updateMenu() starts";
+//    foreach (auto *label, this->buttonLabelListBak) {
+//        label->deleteLater();
+//    }
     this->buttonLabelListBak.clear();
+//    this->organizeMenu();
 
     QList<QString> existedMenu;  // tricks for twice menu of libreoffice
     for (int r = 0; r < m_appMenuModel->rowCount(); ++r) {
@@ -336,6 +340,16 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
     if (ctx == nullptr) return;
 
     if (m_currentIndex == idx) return;
+
+    qDebug() << "ActiveWindowControlWidget#trigger(): previous triggered is " << m_currentIndex << ", current is " << idx;
+    if (m_currentIndex >= this->buttonLabelList.size()) {
+        qDebug() << "ActiveWindowControlWidget#trigger(): previous triggered is "
+                 << this->buttonLabelListBak[m_currentIndex]->text();
+    } else if (m_currentIndex >= 0) {
+        qDebug() << "ActiveWindowControlWidget#trigger(): previous triggered is "
+                 << this->buttonLabelList[m_currentIndex]->text();
+    }
+
     int oldIndex = m_currentIndex;
     m_currentIndex = idx;
 
@@ -344,7 +358,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
     if (ctx == this->m_moreLabel) {
         actionMenu = this->m_moreMenu;
     } else {
-        QAction *action = createAction(idx);
+        action = createAction(idx);
         if (action == nullptr) {
             return;
         }
@@ -535,7 +549,8 @@ void ActiveWindowControlWidget::requestActivateIndex(int buttonIndex) {
 }
 
 void ActiveWindowControlWidget::onMenuAboutToHide() {
-    if (this->m_currentIndex < this->buttonLabelList.size()) {
+    qDebug() << "ActiveWindowControlWidget#onMenuAboutToHide(): current index is " << this->m_currentIndex;
+    if (this->m_currentIndex >= 0 && this->m_currentIndex < this->buttonLabelList.size()) {
         this->buttonLabelList[this->m_currentIndex]->resetClicked();
         this->buttonLabelList[this->m_currentIndex]->setNormalColor();
         this->m_currentIndex = -1;
@@ -617,6 +632,11 @@ void ActiveWindowControlWidget::organizeMenu() {
         this->buttonLabelListBak[i]->hide();
         auto *action = this->createAction(i);
         this->m_moreMenu->addAction(action);
+        if (action->menu() != nullptr) {
+            // it is important to disconnect the connections of the hidden menus
+            //    or the hidden menus will send aboutTohide() signal even when they are in m_moreMenu
+            disconnect(action->menu(), &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide);
+        }
     }
 
     // "More" menu item

@@ -5,6 +5,7 @@
 #include "QClickableLabel.h"
 #include <QDebug>
 #include <QMouseEvent>
+#include <iostream>
 
 QClickableLabel::QClickableLabel(QWidget *parent)
     : QLabel(parent)
@@ -13,6 +14,7 @@ QClickableLabel::QClickableLabel(QWidget *parent)
     this->setNormalColor();
     this->setMouseTracking(true);
     this->setAutoFillBackground(true);
+    this->metrics = new QFontMetrics(this->font());
 }
 
 void QClickableLabel::enterEvent(QEvent *event) {
@@ -68,4 +70,10 @@ void QClickableLabel::setNormalColor() {
 
 void QClickableLabel::resetClicked() {
     this->isClicked = false;
+}
+
+int QClickableLabel::standardWidth() {
+    int fontWidth = metrics->boundingRect(this->text()).width();
+//    std::cout << this->text().toStdString() << ": " << fontWidth << std::endl;
+    return fontWidth + this->contentsMargins().left() + this->contentsMargins().right();
 }

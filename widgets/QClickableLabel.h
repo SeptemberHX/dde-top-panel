@@ -18,6 +18,7 @@ public:
     void setDefaultFontColor(const QColor &defaultFontColor);
     void setSelectedColor();
     void setNormalColor();
+    int standardWidth();
 
     void resetClicked();
 
@@ -34,6 +35,8 @@ protected:
 private:
     QColor defaultFontColor = CustomSettings::instance()->getActiveFontColor();
     bool isClicked;
+
+    QFontMetrics *metrics;
 };
 
 

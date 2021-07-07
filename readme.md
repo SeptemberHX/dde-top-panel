@@ -56,8 +56,10 @@ Know issues:
 
 1. download zip from release page and unzip it
 1. cp `*.xml` to `/usr/share/glib-2.0/schemas`, and run `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
-2. run `./dde-top-panel`
-3. for removing the title bar of maximized windows, make sure your `~/.config/kwinrc` contains items below, then logout.
+2. cp `dde-top-panel` to `/usr/bin`
+3. cp `dde-top-panel.desktop` to `/usr/share/applications`
+4. open your launcher, run `dde-top-panel`. enable auto-start by right clicking
+5. for removing the title bar of maximized windows, make sure your `~/.config/kwinrc` contains items below, then logout.
 ```shell script
 [Windows]
 BorderlessMaximizedWindows=true

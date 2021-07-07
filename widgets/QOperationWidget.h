@@ -24,6 +24,7 @@ signals:
     void closeButtonClicked();
     void minButtonClicked();
     void maxButtonClicked();
+    void animationFinished();
 
 private:
     QHBoxLayout *m_layout;

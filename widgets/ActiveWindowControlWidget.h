@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QToolButton>
+#include <QMutex>
 #include <com_deepin_dde_daemon_dock.h>
 #include <QMenuBar>
 #include "../appmenu/appmenumodel.h"
@@ -43,7 +44,7 @@ public slots:
     void maxButtonClicked();
     void minButtonClicked();
     void closeButtonClicked();
-    
+
 protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     void enterEvent(QEvent *event) override;
@@ -61,14 +62,18 @@ private:
     bool isMenuShown();
     void setMenuVisible(bool visible);
     void leaveTopPanel();
+    int menuAvailableWidth();
 
 private slots:
     void updateMenu();
     void menuLabelClicked();
     void windowChanged(WId, NET::Properties, NET::Properties2);
     void onMenuAboutToHide();
+    void organizeMenu();
 
 private:
+    QMutex organizeMenuMutex;
+
     QHBoxLayout *m_layout;
     QLabel *m_winTitleLabel;
 
@@ -84,6 +89,7 @@ private:
     QLayout *m_menuLayout;
     AppMenuModel *m_appMenuModel;
     QList<QClickableLabel*> buttonLabelList;
+    QList<QClickableLabel*> buttonLabelListBak;
 
     bool mouseClicked;
     int m_currentIndex;
@@ -93,6 +99,12 @@ private:
     LauncherInter *m_launcherInter;
 
     QTimer *m_fixTimer;
+
+    QMenu *m_moreMenu;
+    QClickableLabel *m_moreLabel;
+    bool organizeFlag;
+
+    int prevAvailableWidth;
 };
 
 

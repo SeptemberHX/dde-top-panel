@@ -76,12 +76,13 @@ I only have deepin v20 installed on my computer, and I cannot compile it for oth
 Dependency: `Qt5Widgets, Qt5Concurrent, Qt5X11Extras, Qt5DBus, Qt5Svg, DtkWidget, DtkCMake, KF5WindowSystem, XCB_EWMH, DFrameworkDBus, QGSettings, DtkGUI`
 
 ```shell
+sudo apt install git cmake libdtkcore5-bin libkf5windowsystem-dev libxcb-ewmh-dev libxdo-dev
 git clone https://github.com/SeptemberHX/dde-top-panel.git
 cd dde-top-panel
 mkdir build
 cd build
 cmake ..
-make
+make -j8
 ```
 Then `dde-top-panel` should be in `build/frame/dde-top-panel`.
 Then go to step 2 in How to run for Deepin V20
@@ -89,7 +90,7 @@ Then go to step 2 in How to run for Deepin V20
 ## For tray icons of wine applications
 
 Due to the logical of tray plugins, only one tray widget can hold the wine trays (You can click the icon and it will response to the click).
- 
+
 The main code of wine trays is in `plugins/tray/xembedtraywidget`. Generally, it wraps the raw wine trays with a new widget and embeds it to the tray, then it operates on the new widget. The problem is every tray widget will create a new container widget for each wine trays, and the tray widgets launched before can't the window id of the new container widget.
 
 Just move `libtray.so` from `/usr/lib/dde-dock/plugins/libtray.so` to `~/.local/lib/dde-top-panel/plugins/`. Then there will be no tray icons on dock.

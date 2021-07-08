@@ -1,0 +1,4 @@
+#!/bin/bash
+
+glib-compile-schemas /usr/share/glib-2.0/schemas
+chmod +x /usr/bin/dde-top-panel

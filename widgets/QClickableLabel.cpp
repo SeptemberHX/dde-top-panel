@@ -46,26 +46,15 @@ void QClickableLabel::mouseReleaseEvent(QMouseEvent *ev) {
 
 void QClickableLabel::setDefaultFontColor(const QColor &defaultFontColor) {
     this->defaultFontColor = defaultFontColor;
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::WindowText, this->defaultFontColor);
-    this->setPalette(palette);
-    this->repaint();
+    this->setNormalColor();
 }
 
 void QClickableLabel::setSelectedColor() {
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::Background, QColor("#0081FF"));
-    palette.setColor(QPalette::WindowText, Qt::white);
-    this->setPalette(palette);
-    this->repaint();
+    this->setStyleSheet("QClickableLabel { background-color: #0081FF; border-radius: 4px; color: white; }");
 }
 
 void QClickableLabel::setNormalColor() {
-    QPalette palette = this->palette();
-    palette.setColor(QPalette::Background, Qt::transparent);
-    palette.setColor(QPalette::WindowText, this->defaultFontColor);
-    this->setPalette(palette);
-    this->repaint();
+    this->setStyleSheet(QString("QClickableLabel { background-color: transparent; color: %1; }").arg(this->defaultFontColor.name()));
 }
 
 void QClickableLabel::resetClicked() {
@@ -74,6 +63,5 @@ void QClickableLabel::resetClicked() {
 
 int QClickableLabel::standardWidth() {
     int fontWidth = metrics->boundingRect(this->text()).width();
-//    std::cout << this->text().toStdString() << ": " << fontWidth << std::endl;
     return fontWidth + this->contentsMargins().left() + this->contentsMargins().right();
 }

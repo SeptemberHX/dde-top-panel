@@ -48,3 +48,6 @@ add_subdirectory("appmenu")
 if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
     add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+
+include(deb.cmake)
+include(CPack)

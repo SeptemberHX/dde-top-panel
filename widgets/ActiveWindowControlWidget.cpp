@@ -155,11 +155,11 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
                 if (!CustomSettings::instance()->isShowAppNameInsteadIcon()) {
                     this->m_iconLabel->setPixmap(QPixmap(CustomSettings::instance()->getActiveDefaultAppIconPath()));
                     this->m_winTitleLabel->show();
-                    this->m_winTitleLabel->setText(tr("桌面"));
+                    this->m_winTitleLabel->setText(tr("Desktop"));
                 } else {
                     this->m_winTitleLabel->hide();
                 }
-                this->m_appNameLabel->setText(tr("桌面"));
+                this->m_appNameLabel->setText(tr("Desktop"));
             } else {
                 activeWinId = newCurActiveWinId;
                 ifFoundPrevActiveWinId = true;
@@ -191,7 +191,7 @@ void ActiveWindowControlWidget::activeWindowInfoChanged() {
     // KWindowSystem will not update menu for desktop when focusing on the desktop
     // It is not a good idea to do the filter here instead of the AppmenuModel.
     // However, it works, and works pretty well.
-    if (activeWinTitle == tr("桌面")) {
+    if (activeWinTitle == tr("Desktop")) {
         // hide buttons
         this->setButtonsVisible(false);
 

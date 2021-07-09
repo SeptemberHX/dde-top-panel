@@ -5,6 +5,7 @@
 #include <DApplication>
 #include <DGuiApplicationHelper>
 #include <unistd.h>
+#include <iostream>
 #include "window/MainWindow.h"
 
 DWIDGET_USE_NAMESPACE
@@ -21,10 +22,16 @@ int main(int argc, char *argv[]) {
     DApplication::loadDXcbPlugin();
     DApplication app(argc, argv);
 
+    QString locale = QLocale::system().name();
+
+    QTranslator translator;
+    translator.load("/usr/share/dde-top-panel/translations/dde-top-panel_"+ locale +".qm");
+    app.installTranslator(&translator);
+
     app.setOrganizationName("septemberhx");
     app.setApplicationName("dde-top-panel");
     app.setApplicationDisplayName("DDE Top Panel");
-    app.setApplicationVersion("0.6.0");
+    app.setApplicationVersion("0.6.1");
     app.loadTranslator();
     app.setAttribute(Qt::AA_EnableHighDpiScaling, true);
     app.setAttribute(Qt::AA_UseHighDpiPixmaps, false);

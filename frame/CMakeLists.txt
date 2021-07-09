@@ -4,7 +4,7 @@ set(BIN_NAME dde-top-panel)
 
 # Sources files
 file(GLOB_RECURSE SRCS "*.h" "*.cpp" "../widgets/*.h" "../widgets/*.cpp" "util/XUtils.h"
-        "util/XUtils.cpp" "../appmenu/*.h" "../appmenu/*.cpp" "../widgets/*.ui")
+        "util/XUtils.cpp" "../appmenu/*.h" "../appmenu/*.cpp" "../widgets/*.ui ../widgets/QOperationWidget.cpp" "../widgets/QOperationWidget.h")
 
 # Find the library
 find_package(PkgConfig REQUIRED)
@@ -22,8 +22,18 @@ pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
 pkg_check_modules(QGSettings REQUIRED gsettings-qt)
 pkg_check_modules(DtkGUI REQUIRED dtkgui)
 
+find_package(Qt5LinguistTools REQUIRED)
+
+set(TS_FILES
+        ${CMAKE_SOURCE_DIR}/translations/dde-top-panel_zh_CN.ts
+        )
+
+set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_BINARY_DIR}/translations)
+qt5_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../widgets ${TS_FILES})
+qt5_add_translation(QM_FILES ${TS_FILES})
+
 # driver-manager
-add_executable(${BIN_NAME} ${SRCS} ${INTERFACES} item/item.qrc frame.qrc ../widgets/QOperationWidget.cpp ../widgets/QOperationWidget.h)
+add_executable(${BIN_NAME} ${SRCS} ${INTERFACES} ${QM_FILES} item/item.qrc frame.qrc)
 target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${XCB_EWMH_INCLUDE_DIRS}
         ${DFrameworkDBus_INCLUDE_DIRS}

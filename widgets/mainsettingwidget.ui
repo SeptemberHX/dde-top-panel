@@ -131,7 +131,7 @@
                 </size>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -153,7 +153,7 @@
                 <string>Config</string>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
                <property name="icon">
                 <iconset theme=":/icons/config.svg">
@@ -176,7 +176,7 @@
                 </size>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -313,7 +313,7 @@
                 <string notr="true"/>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -358,7 +358,7 @@
                 </size>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -681,7 +681,7 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</str
                 </size>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -808,7 +808,7 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</str
                 </size>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -935,7 +935,7 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</str
                 </size>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
               </widget>
              </item>
@@ -1182,7 +1182,7 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</str
                 </size>
                </property>
                <property name="text">
-                <string/>
+                <string notr="true"/>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>

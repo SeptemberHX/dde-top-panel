@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QMovie>
 #include <QApplication>
+#include <iostream>
 
 MainSettingWidget::MainSettingWidget(QWidget *parent) :
     QWidget(parent),
@@ -14,7 +15,7 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->setupUi(this);
     ui->panelColorlabel->setStyleSheet(QString("QLabel {background-color: %1;}").arg(CustomSettings::instance()->getPanelBgColor().name()));
     ui->fontColorLabel->setStyleSheet(QString("QLabel {background-color: %1;}").arg(CustomSettings::instance()->getActiveFontColor().name()));
-
+    ui->buttonHighlightColorLabel->setStyleSheet(QString("QLabel {background-color: %1;}").arg(CustomSettings::instance()->getButtonHighLightColor().name()));
 
     ui->opacitySpinBox->setValue(CustomSettings::instance()->getPanelOpacity());
 
@@ -37,6 +38,7 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->unmaxResetToolButton->setIcon(QIcon(":/icons/reset.svg"));
     ui->closeButtonToolButton->setIcon(QIcon(":/icons/config.svg"));
     ui->closeResetToolButton->setIcon(QIcon(":/icons/reset.svg"));
+    ui->buttonHighlightColorToolButton->setIcon(QIcon(":/icons/config.svg"));
 
     movie = new QMovie(":/icons/doge.gif");
     ui->pMovieLabel->setMovie(movie);
@@ -46,6 +48,7 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->showLogoWithAppNameCheckBox->setChecked(CustomSettings::instance()->isShowLogoWithAppName());
     ui->ignoreDockCheckBox->setChecked(CustomSettings::instance()->isIgnoreDock());
     ui->buttonOnRightCheckBox->setChecked(!CustomSettings::instance()->isButtonOnLeft());
+    ui->buttonHighlightCheckBox->setChecked(CustomSettings::instance()->isButtonHighlight());
 
     connect(ui->opacitySpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &MainSettingWidget::opacityValueChanged);
     connect(ui->panelColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::panelColorButtonClicked);
@@ -54,6 +57,7 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     connect(ui->closeResetToolButton, &QToolButton::clicked, this, &MainSettingWidget::closeResetButtonClicked);
     connect(ui->unmaxButtonToolButton, &QToolButton::clicked, this, &MainSettingWidget::unmaxButtonClicked);
     connect(ui->unmaxResetToolButton, &QToolButton::clicked, this, &MainSettingWidget::unmaxResetButtonClicked);
+    connect(ui->buttonHighlightColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::buttonHighlightColorButtonClicked);
     connect(ui->minToolButton, &QToolButton::clicked, this, &MainSettingWidget::minButtonClicked);
     connect(ui->minResetToolButton, &QToolButton::clicked, this, &MainSettingWidget::minResetButtonClicked);
     connect(ui->defaultIconToolButton, &QToolButton::clicked, this, &MainSettingWidget::defaultButtonClicked);
@@ -76,9 +80,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     connect(ui->buttonOnRightCheckBox, &QCheckBox::stateChanged, this, [this] {
         CustomSettings::instance()->setButtonOnLeft(!ui->buttonOnRightCheckBox->isChecked());
     });
-
-    connect(ui->globalMenuCheckBox, &QCheckBox::stateChanged, this, &MainSettingWidget::triggerGlobalMenu);
-    connect(ui->autostartCheckBox, &QCheckBox::stateChanged, this, &MainSettingWidget::triggerAutostart);
+    connect(ui->buttonHighlightCheckBox, &QCheckBox::stateChanged, this, [this] {
+        CustomSettings::instance()->setButtonHighlight(ui->buttonHighlightCheckBox->isChecked());
+    });
 }
 
 MainSettingWidget::~MainSettingWidget()
@@ -170,10 +174,8 @@ void MainSettingWidget::closeEvent(QCloseEvent *event) {
     QWidget::closeEvent(event);
 }
 
-void MainSettingWidget::triggerGlobalMenu(bool enabled) {
-
-}
-
-void MainSettingWidget::triggerAutostart(bool enabled) {
-
+void MainSettingWidget::buttonHighlightColorButtonClicked() {
+    QColor buttonHighLightColor = QColorDialog::getColor(CustomSettings::instance()->getButtonHighLightColor());
+    ui->buttonHighlightColorLabel->setStyleSheet(QString("QLabel {background-color: %1;}").arg(buttonHighLightColor.name()));
+    CustomSettings::instance()->setButtonHighLightColor(buttonHighLightColor);
 }

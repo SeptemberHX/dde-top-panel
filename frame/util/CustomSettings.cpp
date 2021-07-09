@@ -24,8 +24,8 @@ CustomSettings::CustomSettings() {
     this->buttonOnLeft = true;
     this->panelHeight = 24;
 
-    this->enableGlobalMenu = false;
-    this->enableAutoStart = false;
+    this->buttonHighlight = true;
+    this->buttonHighLightColor = QColor("#9d2933");
 
     this->readSettings();
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
@@ -198,9 +198,8 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/showLogoWithAppName", this->isShowLogoWithAppName());
     settings.setValue("windowControl/ignoreDock", this->isIgnoreDock());
     settings.setValue("windowControl/buttonOnRight", !this->isButtonOnLeft());
-
-    settings.setValue("system/globalMenu", this->isEnableGlobalMenu());
-    settings.setValue("system/autostart", this->isEnableAutoStart());
+    settings.setValue("windowControl/enableButtonHighlight", this->isButtonHighlight());
+    settings.setValue("windowControl/buttonHighlightColor", this->buttonHighLightColor);
 }
 
 void CustomSettings::readSettings() {
@@ -218,8 +217,9 @@ void CustomSettings::readSettings() {
     this->showLogoWithAppName = settings.value("windowControl/showLogoWithAppName", this->showLogoWithAppName).toBool();
     this->ignoreDock = settings.value("windowControl/ignoreDock", this->isIgnoreDock()).toBool();
     this->buttonOnLeft = !settings.value("windowControl/buttonOnRight", !this->isButtonOnLeft()).toBool();
-    this->enableGlobalMenu = settings.value("system/globalMenu", this->isEnableGlobalMenu()).toBool();
-    this->enableAutoStart = settings.value("system/autostart", this->isEnableAutoStart()).toBool();
+
+    this->buttonHighlight = settings.value("windowControl/enableButtonHighlight", this->isButtonHighlight()).toBool();
+    this->buttonHighLightColor = settings.value("windowControl/buttonHighlightColor", this->buttonHighLightColor).value<QColor>();
 }
 
 bool CustomSettings::isShowControlButtons() const {
@@ -271,20 +271,20 @@ void CustomSettings::setButtonOnLeft(bool buttonOnLeft) {
     emit settingsChanged();
 }
 
-bool CustomSettings::isEnableGlobalMenu() const {
-    return enableGlobalMenu;
+bool CustomSettings::isButtonHighlight() const {
+    return buttonHighlight;
 }
 
-void CustomSettings::setEnableGlobalMenu(bool enableGlobalMenu) {
-    CustomSettings::enableGlobalMenu = enableGlobalMenu;
+void CustomSettings::setButtonHighlight(bool buttonHighlight) {
+    CustomSettings::buttonHighlight = buttonHighlight;
     emit settingsChanged();
 }
 
-bool CustomSettings::isEnableAutoStart() const {
-    return enableAutoStart;
+const QColor &CustomSettings::getButtonHighLightColor() const {
+    return buttonHighLightColor;
 }
 
-void CustomSettings::setEnableAutoStart(bool enableAutoStart) {
-    CustomSettings::enableAutoStart = enableAutoStart;
+void CustomSettings::setButtonHighLightColor(const QColor &buttonHighLightColor) {
+    CustomSettings::buttonHighLightColor = buttonHighLightColor;
     emit settingsChanged();
 }

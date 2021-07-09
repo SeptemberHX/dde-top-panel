@@ -89,6 +89,14 @@ public:
 
     void setButtonOnLeft(bool buttonOnLeft);
 
+    bool isButtonHighlight() const;
+
+    void setButtonHighlight(bool buttonHighlight);
+
+    const QColor &getButtonHighLightColor() const;
+
+    void setButtonHighLightColor(const QColor &buttonHighLightColor);
+
 signals:
     void settingsChanged();
 
@@ -110,9 +118,8 @@ private:
 
     bool ignoreDock;
     bool buttonOnLeft;
-
-    bool enableGlobalMenu;
-    bool enableAutoStart;
+    bool buttonHighlight;
+    QColor buttonHighLightColor;
 public:
     bool isEnableGlobalMenu() const;
 

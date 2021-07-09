@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QToolButton>
 #include <QPropertyAnimation>
+#include <QLabel>
 #include "util/CustomSettings.h"
 
 class QOperationWidget : public QWidget {
@@ -31,6 +32,9 @@ private:
     QToolButton *closeButton;
     QToolButton *minButton;
     QToolButton *maxButton;
+
+    QLabel *wrapLabel;
+    QHBoxLayout *wrapLayout;
 
     QPropertyAnimation *m_buttonShowAnimation;
     QPropertyAnimation *m_buttonHideAnimation;

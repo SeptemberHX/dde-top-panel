@@ -42,8 +42,17 @@ TopPanelSettings::TopPanelSettings(DockItemManager *itemManager, QScreen *screen
     QAction *settingAction = new QAction(tr("Settings"), this);
     m_settingsMenu.addAction(settingAction);
 
+    m_settingsMenu.addSeparator();
+
+    QAction *restartAction = new QAction(tr("Restart"), this);
+    m_settingsMenu.addAction(restartAction);
+
     connect(&m_settingsMenu, &QMenu::triggered, this, &TopPanelSettings::menuActionClicked);
     connect(settingAction, &QAction::triggered, this, &TopPanelSettings::settingActionClicked);
+    connect(restartAction, &QAction::triggered, this, [this] {
+       qApp->exit();
+       QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
+    });
 
     calculateWindowConfig();
 }

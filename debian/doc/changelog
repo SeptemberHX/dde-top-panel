@@ -1,0 +1,8 @@
+* 0.6.1
+  - UI improvement
+    - rounded corner for the selected background of the menu items
+    - remove useless options in setting page
+    - add tips in setting page
+    - add highlight background for control buttons
+    - new icons in setting page
+  - add 'restart' menu to right clicked menu

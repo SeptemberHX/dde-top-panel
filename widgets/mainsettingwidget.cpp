@@ -49,6 +49,7 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->ignoreDockCheckBox->setChecked(CustomSettings::instance()->isIgnoreDock());
     ui->buttonOnRightCheckBox->setChecked(!CustomSettings::instance()->isButtonOnLeft());
     ui->buttonHighlightCheckBox->setChecked(CustomSettings::instance()->isButtonHighlight());
+    ui->hideTitlebarCheckBox->setChecked(CustomSettings::instance()->isHideTitleWhenMax());
 
     connect(ui->opacitySpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &MainSettingWidget::opacityValueChanged);
     connect(ui->panelColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::panelColorButtonClicked);
@@ -82,6 +83,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     });
     connect(ui->buttonHighlightCheckBox, &QCheckBox::stateChanged, this, [this] {
         CustomSettings::instance()->setButtonHighlight(ui->buttonHighlightCheckBox->isChecked());
+    });
+    connect(ui->hideTitlebarCheckBox, &QCheckBox::stateChanged, this, [this] {
+        CustomSettings::instance()->setHideTitleWhenMax(ui->hideTitlebarCheckBox->isChecked());
     });
 }
 

@@ -120,6 +120,13 @@ private:
     bool buttonOnLeft;
     bool buttonHighlight;
     QColor buttonHighLightColor;
+
+    bool hideTitleWhenMax;
+public:
+    bool isHideTitleWhenMax() const;
+
+    void setHideTitleWhenMax(bool hideTitleWhenMax);
+
 public:
     bool isEnableGlobalMenu() const;
 

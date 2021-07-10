@@ -53,10 +53,10 @@
     <message>
         <location filename="../widgets/mainsettingwidget.ui" line="153"/>
         <location filename="../widgets/mainsettingwidget.ui" line="335"/>
-        <location filename="../widgets/mainsettingwidget.ui" line="703"/>
-        <location filename="../widgets/mainsettingwidget.ui" line="830"/>
-        <location filename="../widgets/mainsettingwidget.ui" line="957"/>
-        <location filename="../widgets/mainsettingwidget.ui" line="1322"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="760"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="887"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1014"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1379"/>
         <source>Config</source>
         <translation>修改</translation>
     </message>
@@ -100,125 +100,130 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</sou
         <translation>仅鼠标悬停时显示菜单</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="529"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="550"/>
+        <source>Hide titlebar when maximized [reboot or login out]</source>
+        <translation>窗口最大化时隐藏标题栏【重启或注销后生效】</translation>
+    </message>
+    <message>
+        <location filename="../widgets/mainsettingwidget.ui" line="586"/>
         <source>Control Buttons</source>
         <translation>三大控制按钮设置</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="586"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="643"/>
         <source>Show Buttons When Max</source>
         <translation>仅在窗口全屏时显示</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="649"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="706"/>
         <source>Close Button</source>
         <translation>关闭按钮图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="729"/>
-        <location filename="../widgets/mainsettingwidget.ui" line="856"/>
-        <location filename="../widgets/mainsettingwidget.ui" line="983"/>
-        <location filename="../widgets/mainsettingwidget.ui" line="1348"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="786"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="913"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1040"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1405"/>
         <source>Reset</source>
         <translation>重置</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="776"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="833"/>
         <source>Unmax Button</source>
         <translation>最大化按钮</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="903"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="960"/>
         <source>Minimize Button</source>
         <translation>最小化按钮</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1030"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1087"/>
         <source>Buttons on Right</source>
         <translation>在 panel 最右侧显示</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1093"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1150"/>
         <source>Buttons with highlight</source>
         <translation>是否显示按钮区域背景色</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1156"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1213"/>
         <source>Buttons highlight color</source>
         <translation>按钮区域背景色</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1214"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1271"/>
         <source>App Icons</source>
         <translation>应用图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1268"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1325"/>
         <source>Default Icon</source>
         <translation>默认显示图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1395"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1452"/>
         <source>App name instead of icon</source>
         <translation>显示应用名称而不显示图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1458"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1515"/>
         <source>Show logo with app name</source>
         <translation>同时显示名称和图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1495"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1552"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1567"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1624"/>
         <source>Name</source>
         <translation>开发者</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1601"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1658"/>
         <source>Version</source>
         <translation>版本</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1629"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1686"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;september_hx@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;september_hx@outlook.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;september_hx@outlook.com&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;september_hx@outlook.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1666"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1723"/>
         <source>Github</source>
-        <translation>项目Github地址</translation>
+        <translation>项目地址</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1700"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1757"/>
         <source>Email</source>
         <translation>邮箱</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1728"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1785"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/SeptemberHX/dde-top-panel&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;https://github.com/SeptemberHX/dde-top-panel&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/SeptemberHX/dde-top-panel&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0082fa;&quot;&gt;https://github.com/SeptemberHX/dde-top-panel&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1759"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1816"/>
         <source>SeptemberHX</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1815"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1872"/>
         <source>Author</source>
         <translation>作者</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1851"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1908"/>
         <source>Tips</source>
         <translation>小技巧</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1866"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1923"/>
         <source>1.  Enable Global Menu by installing 
     [dde-globalmenu-service](https://github.com/SeptemberHX/dde-globalmenu-service)
 2.  Enable Autostart by right clicking the entry in the launcher
@@ -228,7 +233,7 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</sou
 2.  在启动中心右键设置开机自启动</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="1872"/>
+        <location filename="../widgets/mainsettingwidget.ui" line="1929"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -243,30 +248,30 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-size:10pt;&quot; style=&quot; margin-top:6px; margin-bottom:6px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;在启动中心右键设置开机自启动&lt;/li&gt;&lt;/ol&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.cpp" line="111"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="115"/>
         <source>Select your close button icon</source>
         <translation>选择你的关闭按钮图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.cpp" line="111"/>
-        <location filename="../widgets/mainsettingwidget.cpp" line="124"/>
-        <location filename="../widgets/mainsettingwidget.cpp" line="137"/>
-        <location filename="../widgets/mainsettingwidget.cpp" line="150"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="115"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="128"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="141"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="154"/>
         <source>Images (*.png *.jpg *.svg)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.cpp" line="124"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="128"/>
         <source>Select your unmaximized button icon</source>
         <translation>选择你的最大化按钮图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.cpp" line="137"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="141"/>
         <source>Select your minimized button icon</source>
         <translation>选择你的最小化按钮图标</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.cpp" line="150"/>
+        <location filename="../widgets/mainsettingwidget.cpp" line="154"/>
         <source>Select your default icon</source>
         <translation>选择你的应用默认图标</translation>
     </message>

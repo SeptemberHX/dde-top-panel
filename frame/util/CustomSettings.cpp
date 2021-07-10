@@ -4,6 +4,7 @@
 
 #include "CustomSettings.h"
 #include <QSettings>
+#include <QDir>
 
 CustomSettings::CustomSettings() {
     this->setDefaultPanelOpacity();
@@ -200,6 +201,9 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/buttonOnRight", !this->isButtonOnLeft());
     settings.setValue("windowControl/enableButtonHighlight", this->isButtonHighlight());
     settings.setValue("windowControl/buttonHighlightColor", this->buttonHighLightColor);
+
+    QSettings kwinrc(QDir::homePath() + "/.config/kwinrc", QSettings::IniFormat);
+    kwinrc.setValue("Windows/BorderlessMaximizedWindows", this->hideTitleWhenMax);
 }
 
 void CustomSettings::readSettings() {
@@ -220,6 +224,9 @@ void CustomSettings::readSettings() {
 
     this->buttonHighlight = settings.value("windowControl/enableButtonHighlight", this->isButtonHighlight()).toBool();
     this->buttonHighLightColor = settings.value("windowControl/buttonHighlightColor", this->buttonHighLightColor).value<QColor>();
+
+    QSettings kwinrc(QDir::homePath() + "/.config/kwinrc", QSettings::IniFormat);
+    this->hideTitleWhenMax = kwinrc.value("Windows/BorderlessMaximizedWindows", false).toBool();
 }
 
 bool CustomSettings::isShowControlButtons() const {
@@ -286,5 +293,14 @@ const QColor &CustomSettings::getButtonHighLightColor() const {
 
 void CustomSettings::setButtonHighLightColor(const QColor &buttonHighLightColor) {
     CustomSettings::buttonHighLightColor = buttonHighLightColor;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isHideTitleWhenMax() const {
+    return hideTitleWhenMax;
+}
+
+void CustomSettings::setHideTitleWhenMax(bool hideTitleWhenMax) {
+    CustomSettings::hideTitleWhenMax = hideTitleWhenMax;
     emit settingsChanged();
 }

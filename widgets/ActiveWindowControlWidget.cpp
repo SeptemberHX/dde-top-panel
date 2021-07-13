@@ -286,11 +286,6 @@ void ActiveWindowControlWidget::updateMenu() {
         QString menuStr = m_appMenuModel->data(m_appMenuModel->index(r, 0), AppMenuModel::MenuRole).toString();
 
         // tricks to remove useless old menus
-        if (existedMenu.contains(menuStr)) {
-            int index = existedMenu.indexOf(menuStr);
-            auto *m_label = this->buttonLabelListBak.at(index);
-            m_label->hide();
-        }
         existedMenu.append(menuStr);
 
         // create new clickable label for the new menu item
@@ -304,9 +299,6 @@ void ActiveWindowControlWidget::updateMenu() {
         m_label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
         connect(m_label, &QClickableLabel::clicked, this, &ActiveWindowControlWidget::menuLabelClicked);
         this->buttonLabelListBak.append(m_label);
-        if (menuStr.isEmpty()) {
-            m_label->hide();
-        }
     }
 
     qDebug() << "organizeMenu() triggered by menuUpdate event";
@@ -616,25 +608,37 @@ void ActiveWindowControlWidget::organizeMenu() {
     }
 
     // show menus and hide others
-    for (int i = 0; i < breakIndex; ++i) {
-        this->buttonLabelListBak[i]->show();
-        this->m_menuLayout->addWidget(this->buttonLabelListBak[i]);
+    QSet<QString> menuStrSet;
+    for (int i = 0; i < breakIndex && i < this->buttonLabelListBak.size(); ++i) {
+        if (!this->buttonLabelListBak[i]->text().trimmed().isEmpty() && !menuStrSet.contains(this->buttonLabelListBak[i]->text())) {
+            this->buttonLabelListBak[i]->show();
+            this->m_menuLayout->addWidget(this->buttonLabelListBak[i]);
+        } else {
+            this->buttonLabelListBak[i]->hide();
+            ++breakIndex;
+        }
         this->buttonLabelList.append(this->buttonLabelListBak[i]);
+        menuStrSet.insert(this->buttonLabelListBak[i]->text());
     }
 
+    bool actionAdded = false;
     for (int i = breakIndex; i < this->buttonLabelListBak.size(); ++i) {
         this->buttonLabelListBak[i]->hide();
-        auto *action = this->createAction(i);
-        this->m_moreMenu->addAction(action);
-        if (action->menu() != nullptr) {
-            // it is important to disconnect the connections of the hidden menus
-            //    or the hidden menus will send aboutTohide() signal even when they are in m_moreMenu
-            disconnect(action->menu(), &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide);
+        if (!this->buttonLabelListBak[i]->text().trimmed().isEmpty() && !menuStrSet.contains(this->buttonLabelListBak[i]->text())) {
+            actionAdded = true;
+            auto *action = this->createAction(i);
+            this->m_moreMenu->addAction(action);
+            if (action->menu() != nullptr) {
+                // it is important to disconnect the connections of the hidden menus
+                //    or the hidden menus will send aboutTohide() signal even when they are in m_moreMenu
+                disconnect(action->menu(), &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide);
+            }
         }
+        menuStrSet.insert(this->buttonLabelListBak[i]->text());
     }
 
     // "More" menu item
-    if (breakIndex != this->buttonLabelListBak.size()) {
+    if (breakIndex != this->buttonLabelListBak.size() && actionAdded) {
         this->buttonLabelList.append(this->m_moreLabel);
         this->m_menuLayout->addWidget(this->m_moreLabel);
         this->m_moreLabel->show();

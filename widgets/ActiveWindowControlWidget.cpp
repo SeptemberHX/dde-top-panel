@@ -267,7 +267,7 @@ void ActiveWindowControlWidget::maximizeWindow() {
 }
 
 void ActiveWindowControlWidget::mouseDoubleClickEvent(QMouseEvent *event) {
-    if (this->childAt(event->pos()) != this->m_menuWidget) {
+    if (this->childAt(event->pos()) == nullptr) {
         this->maximizeWindow();
     }
     QWidget::mouseDoubleClickEvent(event);
@@ -376,8 +376,8 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
 
         ctx->setSelectedColor();
         if (oldIndex >=0 && oldIndex < this->buttonLabelList.size()) {
-            this->buttonLabelList[oldIndex]->setNormalColor();
             this->buttonLabelList[oldIndex]->resetClicked();
+            this->buttonLabelList[oldIndex]->setNormalColor();
         }
 
         connect(actionMenu, &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide, Qt::UniqueConnection);
@@ -428,8 +428,8 @@ void ActiveWindowControlWidget::mouseMoveEvent(QMouseEvent *event) {
             NETRootInfo ri(QX11Info::connection(), NET::WMMoveResize);
             ri.moveResizeRequest(
                     this->currActiveWinId,
-                    event->globalX() * this->devicePixelRatio(),
-                    (this->height() + event->globalY()) * this->devicePixelRatio(),
+                    event->globalX() * this->devicePixelRatioF(),
+                    (this->height() + event->globalY()) * this->devicePixelRatioF(),
                     NET::Move
             );
             this->mouseClicked = false;

@@ -24,6 +24,7 @@ void QClickableLabel::enterEvent(QEvent *event) {
 
 void QClickableLabel::leaveEvent(QEvent *event) {
     if (!isClicked) {
+        qDebug() << "QClickableLabel:leaveEvent: set to normal color " << this->text();
         this->setNormalColor();
         isClicked = false;
     }

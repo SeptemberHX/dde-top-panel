@@ -122,6 +122,13 @@ private:
     QColor buttonHighLightColor;
 
     bool hideTitleWhenMax;
+
+    bool followSystemTheme;
+public:
+    bool isFollowSystemTheme() const;
+
+    void setFollowSystemTheme(bool followSystemTheme);
+
 public:
     bool isHideTitleWhenMax() const;
 
@@ -155,6 +162,9 @@ private:
     QString activeUnmaximizedIconPath;
     QString activeMinimizedIconPath;
     QString activeDefaultAppIconPath;
+
+    QColor defaultLightColor;
+    QColor defaultDarkColor;
 };
 
 

@@ -51,6 +51,8 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     ui->buttonHighlightCheckBox->setChecked(CustomSettings::instance()->isButtonHighlight());
     ui->hideTitlebarCheckBox->setChecked(CustomSettings::instance()->isHideTitleWhenMax());
 
+    ui->followSystemThemeCheckBox->setChecked(CustomSettings::instance()->isFollowSystemTheme());
+
     connect(ui->opacitySpinBox, qOverload<int>(&QSpinBox::valueChanged), this, &MainSettingWidget::opacityValueChanged);
     connect(ui->panelColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::panelColorButtonClicked);
     connect(ui->fontColorToolButton, &QToolButton::clicked, this, &MainSettingWidget::fontColorButtonClicked);
@@ -86,6 +88,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     });
     connect(ui->hideTitlebarCheckBox, &QCheckBox::stateChanged, this, [this] {
         CustomSettings::instance()->setHideTitleWhenMax(ui->hideTitlebarCheckBox->isChecked());
+    });
+    connect(ui->followSystemThemeCheckBox, &QCheckBox::stateChanged, this, [this] {
+        CustomSettings::instance()->setFollowSystemTheme(ui->followSystemThemeCheckBox->isChecked());
     });
 }
 

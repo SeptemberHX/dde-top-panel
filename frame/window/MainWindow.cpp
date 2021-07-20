@@ -6,6 +6,9 @@
 #include "MainWindow.h"
 #include "controller/dockitemmanager.h"
 #include "util/utils.h"
+#include <DGuiApplicationHelper>
+
+DGUI_USE_NAMESPACE
 
 #define SNI_WATCHER_SERVICE "org.kde.StatusNotifierWatcher"
 #define SNI_WATCHER_PATH "/StatusNotifierWatcher"
@@ -65,6 +68,10 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
         
     qreal value = CustomSettings::instance()->getPanelOpacity();
     CustomSettings::instance()->setPanelOpacity(value);
+
+    connect(DGuiApplicationHelper::instance(), &DGuiApplicationHelper::themeTypeChanged, this, [this] () {
+        this->applyCustomSettings(*CustomSettings::instance());
+    });
 }
 
 void MainWindow::resizeMainPanelWindow()

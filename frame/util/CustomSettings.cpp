@@ -5,6 +5,9 @@
 #include "CustomSettings.h"
 #include <QSettings>
 #include <QDir>
+#include <DGuiApplicationHelper>
+
+DGUI_USE_NAMESPACE
 
 CustomSettings::CustomSettings() {
     this->setDefaultPanelOpacity();
@@ -27,6 +30,10 @@ CustomSettings::CustomSettings() {
 
     this->buttonHighlight = true;
     this->buttonHighLightColor = QColor("#9d2933");
+    this->followSystemTheme = true;
+
+    this->defaultDarkColor = Qt::black;
+    this->defaultLightColor = Qt::white;
 
     this->readSettings();
     connect(this, &CustomSettings::settingsChanged, this, &CustomSettings::saveSettings);
@@ -38,7 +45,11 @@ CustomSettings *CustomSettings::instance() {
 }
 
 qreal CustomSettings::getPanelOpacity() const {
-    return panelOpacity;
+    if (this->isFollowSystemTheme()) {
+        return 80;
+    } else {
+        return panelOpacity;
+    }
 }
 
 void CustomSettings::setPanelOpacity(qreal panelOpacity) {
@@ -47,6 +58,14 @@ void CustomSettings::setPanelOpacity(qreal panelOpacity) {
 }
 
 const QColor &CustomSettings::getPanelBgColor() const {
+    if (this->isFollowSystemTheme()) {
+        switch (DGuiApplicationHelper::instance()->themeType()) {
+            case Dtk::Gui::DGuiApplicationHelper::DarkType:
+                return this->defaultDarkColor;
+            case Dtk::Gui::DGuiApplicationHelper::LightType:
+                return this->defaultLightColor;
+        }
+    }
     return panelBgColor;
 }
 
@@ -65,6 +84,14 @@ void CustomSettings::setPanelEnablePluginsOnAllScreen(bool panelEnablePluginsOnA
 }
 
 const QColor &CustomSettings::getActiveFontColor() const {
+    if (this->isFollowSystemTheme()) {
+        switch (DGuiApplicationHelper::instance()->themeType()) {
+            case Dtk::Gui::DGuiApplicationHelper::DarkType:
+                return this->defaultLightColor;
+            case Dtk::Gui::DGuiApplicationHelper::LightType:
+                return this->defaultDarkColor;
+        }
+    }
     return activeFontColor;
 }
 
@@ -188,6 +215,7 @@ void CustomSettings::saveSettings() {
 
     settings.setValue("panel/bgColor", this->getPanelBgColor());
     settings.setValue("panel/opacity", this->getPanelOpacity());
+    settings.setValue("panel/followSystemTheme", this->isFollowSystemTheme());
     settings.setValue("windowControl/fontColor", this->getActiveFontColor());
     settings.setValue("windowControl/closeIcon", this->getActiveCloseIconPath());
     settings.setValue("windowControl/unmaxIcon", this->getActiveUnmaximizedIconPath());
@@ -224,6 +252,7 @@ void CustomSettings::readSettings() {
 
     this->buttonHighlight = settings.value("windowControl/enableButtonHighlight", this->isButtonHighlight()).toBool();
     this->buttonHighLightColor = settings.value("windowControl/buttonHighlightColor", this->buttonHighLightColor).value<QColor>();
+    this->followSystemTheme = settings.value("panel/followSystemTheme", this->isFollowSystemTheme()).toBool();
 
     QSettings kwinrc(QDir::homePath() + "/.config/kwinrc", QSettings::IniFormat);
     this->hideTitleWhenMax = kwinrc.value("Windows/BorderlessMaximizedWindows", false).toBool();
@@ -302,5 +331,14 @@ bool CustomSettings::isHideTitleWhenMax() const {
 
 void CustomSettings::setHideTitleWhenMax(bool hideTitleWhenMax) {
     CustomSettings::hideTitleWhenMax = hideTitleWhenMax;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isFollowSystemTheme() const {
+    return followSystemTheme;
+}
+
+void CustomSettings::setFollowSystemTheme(bool followSystemTheme) {
+    CustomSettings::followSystemTheme = followSystemTheme;
     emit settingsChanged();
 }

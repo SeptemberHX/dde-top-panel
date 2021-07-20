@@ -6,6 +6,7 @@
 #include <QSettings>
 #include <QDir>
 #include <DGuiApplicationHelper>
+#include <DApplicationHelper>
 
 DGUI_USE_NAMESPACE
 

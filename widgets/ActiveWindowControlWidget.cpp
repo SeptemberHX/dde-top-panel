@@ -374,6 +374,8 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
             oldMenu->hide();
         }
 
+        // fix: random losing selected color
+        ctx->clicked();
         ctx->setSelectedColor();
         if (oldIndex >=0 && oldIndex < this->buttonLabelList.size()) {
             this->buttonLabelList[oldIndex]->resetClicked();

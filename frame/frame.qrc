@@ -7,6 +7,7 @@
         <file alias="maximum.svg">resources/icons/maximum.svg</file>
         <file alias="minimum.svg">resources/icons/minimum.svg</file>
         <file alias="linux.svg">resources/icons/linux.svg</file>
+        <file alias="linux-light.svg">resources/icons/linux-light.svg</file>
         <file alias="reset.svg">resources/icons/reset.svg</file>
         <file alias="config.svg">resources/icons/config.svg</file>
         <file alias="doge.gif">resources/icons/doge.gif</file>

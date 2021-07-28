@@ -11,6 +11,9 @@
 DGUI_USE_NAMESPACE
 
 CustomSettings::CustomSettings() {
+    this->defaultIconPathLight = ":/icons/linux.svg";
+    this->defaultIconPathDark = ":/icons/linux-light.svg";
+
     this->setDefaultPanelOpacity();
     this->setDefaultPanelBgColor();
 
@@ -138,6 +141,14 @@ void CustomSettings::setActiveMinimizedIconPath(const QString &activeMinimizedIc
 }
 
 const QString &CustomSettings::getActiveDefaultAppIconPath() const {
+    if (this->isFollowSystemTheme()) {
+        switch (DGuiApplicationHelper::instance()->themeType()) {
+            case Dtk::Gui::DGuiApplicationHelper::DarkType:
+                return this->defaultIconPathDark;
+            case Dtk::Gui::DGuiApplicationHelper::LightType:
+                return this->defaultIconPathLight;
+        }
+    }
     return activeDefaultAppIconPath;
 }
 

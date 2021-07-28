@@ -163,6 +163,9 @@ private:
     QString activeMinimizedIconPath;
     QString activeDefaultAppIconPath;
 
+    QString defaultIconPathLight;
+    QString defaultIconPathDark;
+
     QColor defaultLightColor;
     QColor defaultDarkColor;
 };

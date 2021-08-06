@@ -17,9 +17,9 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../widgets/ActiveWindowControlWidget.cpp" line="158"/>
-        <location filename="../widgets/ActiveWindowControlWidget.cpp" line="162"/>
-        <location filename="../widgets/ActiveWindowControlWidget.cpp" line="194"/>
+        <location filename="../widgets/ActiveWindowControlWidget.cpp" line="161"/>
+        <location filename="../widgets/ActiveWindowControlWidget.cpp" line="165"/>
+        <location filename="../widgets/ActiveWindowControlWidget.cpp" line="197"/>
         <source>Desktop</source>
         <translation>桌面</translation>
     </message>

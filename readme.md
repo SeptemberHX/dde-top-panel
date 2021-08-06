@@ -23,21 +23,15 @@ This is a modification of dde-dock for top panel. Comparing to dde-dock, it:
 * global menu support (with dde-globalmenu-service)
 * show window title on top panel
 * show title buttons on top panel when current window maximized
-* double click on empty area on top panel will maximize current window
+* double-clicking on empty area on top panel will maximize current window
 * dragging and moving current maximized window by dragging empty area of top panel
-* coping with `~/.config/kwinrc` can remove the window title bar when maximized
+* remove the window title bar when maximized
 * support multi monitors
 * personal customization
 
 Know issues:
 * panels on **non-primary monitors** only have the window title function. The plugins can not work on them. `It is not an issue` because the `QPluginLoader` can only create one instance from one plugin file. So the panel cannot create as many plugin widgets as the panels. Still trying to add the plugin back to all panels
-* Shortcuts of the global menu not work yet
-
-
-## Behaviors
-
-* Always show title buttons for maxmized window and hide for unmaxminzed window (optional: show menu for maximized window on hover)
-* Show window title only when no global menu for current window
+* Shortcuts of the global menu not work
 
 ## Screenshot
 
@@ -54,22 +48,10 @@ Know issues:
 
 ### For Deepin V20
 
-1. download zip from release page and unzip it
-1. cp `*.xml` to `/usr/share/glib-2.0/schemas`, and run `sudo glib-compile-schemas /usr/share/glib-2.0/schemas`
-2. cp `dde-top-panel` to `/usr/bin`
-3. cp `dde-top-panel.desktop` to `/usr/share/applications`
-4. open your launcher, run `dde-top-panel`. enable auto-start by right clicking
-5. for removing the title bar of maximized windows, make sure your `~/.config/kwinrc` contains items below, then logout.
-```shell script
-[Windows]
-BorderlessMaximizedWindows=true
-```
-4. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`
-5. If you want to enable the global menu, please install [dde-globalmenu-service](https://github.com/SeptemberHX/dde-globalmenu-service.git)
-
-### For Arch
-
-Thanks to @JunioCalu . dde-top-panel is in the AUR now. [https://aur.archlinux.org/packages/dde-top-panel](https://aur.archlinux.org/packages/dde-top-panel)
+1. download deb package from releases and install the deb package. you can enable the auto-start in the launcher
+2. for removing the title bar of maximized windows, you can enable this feature in the settings by right clicking
+3. If you want to use plugins on top panel, just copy the plugin files to `~/.local/lib/dde-top-panel/plugins`. For example, if you want to get tray icons on top panel, just `cp /usr/lib/dde-dock/plugins/libtray.so ~/.local/lib/dde-top-panel/plugins`
+4. If you want to enable the global menu, please install [dde-globalmenu-service](https://github.com/SeptemberHX/dde-globalmenu-service.git)
 
 ### For Other distributions
 
@@ -84,10 +66,9 @@ cd dde-top-panel
 mkdir build
 cd build
 cmake ..
-make -j8
+make -j8 package
 ```
-Then `dde-top-panel` should be in `build/frame/dde-top-panel`.
-Then go to step 2 in How to run for Deepin V20
+Then a deb package will be generated.
 
 ## For tray icons of wine applications
 

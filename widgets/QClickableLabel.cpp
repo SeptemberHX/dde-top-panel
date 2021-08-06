@@ -18,13 +18,14 @@ QClickableLabel::QClickableLabel(QWidget *parent)
 }
 
 void QClickableLabel::enterEvent(QEvent *event) {
+    std::cout << "==========> Set selected color due to enterEvent" << std::endl;
     this->setSelectedColor();
     QWidget::enterEvent(event);
 }
 
 void QClickableLabel::leaveEvent(QEvent *event) {
     if (!isClicked) {
-        qDebug() << "QClickableLabel:leaveEvent: set to normal color " << this->text();
+        std::cout << "==========> Set selected color due to leaveEvent" << std::endl;
         this->setNormalColor();
         isClicked = false;
     }
@@ -65,4 +66,18 @@ void QClickableLabel::resetClicked() {
 int QClickableLabel::standardWidth() {
     int fontWidth = metrics->boundingRect(this->text()).width();
     return fontWidth + this->contentsMargins().left() + this->contentsMargins().right();
+}
+
+bool QClickableLabel::isSelected() const {
+    return isClicked;
+}
+
+void QClickableLabel::setClicked(bool flag) {
+    if (flag) {
+        this->isClicked = true;
+        this->setSelectedColor();
+    } else {
+        this->resetClicked();
+        this->setNormalColor();
+    }
 }

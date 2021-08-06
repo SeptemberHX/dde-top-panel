@@ -376,10 +376,9 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
 
         // fix: random losing selected color
         ctx->clicked();
-        ctx->setSelectedColor();
+        ctx->setClicked(true);
         if (oldIndex >=0 && oldIndex < this->buttonLabelList.size()) {
-            this->buttonLabelList[oldIndex]->resetClicked();
-            this->buttonLabelList[oldIndex]->setNormalColor();
+            this->buttonLabelList[oldIndex]->setClicked(false);
         }
 
         connect(actionMenu, &QMenu::aboutToHide, this, &ActiveWindowControlWidget::onMenuAboutToHide, Qt::UniqueConnection);
@@ -539,8 +538,8 @@ void ActiveWindowControlWidget::requestActivateIndex(int buttonIndex) {
 void ActiveWindowControlWidget::onMenuAboutToHide() {
     qDebug() << "ActiveWindowControlWidget#onMenuAboutToHide(): current index is " << this->m_currentIndex;
     if (this->m_currentIndex >= 0 && this->m_currentIndex < this->buttonLabelList.size()) {
-        this->buttonLabelList[this->m_currentIndex]->resetClicked();
-        this->buttonLabelList[this->m_currentIndex]->setNormalColor();
+        qDebug() << "==========> Set selected color due to menuAboutToHide";
+        this->buttonLabelList[this->m_currentIndex]->setClicked(false);
         this->m_currentIndex = -1;
         this->m_currentMenu = nullptr;
     }
@@ -576,9 +575,13 @@ void ActiveWindowControlWidget::organizeMenu() {
     int availableWidth = this->menuAvailableWidth();
 
     // reset menu layout
-    foreach (auto *label, this->buttonLabelList) {
-        label->hide();
-        this->m_menuLayout->removeWidget(label);
+    int selectedItemIndex = -1;
+    for (int i = 0; i < this->buttonLabelList.size(); ++i) {
+        this->buttonLabelList[i]->hide();
+        this->m_menuLayout->removeWidget(this->buttonLabelList[i]);
+        if (this->buttonLabelList[i]->isSelected() && this->buttonLabelList[i] != this->m_moreLabel) {
+            selectedItemIndex = i;
+        }
     }
 
     this->buttonLabelList.clear();
@@ -609,6 +612,7 @@ void ActiveWindowControlWidget::organizeMenu() {
         breakIndex = this->buttonLabelListBak.size();
     }
 
+    qDebug()  << "============> Menu items refreshed";
     // show menus and hide others
     QSet<QString> menuStrSet;
     for (int i = 0; i < breakIndex && i < this->buttonLabelListBak.size(); ++i) {
@@ -646,6 +650,11 @@ void ActiveWindowControlWidget::organizeMenu() {
         this->m_moreLabel->show();
     } else {
         this->m_moreLabel->hide();
+    }
+
+    // show the selected menu because the menu may be refreshed when the menu shows
+    if (selectedItemIndex >= 0 && selectedItemIndex < breakIndex) {
+        this->buttonLabelListBak[selectedItemIndex]->setClicked(true);
     }
 
     // menu visible

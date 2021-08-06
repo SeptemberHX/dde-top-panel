@@ -1,5 +1,8 @@
-* 0.6.3
+* 0.6.4
   - fix: random losing selected color for actived menu item
+* 0.6.3
+  - Auto dark & light theme
+  - Bug fix
 * 0.6.1
   - UI improvement
     - rounded corner for the selected background of the menu items

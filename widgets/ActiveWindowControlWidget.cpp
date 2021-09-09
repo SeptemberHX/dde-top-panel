@@ -424,7 +424,7 @@ void ActiveWindowControlWidget::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 void ActiveWindowControlWidget::mouseMoveEvent(QMouseEvent *event) {
-    if (this->mouseClicked) {
+    if (this->mouseClicked && CustomSettings::instance()->isAllowDragWindowWhenMax()) {
         if (XUtils::checkIfWinMaximum(this->currActiveWinId)) {
             NETRootInfo ri(QX11Info::connection(), NET::WMMoveResize);
             ri.moveResizeRequest(

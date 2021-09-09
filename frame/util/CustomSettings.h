@@ -124,6 +124,13 @@ private:
     bool hideTitleWhenMax;
 
     bool followSystemTheme;
+
+    bool allowDragWindowWhenMax;
+public:
+    bool isAllowDragWindowWhenMax() const;
+
+    void setAllowDragWindowWhenMax(bool allowDragWindowWhenMax);
+
 public:
     bool isFollowSystemTheme() const;
 

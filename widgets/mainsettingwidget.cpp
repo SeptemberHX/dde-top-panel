@@ -92,6 +92,9 @@ MainSettingWidget::MainSettingWidget(QWidget *parent) :
     connect(ui->followSystemThemeCheckBox, &QCheckBox::stateChanged, this, [this] {
         CustomSettings::instance()->setFollowSystemTheme(ui->followSystemThemeCheckBox->isChecked());
     });
+    connect(ui->dragToMoveCheckBox, &QCheckBox::stateChanged, this, [this] {
+        CustomSettings::instance()->setAllowDragWindowWhenMax(ui->dragToMoveCheckBox->isChecked());
+    });
 }
 
 MainSettingWidget::~MainSettingWidget()

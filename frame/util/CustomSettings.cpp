@@ -241,6 +241,7 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/buttonOnRight", !this->isButtonOnLeft());
     settings.setValue("windowControl/enableButtonHighlight", this->isButtonHighlight());
     settings.setValue("windowControl/buttonHighlightColor", this->buttonHighLightColor);
+    settings.setValue("windowControl/allowDragWindowWhenMax", this->allowDragWindowWhenMax);
 
     QSettings kwinrc(QDir::homePath() + "/.config/kwinrc", QSettings::IniFormat);
     kwinrc.setValue("Windows/BorderlessMaximizedWindows", this->hideTitleWhenMax);
@@ -265,6 +266,7 @@ void CustomSettings::readSettings() {
     this->buttonHighlight = settings.value("windowControl/enableButtonHighlight", this->isButtonHighlight()).toBool();
     this->buttonHighLightColor = settings.value("windowControl/buttonHighlightColor", this->buttonHighLightColor).value<QColor>();
     this->followSystemTheme = settings.value("panel/followSystemTheme", this->isFollowSystemTheme()).toBool();
+    this->allowDragWindowWhenMax = settings.value("windowControl/allowDragWindowWhenMax", this->allowDragWindowWhenMax).toBool();
 
     QSettings kwinrc(QDir::homePath() + "/.config/kwinrc", QSettings::IniFormat);
     this->hideTitleWhenMax = kwinrc.value("Windows/BorderlessMaximizedWindows", false).toBool();
@@ -352,5 +354,14 @@ bool CustomSettings::isFollowSystemTheme() const {
 
 void CustomSettings::setFollowSystemTheme(bool followSystemTheme) {
     CustomSettings::followSystemTheme = followSystemTheme;
+    emit settingsChanged();
+}
+
+bool CustomSettings::isAllowDragWindowWhenMax() const {
+    return allowDragWindowWhenMax;
+}
+
+void CustomSettings::setAllowDragWindowWhenMax(bool allowDragWindowWhenMax) {
+    CustomSettings::allowDragWindowWhenMax = allowDragWindowWhenMax;
     emit settingsChanged();
 }

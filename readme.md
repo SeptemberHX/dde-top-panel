@@ -60,7 +60,7 @@ I only have deepin v20 installed on my computer, and I cannot compile it for oth
 Dependency: `Qt5Widgets, Qt5Concurrent, Qt5X11Extras, Qt5DBus, Qt5Svg, DtkWidget, DtkCMake, KF5WindowSystem, XCB_EWMH, DFrameworkDBus, QGSettings, DtkGUI`
 
 ```shell
-sudo apt install git cmake libdtkcore5-bin libkf5windowsystem-dev libxcb-ewmh-dev libxdo-dev
+sudo apt install git cmake g++ qtbase5-dev libqt5x11extras5-dev libqt5svg5-dev libdtkwidget-dev libdframeworkdbus-dev libgsettings-qt-dev qttools5-dev libkf5windowsystem-dev libxcb-ewmh-dev libxdo-dev
 git clone https://github.com/SeptemberHX/dde-top-panel.git
 cd dde-top-panel
 mkdir build

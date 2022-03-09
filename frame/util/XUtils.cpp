@@ -223,32 +223,9 @@ QPixmap XUtils::getWindowIconName(int winId) {
 
 
 int XUtils::getWindowScreenNum(int winId) {
-    openXdo();
-
-    QRect r;
-    XWindowAttributes attr;
-    int ret = XGetWindowAttributes(m_xdo->xdpy, winId, &attr);
-    if (ret != 0) {
-        int x, y;
-        Window unused_child, parent, root;
-        Window *children;
-        unsigned int nchildren;
-        XQueryTree(m_xdo->xdpy, winId, &root, &parent, &children, &nchildren);
-        if (children != NULL) {
-            XFree(children);
-        }
-        if (parent == attr.root) {
-            x = attr.x;
-            y = attr.y;
-        } else {
-            XTranslateCoordinates(m_xdo->xdpy, winId, attr.root, attr.x, attr.y, &x, &y, &unused_child);
-        }
-
-        r.setLeft(x);
-        r.setTop(y);
-        r.setWidth(attr.width);
-        r.setHeight(attr.height);
-
+    KWindowInfo info = KWindowSystem::self()->windowInfo(winId, NET::WMGeometry);
+    if (info.valid()) {
+        QRect r = info.geometry();
         int maxPartScreenNum = 0;
         int maxPartArea = 0;
         int i = 0;

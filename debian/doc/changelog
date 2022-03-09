@@ -1,3 +1,5 @@
+* 0.6.6
+  - fix: random crash due to XFree()
 * 0.6.5
   - add: Allow to drag is now in the preference page
 * 0.6.4

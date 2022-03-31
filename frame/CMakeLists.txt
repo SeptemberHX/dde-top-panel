@@ -31,9 +31,10 @@ set(TS_FILES
 set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${CMAKE_BINARY_DIR}/translations)
 qt5_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/../widgets ${TS_FILES})
 qt5_add_translation(QM_FILES ${TS_FILES})
+qt5_add_dbus_adaptor(DBUS_FILES ../xml/com.septemberhx.dde.TopPanel.xml ../widgets/DBusTopPanelService.h DBusTopPanelService)
 
 # driver-manager
-add_executable(${BIN_NAME} ${SRCS} ${INTERFACES} ${QM_FILES} item/item.qrc frame.qrc)
+add_executable(${BIN_NAME} ${SRCS} ${INTERFACES} ${QM_FILES} ${DBUS_FILES} item/item.qrc frame.qrc ../widgets/MyProxyClass.h ../widgets/DBusTopPanelService.h ../widgets/DBusTopPanelService.cpp)
 target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${XCB_EWMH_INCLUDE_DIRS}
         ${DFrameworkDBus_INCLUDE_DIRS}

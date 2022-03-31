@@ -18,6 +18,7 @@
 #include "../frame/util/CustomSettings.h"
 #include <com_deepin_dde_launcher.h>
 #include "QOperationWidget.h"
+#include "MyProxyClass.h"
 
 
 using LauncherInter = com::deepin::dde::Launcher;
@@ -105,6 +106,7 @@ private:
     bool organizeFlag;
 
     int prevAvailableWidth;
+    MyProxyStyle *proxyStyle;
 };
 
 

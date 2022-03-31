@@ -7,6 +7,8 @@
 #include <QWindow>
 #include "ActiveWindowControlWidget.h"
 #include "util/XUtils.h"
+#include "DBusTopPanelService.h"
+#include "toppaneladaptor.h"
 #include <QMouseEvent>
 #include <NETWM>
 #include <QtX11Extras/QX11Info>
@@ -25,8 +27,11 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
     , m_moreMenu(new QMenu())
     , organizeFlag(false)
     , m_launcherInter(new LauncherInter("com.deepin.dde.Launcher", "/com/deepin/dde/Launcher", QDBusConnection::sessionBus(), this))
+    , proxyStyle(new MyProxyStyle())
 {
     m_launcherInter->setSync(true, false);
+
+    this->proxyStyle->setPixelRatio(this->devicePixelRatioF());
 
     QPalette palette1 = this->palette();
     palette1.setColor(QPalette::Background, Qt::transparent);
@@ -110,6 +115,8 @@ ActiveWindowControlWidget::ActiveWindowControlWidget(QWidget *parent)
 
     applyCustomSettings(*CustomSettings::instance());
     this->m_buttonWidget->hide();
+
+    new DBusTopPanelService(this);
 }
 
 void ActiveWindowControlWidget::activeWindowInfoChanged() {
@@ -360,6 +367,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
 
     qDebug() << "ActiveWindowControlWidget#trigger() is running..";
     if (actionMenu) {
+        actionMenu->setStyle(this->proxyStyle);
         actionMenu->adjustSize();
         actionMenu->winId();//create window handle
         actionMenu->windowHandle()->setTransientParent(ctx->windowHandle());

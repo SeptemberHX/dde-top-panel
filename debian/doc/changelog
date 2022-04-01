@@ -1,3 +1,5 @@
+* 0.7.0
+  - add: dde-grand-search support
 * 0.6.6
   - fix: random crash due to XFree()
 * 0.6.5

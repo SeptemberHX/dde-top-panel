@@ -287,7 +287,6 @@ void ActiveWindowControlWidget::updateMenu() {
         label->deleteLater();
     }
     this->buttonLabelListBak.clear();
-
     QList<QString> existedMenu;  // tricks for twice menu of libreoffice
     for (int r = 0; r < m_appMenuModel->rowCount(); ++r) {
         QString menuStr = m_appMenuModel->data(m_appMenuModel->index(r, 0), AppMenuModel::MenuRole).toString();
@@ -367,7 +366,7 @@ void ActiveWindowControlWidget::trigger(QClickableLabel *ctx, int idx) {
 
     qDebug() << "ActiveWindowControlWidget#trigger() is running..";
     if (actionMenu) {
-        actionMenu->setStyle(this->proxyStyle);
+//        actionMenu->setStyle(this->proxyStyle);
         actionMenu->adjustSize();
         actionMenu->winId();//create window handle
         actionMenu->windowHandle()->setTransientParent(ctx->windowHandle());
@@ -695,4 +694,60 @@ int ActiveWindowControlWidget::menuAvailableWidth() {
     }
     int availableWidth = this->width() - usedWidth - this->m_layout->spacing();
     return availableWidth;
+}
+
+QStringList ActiveWindowControlWidget::GrandSearchSearch(const QString &text) {
+    this->updateActionMap();
+
+    QStringList stringList;
+    for (QString actionText : this->actionMap.keys()) {
+        if (actionText.toLower().contains(text.toLower())) {
+            stringList << actionText;
+        }
+    }
+
+    return stringList;
+}
+
+bool ActiveWindowControlWidget::GrandSearchAction(const QString &text) {
+    if (this->actionMap.contains(text)) {
+        std::cout << "Trigger" << " " << this->actionMap[text]->text().toStdString() << " " << text.toStdString() << std::endl;
+        QTimer::singleShot(100, this->actionMap[text], &QAction::trigger);
+        return true;
+    }
+    return false;
+}
+
+void ActiveWindowControlWidget::updateActionMap() {
+    this->actionMap.clear();
+
+    // update action map for search
+    // Currently, it is difficult to ensure the actionMap can be refreshed as soon as the menu is updated.
+    //    To avoid unusable search result action, we rebuild the actionMap when the search starts.
+    for (int r = 0; r < m_appMenuModel->rowCount(); ++r) {
+        const QVariant data = m_appMenuModel->data(m_appMenuModel->index(r, 0), AppMenuModel::ActionRole);
+        if (data.isValid()) {
+            QAction *action = (QAction *) data.value<void *>();
+            QMenu *menu = action->menu();
+            if (menu) {
+                QQueue<QMenu *> menuQueue;
+                menuQueue.append(menu);
+                while (!menuQueue.isEmpty()) {
+                    QMenu *currMenu = menuQueue.front();
+                    menuQueue.pop_front();
+
+                    for (QAction *subAction: currMenu->actions()) {
+                        QMenu *nextMenu = subAction->menu();
+                        if (nextMenu) {
+                            menuQueue.append(nextMenu);
+                        } else {
+                            this->actionMap.insert(subAction->text().remove('&'), subAction);
+                        }
+                    }
+                }
+            } else {
+                this->actionMap.insert(action->text().remove('&'), action);
+            }
+        }
+    }
 }

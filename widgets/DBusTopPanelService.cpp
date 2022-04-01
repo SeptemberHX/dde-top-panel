@@ -32,10 +32,11 @@ QString DBusTopPanelService::Search(const QString json) {
 
         QJsonObject jsonResults;
         QJsonArray items;
-        for (int i = 0; i < 2; i++) {
+        QStringList searchResult = this->parent()->GrandSearchSearch(jsonObject.value("cont").toString());
+        for (int i = 0; i < searchResult.length(); i++) {
             QJsonObject jsonObj;
-            jsonObj.insert("item", "Test");
-            jsonObj.insert("name", "Test");
+            jsonObj.insert("item", searchResult[i]);
+            jsonObj.insert("name", searchResult[i].remove('&'));
             jsonObj.insert("icon", "menu");
             jsonObj.insert("type", "application/x-dde-top-panel-xx");
 
@@ -67,5 +68,15 @@ bool DBusTopPanelService::Stop(const QString json) {
 }
 
 bool DBusTopPanelService::Action(const QString json) {
+    QString searchName;
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(json.toLocal8Bit().data());
+    if(!jsonDocument.isNull()) {
+        QJsonObject jsonObject = jsonDocument.object();
+        if (jsonObject.value("action") == "openitem") {
+            //打开item的操作
+            searchName = jsonObject.value("item").toString();
+            return this->parent()->GrandSearchAction(searchName);
+        }
+    }
     return false;
 }

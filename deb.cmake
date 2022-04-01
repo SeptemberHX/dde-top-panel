@@ -1,6 +1,6 @@
 set(_VERSION_MAJOR 0)
-set(_VERSION_MINOR 6)
-set(_VERSION_PATCH 6)
+set(_VERSION_MINOR 7)
+set(_VERSION_PATCH 0)
 
 set(CPACK_GENERATOR "DEB")
 
@@ -63,6 +63,8 @@ add_custom_command(
 add_custom_target(changelog ALL DEPENDS "${CMAKE_BINARY_DIR}/changelog.gz")
 
 install(FILES ${CMAKE_BINARY_DIR}/frame/dde-top-panel DESTINATION /usr/bin/)
+install(FILES ${CMAKE_SOURCE_DIR}/xml/com.deepin.dde-grand-search.dde-top-panel-setting.conf DESTINATION /usr/lib/x86_64-linux-gnu/dde-grand-search-daemon/plugins/searcher)
+install(FILES ${CMAKE_SOURCE_DIR}/xml/com.septemberhx.dde.TopPanel.xml DESTINATION /usr/share/dbus-1/interfaces)
 install(FILES ${CMAKE_SOURCE_DIR}/xml/com.deepin.dde.toppanel.gschema.xml DESTINATION /usr/share/glib-2.0/schemas)
 install(FILES ${CMAKE_SOURCE_DIR}/dde-top-panel.desktop DESTINATION /usr/share/applications)
 install(DIRECTORY ${CMAKE_BINARY_DIR}/translations DESTINATION /usr/share/dde-top-panel)

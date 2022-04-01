@@ -33,6 +33,8 @@ class ActiveWindowControlWidget : public QWidget {
 public:
     explicit ActiveWindowControlWidget(QWidget *parent = 0);
     bool eventFilter(QObject *watched, QEvent *event) override;
+    QStringList GrandSearchSearch(const QString &text);
+    bool GrandSearchAction(const QString &actionText);
 
 signals:
     void hideOperationButtons();
@@ -64,6 +66,7 @@ private:
     void setMenuVisible(bool visible);
     void leaveTopPanel();
     int menuAvailableWidth();
+    void updateActionMap();
 
 private slots:
     void updateMenu();
@@ -107,6 +110,8 @@ private:
 
     int prevAvailableWidth;
     MyProxyStyle *proxyStyle;
+
+    QMap<QString, QAction*> actionMap;
 };
 
 

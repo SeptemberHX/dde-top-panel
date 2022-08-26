@@ -7,6 +7,7 @@
 #include "controller/dockitemmanager.h"
 #include "util/utils.h"
 #include <DGuiApplicationHelper>
+#include <iostream>
 
 DGUI_USE_NAMESPACE
 
@@ -305,11 +306,12 @@ void TopPanelLauncher::rearrange() {
             break;
         }
     }
-
+    std::cout << "==============> ifCopyMode:" << ifCopyScreenMode << std::endl;
     if (!ifCopyScreenMode) {
         for (auto p_screen : qApp->screens()) {
             if (mwMap.contains(p_screen)) {
                 // adjust size
+                std::cout << "========> Panel exists, resizing..." << std::endl;
                 mwMap[p_screen]->hide();
                 mwMap[p_screen]->moveToScreen(p_screen);
                 mwMap[p_screen]->show();
@@ -317,14 +319,17 @@ void TopPanelLauncher::rearrange() {
                 continue;
             }
 
-            qDebug() << "===========> create top panel on" << p_screen->name();
+            std::cout << "===========> create top panel on" << p_screen->name().toStdString() << std::endl;
             MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
             connect(mw, &MainWindow::settingActionClicked, this, [this]() {
                 int screenNum = QApplication::desktop()->screenNumber(dynamic_cast<MainWindow *>(sender()));
-                this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().center() -
-                                            this->m_settingWidget->rect().center());
+                this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().topLeft());
                 this->m_settingWidget->show();
             });
+
+            QPoint t = p_screen->geometry().topLeft();
+            mw->move(t);
+
             if (p_screen == qApp->primaryScreen()) {
                 mw->loadPlugins();
             }
@@ -335,8 +340,7 @@ void TopPanelLauncher::rearrange() {
         MainWindow *mw = new MainWindow(p_screen, p_screen != qApp->primaryScreen());
         connect(mw, &MainWindow::settingActionClicked, this, [this]() {
             int screenNum = QApplication::desktop()->screenNumber(dynamic_cast<MainWindow *>(sender()));
-            this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().center() -
-                                        this->m_settingWidget->rect().center());
+            this->m_settingWidget->move(QApplication::desktop()->screen(screenNum)->rect().topLeft());
             this->m_settingWidget->show();
         });
         mw->loadPlugins();
@@ -375,6 +379,7 @@ void TopPanelLauncher::primaryChanged() {
         mwMap[currPrimaryScreen]->hide();
         if (ifRawPrimaryExists) {
             mwMap[currPrimaryScreen]->moveToScreen(primaryScreen);
+            mwMap[currPrimaryScreen]->move(primaryScreen->geometry().topLeft());
             mwMap[primaryScreen] = mwMap[currPrimaryScreen];
         } else {
             mwMap[currPrimaryScreen]->close();

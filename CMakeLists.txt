@@ -31,16 +31,11 @@ endif ()
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DQT_DEBUG")
 
 # Test architecture
-execute_process(COMMAND dpkg-architecture -qDEB_BUILD_ARCH OUTPUT_VARIABLE ARCHITECTURE RESULT_VARIABLE EXIT_CODE)
-if (${EXIT_CODE} EQUAL 0)
-    string(STRIP ${ARCHITECTURE} ARCHITECTURE)
-
-    if (${ARCHITECTURE} STREQUAL "sw_64")
-        # add compiler flags -mieee for mathmatic
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mieee")
-        add_definitions(-DDISABLE_SHOW_ANIMATION)
-    endif()
-endif()
+if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "sw_64")
+    # add compiler flags -mieee for mathmatic
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mieee")
+    add_definitions(-DDISABLE_SHOW_ANIMATION)
+endif ()
 
 file(GLOB INTERFACES "interfaces/*.h")
 

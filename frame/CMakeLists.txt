@@ -21,7 +21,6 @@ pkg_check_modules(XCB_EWMH REQUIRED xcb-ewmh x11)
 pkg_check_modules(DFrameworkDBus REQUIRED dframeworkdbus)
 pkg_check_modules(QGSettings REQUIRED gsettings-qt)
 pkg_check_modules(DtkGUI REQUIRED dtkgui)
-pkg_check_modules(Xdotool REQUIRED libxdo)
 
 find_package(Qt5LinguistTools REQUIRED)
 
@@ -43,7 +42,6 @@ target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${QGSettings_INCLUDE_DIRS}
         ${DtkGUI_INCLUDE_DIRS}
         ${KF5WindowSystem_INCLUDE_DIRS}
-        ${Xdotool_INCLUDE_DIRS}
         ../interfaces
         controller
         dbus
@@ -65,8 +63,8 @@ target_link_libraries(${BIN_NAME} PRIVATE
         ${QGSettings_LIBRARIES}
         ${DtkGUI_LIBRARIES}
         ${Qt5Svg_LIBRARIES}
-        ${Xdotool_LIBRARIES}
         KF5::WindowSystem
+        xdo
         X11
         )
 

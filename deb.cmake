@@ -46,7 +46,7 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER "SeptemberHX")
 set(LIBS_DIR ${CMAKE_SOURCE_DIR}/debian/scripts)
 set(DOCS_DIR ${CMAKE_SOURCE_DIR}/debian/doc)
 
-# 设置控制脚本，这些都是大包者本人自己准备的，没有就算了
+# 设置控制脚本，这些都是打包者本人自己准备的，没有就算了
 set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${LIBS_DIR}/postinst;${LIBS_DIR}/prerm")
 
 # 压缩 changelog

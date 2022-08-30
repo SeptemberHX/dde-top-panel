@@ -40,6 +40,7 @@ endif ()
 file(GLOB INTERFACES "interfaces/*.h")
 
 add_subdirectory("frame")
+
 #add_subdirectory("plugins")
 add_subdirectory("appmenu")
 
@@ -47,5 +48,16 @@ if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
     add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 
-include(deb.cmake)
-include(CPack)
+execute_process(COMMAND apt --version OUTPUT_VARIABLE APTVERSION RESULT_VARIABLE EXIT_CODE)
+if (${EXIT_CODE} EQUAL 0)
+    message(STATUS "apt ${APTVERSION} - has found： CPank module enable")
+    include(deb.cmake)
+    include(CPack)
+else()
+    message(STATUS "apt not found! - CPank module disable")
+    install(FILES ${CMAKE_BINARY_DIR}/frame/dde-top-panel DESTINATION ${CMAKE_INSTALL_BINDIR} 
+        PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+    install(FILES ${CMAKE_SOURCE_DIR}/xml/com.deepin.dde.toppanel.gschema.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/glib-2.0/schemas)
+    install(FILES ${CMAKE_SOURCE_DIR}/dde-top-panel.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+    install(DIRECTORY ${CMAKE_BINARY_DIR}/translations DESTINATION ${CMAKE_INSTALL_DATADIR}/dde-top-panel)
+endif()

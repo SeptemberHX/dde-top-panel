@@ -62,10 +62,10 @@ add_custom_command(
 
 add_custom_target(changelog ALL DEPENDS "${CMAKE_BINARY_DIR}/changelog.gz")
 
-install(FILES ${CMAKE_BINARY_DIR}/frame/dde-top-panel DESTINATION /usr/bin/)
-install(FILES ${CMAKE_SOURCE_DIR}/xml/com.deepin.dde.toppanel.gschema.xml DESTINATION /usr/share/glib-2.0/schemas)
-install(FILES ${CMAKE_SOURCE_DIR}/dde-top-panel.desktop DESTINATION /usr/share/applications)
-install(DIRECTORY ${CMAKE_BINARY_DIR}/translations DESTINATION /usr/share/dde-top-panel)
+install(FILES ${CMAKE_BINARY_DIR}/frame/dde-top-panel DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES ${CMAKE_SOURCE_DIR}/xml/com.deepin.dde.toppanel.gschema.xml DESTINATION ${CMAKE_INSTALL_DATADIR}/glib-2.0/schemas)
+install(FILES ${CMAKE_SOURCE_DIR}/dde-top-panel.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+install(DIRECTORY ${CMAKE_BINARY_DIR}/translations DESTINATION ${CMAKE_INSTALL_DATADIR}/dde-top-panel)
 
 
 # 最后把我们的changelog等东西也加进来，project是你的工程名

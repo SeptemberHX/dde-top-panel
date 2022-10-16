@@ -141,9 +141,9 @@ void CustomSettings::setActiveMinimizedIconPath(const QString &activeMinimizedIc
 }
 
 const QString &CustomSettings::getActiveDefaultAppIconPath() const {
-    if (this->isFollowSystemTheme()) {
+    if (this->isFollowSystemTheme() && activeDefaultAppIconPath == ":/icons/linux.svg") {
         switch (DGuiApplicationHelper::instance()->themeType()) {
-            case Dtk::Gui::DGuiApplicationHelper::DarkType:
+            case Dtk::Gui::DGuiApplicationHelper::DarkType: 
                 return this->defaultIconPathDark;
             case Dtk::Gui::DGuiApplicationHelper::LightType:
                 return this->defaultIconPathLight;

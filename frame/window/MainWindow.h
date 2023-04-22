@@ -33,6 +33,8 @@ public:
     void setRaidus(int radius);
     void adjustPanelSize();
     void applyCustomSettings(const CustomSettings& customSettings);
+
+    void adjustPosition();
 signals:
     void panelGeometryChanged();
     void settingActionClicked();

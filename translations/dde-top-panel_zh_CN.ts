@@ -291,17 +291,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>TopPanelSettings</name>
     <message>
-        <location filename="../frame/util/TopPanelSettings.cpp" line="36"/>
+        <location filename="../frame/util/TopPanelSettings.cpp" line="37"/>
         <source>Plugins</source>
         <translation>插件</translation>
     </message>
     <message>
-        <location filename="../frame/util/TopPanelSettings.cpp" line="42"/>
+        <location filename="../frame/util/TopPanelSettings.cpp" line="43"/>
         <source>Settings</source>
         <translation>设置</translation>
     </message>
     <message>
-        <location filename="../frame/util/TopPanelSettings.cpp" line="47"/>
+        <location filename="../frame/util/TopPanelSettings.cpp" line="48"/>
         <source>Restart</source>
         <translation>重启 Panel</translation>
     </message>

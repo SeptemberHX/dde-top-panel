@@ -8,6 +8,7 @@
 #include <QScreen>
 #include <QAction>
 #include <DApplication>
+#include <iostream>
 #include "CustomSettings.h"
 
 #define WINDOW_MAX_SIZE          100
@@ -133,7 +134,8 @@ void TopPanelSettings::calculateWindowConfig()
             && !this->m_dockInter->hideMode()
             && this->m_screen == qApp->primaryScreen()
             && (this->m_dockInter->position() == Left || this->m_dockInter->position() == Right)) {
-            dockWidth = this->m_dockInter->frontendWindowRect().operator QRect().width() / qApp->primaryScreen()->devicePixelRatio();
+
+            dockWidth = this->realDDEDockWidth() / qApp->primaryScreen()->devicePixelRatio();
         }
         m_mainWindowSize.setWidth(primaryRect().width() - dockWidth);
     } else {
@@ -141,6 +143,7 @@ void TopPanelSettings::calculateWindowConfig()
     }
 
     resetFrontendGeometry();
+    emit windowRectChanged();
 }
 
 const QRect TopPanelSettings::primaryRect() const
@@ -159,10 +162,17 @@ void TopPanelSettings::resetFrontendGeometry()
     const QRect r = this->windowRect(m_position, false);
     const qreal ratio = dockRatio();
     const QPoint p = rawXPosition(r.topLeft());
+
     const uint w = r.width() * ratio;
     const uint h = r.height() * ratio;
 
-    m_frontendRect = QRect(p.x(), p.y(), w, h);
+    int dockMargin = this->realDDEDockWidth();
+    if (this->m_dockInter->position() != Left) {
+        dockMargin = p.x();
+    }
+
+    std::cout << "Dock Margin = " << dockMargin << std::endl;
+    m_frontendRect = QRect(dockMargin, p.y(), w, h);
     if (CustomSettings::instance()->isIgnoreDock()) {
         m_dockInter->setPosition(Top);
         m_dockInter->setHideMode(KeepShowing);
@@ -227,4 +237,19 @@ qreal TopPanelSettings::dockRatio() const
 
 void TopPanelSettings::applyCustomSettings(const CustomSettings& customSettings) {
     this->calculateWindowConfig();
+}
+
+/**
+ * Only work fine for vertical position (LEFT, RIGHT)
+ * @return
+ */
+int TopPanelSettings::realDDEDockWidth() {
+    int spacing = 10;
+    if (this->m_dockInter->displayMode() == Dock::DisplayMode::Efficient) {
+        spacing = 0;
+    } else {
+
+    }
+
+    return this->m_dockInter->frontendWindowRect().operator QRect().width() + 2 * 2 * spacing;
 }

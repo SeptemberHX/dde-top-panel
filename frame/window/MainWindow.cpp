@@ -55,7 +55,7 @@ MainWindow::MainWindow(QScreen *screen, bool enableBlacklist, QWidget *parent)
     setStrutPartial();
 
 //    this->windowHandle()->setScreen(screen);
-    this->move(m_settings->m_frontendRect.topLeft() / m_settings->m_screen->devicePixelRatio());
+    this->adjustPosition();
 
     setVisible(true);
     // platformwindowhandle only works when the widget is visible...
@@ -79,6 +79,8 @@ void MainWindow::resizeMainPanelWindow()
 {
     m_settings->calculateWindowConfig();
     m_mainPanel->setFixedSize(m_settings->m_mainWindowSize);
+    std::cout << "+++++++++ " << m_settings->m_frontendRect.topLeft().x() << std::endl;
+    this->adjustPosition();
 //    switch (m_curDockPos) {
 //        case Dock::Top:
 //            m_dragWidget->setGeometry(0, height() - DRAG_AREA_SIZE, width(), DRAG_AREA_SIZE);
@@ -240,7 +242,7 @@ void MainWindow::moveToScreen(QScreen *screen) {
     m_mainPanel->resize(m_settings->m_mainWindowSize);
     m_mainPanel->adjustSize();
     QThread::msleep(100);  // sleep for a short while to make sure the movement is successful
-    this->move(m_settings->m_frontendRect.topLeft() / m_settings->m_screen->devicePixelRatio());
+    this->adjustPosition();
     this->setStrutPartial();
 }
 
@@ -281,6 +283,11 @@ void MainWindow::applyCustomSettings(const CustomSettings &customSettings) {
     this->setMaskColor(customSettings.getPanelBgColor());
     this->m_settings->applyCustomSettings(customSettings);
     this->m_mainPanel->applyCustomSettings(customSettings);
+}
+
+void MainWindow::adjustPosition() {
+    std::cout << "++++++++++ " << m_settings->m_frontendRect.topLeft().x() << std::endl;
+    this->move(m_settings->m_frontendRect.topLeft() / m_settings->m_screen->devicePixelRatio());
 }
 
 TopPanelLauncher::TopPanelLauncher()
@@ -329,6 +336,7 @@ void TopPanelLauncher::rearrange() {
 
             QPoint t = p_screen->geometry().topLeft();
             mw->move(t);
+            mw->adjustPosition();
 
             if (p_screen == qApp->primaryScreen()) {
                 mw->loadPlugins();
@@ -380,6 +388,7 @@ void TopPanelLauncher::primaryChanged() {
         if (ifRawPrimaryExists) {
             mwMap[currPrimaryScreen]->moveToScreen(primaryScreen);
             mwMap[currPrimaryScreen]->move(primaryScreen->geometry().topLeft());
+            mwMap[currPrimaryScreen]->adjustPosition();
             mwMap[primaryScreen] = mwMap[currPrimaryScreen];
         } else {
             mwMap[currPrimaryScreen]->close();

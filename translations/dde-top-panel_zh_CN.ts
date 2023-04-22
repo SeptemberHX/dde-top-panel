@@ -125,9 +125,14 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</sou
         <translation>三大控制按钮设置</translation>
     </message>
     <message>
-        <location filename="../widgets/mainsettingwidget.ui" line="766"/>
         <source>Show Buttons When Max</source>
-        <translation>仅在窗口全屏时显示</translation>
+        <translation type="vanished">仅在窗口全屏时显示</translation>
+    </message>
+    <message>
+        <location filename="../widgets/mainsettingwidget.ui" line="766"/>
+        <source>Show Control Buttons</source>
+        <translatorcomment>显示控制按钮</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../widgets/mainsettingwidget.ui" line="829"/>

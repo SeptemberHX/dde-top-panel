@@ -763,7 +763,7 @@ If anything strange happens, please uncheck this, and restart the dde-dock.</str
                    </size>
                   </property>
                   <property name="text">
-                   <string>Show Buttons When Max</string>
+                   <string>Show Control Buttons</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>

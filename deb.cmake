@@ -23,7 +23,7 @@ set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
 # 设置依赖
 set(CPACK_DEBIAN_PACKAGE_DEPENDS
         "libqt5dbus5, libqt5core5a, libqt5gui5, libxcb-ewmh2, libxcb1, libdframeworkdbus2,
-         libdtkcore5-bin, libkf5windowsystem5, libqt5svg5, libqt5concurrent5, libgsettings-qt1, libxcb-util0")
+         libdtkcore5-bin, libkf5windowsystem5, libqt5svg5, libqt5concurrent5, libgsettings-qt1, libxcb-util1")
 
 # 设置section
 set(CPACK_DEBIAN_PACKAGE_SECTION "utils")

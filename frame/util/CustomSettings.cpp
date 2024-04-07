@@ -7,6 +7,7 @@
 #include <QDir>
 #include <DGuiApplicationHelper>
 #include <DApplicationHelper>
+#include <DSysInfo>
 
 DGUI_USE_NAMESPACE
 
@@ -243,7 +244,7 @@ void CustomSettings::saveSettings() {
     settings.setValue("windowControl/buttonHighlightColor", this->buttonHighLightColor);
     settings.setValue("windowControl/allowDragWindowWhenMax", this->allowDragWindowWhenMax);
 
-    QSettings kwinrc(QDir::homePath() + "/.config/kwinrc", QSettings::IniFormat);
+    QSettings kwinrc(getConfigPath(), QSettings::IniFormat);
     kwinrc.setValue("Windows/BorderlessMaximizedWindows", this->hideTitleWhenMax);
 }
 
@@ -268,7 +269,7 @@ void CustomSettings::readSettings() {
     this->followSystemTheme = settings.value("panel/followSystemTheme", this->isFollowSystemTheme()).toBool();
     this->allowDragWindowWhenMax = settings.value("windowControl/allowDragWindowWhenMax", this->allowDragWindowWhenMax).toBool();
 
-    QSettings kwinrc(QDir::homePath() + "/.config/kwinrc", QSettings::IniFormat);
+    QSettings kwinrc(getConfigPath(), QSettings::IniFormat);
     this->hideTitleWhenMax = kwinrc.value("Windows/BorderlessMaximizedWindows", false).toBool();
 }
 
@@ -364,4 +365,15 @@ bool CustomSettings::isAllowDragWindowWhenMax() const {
 void CustomSettings::setAllowDragWindowWhenMax(bool allowDragWindowWhenMax) {
     CustomSettings::allowDragWindowWhenMax = allowDragWindowWhenMax;
     emit settingsChanged();
+}
+
+QString CustomSettings::getConfigPath() {
+    QString version = Dtk::Core::DSysInfo::deepinVersion();
+    QString configPath = QDir::homePath();
+    if (version == "20") {
+        configPath += "/.config/kwinrc";
+    } else if(version == "23"){
+        configPath += "/.config/deepin-kwinrc";
+    }
+    return configPath;
 }

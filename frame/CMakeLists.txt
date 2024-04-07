@@ -14,6 +14,7 @@ find_package(Qt5X11Extras REQUIRED)
 find_package(Qt5DBus REQUIRED)
 find_package(Qt5Svg REQUIRED)
 find_package(DtkWidget REQUIRED)
+find_package(DtkCore REQUIRED)
 find_package(DtkCMake REQUIRED)
 find_package(KF5WindowSystem REQUIRED)
 
@@ -41,6 +42,7 @@ target_include_directories(${BIN_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS}
         ${PROJECT_BINARY_DIR}
         ${QGSettings_INCLUDE_DIRS}
         ${DtkGUI_INCLUDE_DIRS}
+        ${DtkCore_INCLUDE_DIRS}
         ${KF5WindowSystem_INCLUDE_DIRS}
         ../interfaces
         controller
@@ -63,6 +65,7 @@ target_link_libraries(${BIN_NAME} PRIVATE
         ${QGSettings_LIBRARIES}
         ${DtkGUI_LIBRARIES}
         ${Qt5Svg_LIBRARIES}
+        ${DtkCore_LIBRARIES}
         KF5::WindowSystem
         xdo
         X11

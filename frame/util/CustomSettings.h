@@ -102,6 +102,7 @@ signals:
 
 private:
     CustomSettings();
+    QString getConfigPath();    
 
 private:
     int panelHeight;

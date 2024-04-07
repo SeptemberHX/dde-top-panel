@@ -8,6 +8,8 @@
 #include "util/utils.h"
 #include <DGuiApplicationHelper>
 #include <iostream>
+#include <QScreen>
+#include <QDesktopWidget>
 
 DGUI_USE_NAMESPACE
 

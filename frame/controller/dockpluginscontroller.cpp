@@ -26,6 +26,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QDrag>
+#include <QGraphicsEffect>
 
 DockPluginsController::DockPluginsController(QObject *parent)
         : AbstractPluginsController(parent)
